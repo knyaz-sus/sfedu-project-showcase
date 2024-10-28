@@ -7,9 +7,11 @@ export function MainLayout() {
   return (
     <>
       <Header />
-      <Main>
-        <Outlet />
-      </Main>
+      <div className="flex justify-center p-3">
+        <Main>
+          <Outlet />
+        </Main>
+      </div>
       <Footer />
     </>
   );

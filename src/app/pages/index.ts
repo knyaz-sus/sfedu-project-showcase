@@ -1,4 +1,4 @@
-import { MainPage } from "./MainPage";
+import { MainPage } from "./MainPage/MainPage";
 import { AuthPage } from "./AuthPage";
 import { AccountPage } from "./AccountPage";
 import { AllTracksPage } from "./AllTracksPage";

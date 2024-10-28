@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import {
   AccountPage,
   AllTracksPage,
@@ -13,7 +13,6 @@ import { MainLayout } from "./layouts/MainLayout";
 
 export function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<MainPage />} />'
@@ -26,6 +25,5 @@ export function App() {
           <Route path="*" element={<Error404Page />} />
         </Route>
       </Routes>
-    </BrowserRouter>
   );
 }

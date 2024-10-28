@@ -1,11 +1,10 @@
 import data from "./data.json";
 
-export function fetchTracks() {
-  return fetch(`${import.meta.env.API_URL}/tracks`)
-    .then((res) => {
-      return res.json();
-    })
-    .catch(() => {
-      return data.tracks;
-    });
+export async function fetchTracks() {
+  try {
+    const res = await fetch(`${import.meta.env.API_URL}/tracks`);
+    return await res.json();
+  } catch {
+    return data.tracks;
+  }
 }

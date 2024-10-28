@@ -9,14 +9,12 @@ const config: Config = {
       },
       backgroundColor: {
         base: "var(--color-base-background)",
-        button: "var(--color-button-background)",
-        leftbar: "var(--color-left-bar-background)",
-        transparent: "var(--color-transparent)",
+        highlight: "var(--color-highlight-background)",
       },
       textColor: {
         base: "var(--color-base-content)",
         highlight: "var(--color-highlight-content)",
-        button: "var(--color-button-text)",
+        header: "var(--color-header)",
       },
       borderColor: {
         highlight: "var(--color-highlight-border)",

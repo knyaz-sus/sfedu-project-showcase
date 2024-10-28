@@ -11,7 +11,7 @@ export function fetchUsersInProject(id: number | string) {
         ?.team.map((user) => {
           return {
             id: user,
-            full_name: data.users.find((u) => u.id === user)?.name,
+            fullName: data.users.find((u) => u.id === user)?.name,
             role: "Роль1",
           };
         });

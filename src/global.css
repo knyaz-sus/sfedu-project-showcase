@@ -6,31 +6,27 @@
   :root {
     --color-base-content: #333333;
     --color-base-background: #ffffff;
-    --color-highlight-content: rgb(23, 23, 23);
-    --color-button-background: rgb(23, 23, 23);
-    --color-button-text: #ffffff;
+    --color-highlight-background: #353e47;
+    --color-highlight-content: #353e47;
+    --color-header: #e0e0e0;
     --color-base-border: #e0e0e0;
     --color-highlight-border: #333333;
-    --color-left-bar-background: #b0b0b0;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --color-base-content: #e0e0e0;
       --color-base-background: rgb(23, 23, 23);
       --color-highlight-content: #ffffff;
-      --color-button-background: #ffffff;
-      --color-button-text: rgb(0, 0, 0);
+      --color-header: #e0e0e0;
       --color-base-border: #333333;
       --color-highlight-border: #e0e0e0;
-      --color-left-bar-background: #262626;
-      --color-transparent: rgb(50, 47, 42);
     }
   }
   body {
     @apply bg-base text-base font-normal font-sans;
   }
   #root {
-    @apply min-h-screen  flex flex-col;
+    @apply min-h-screen flex flex-col;
     min-height: 100svh;
   }
   h1,
@@ -44,9 +40,16 @@
   input {
     @apply rounded-md border-base border bg-inherit p-2 w-full max-w-sm;
   }
-}
-.cursor-pointer {
-  cursor: pointer;
+  ul,
+  li {
+    @apply m-0 p-0;
+  }
+  li {
+    @apply list-none;
+  }
+  a {
+    @apply no-underline;
+  }
 }
 
 .custom-card {

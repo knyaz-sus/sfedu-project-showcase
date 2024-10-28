@@ -1,37 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Header() {
-  const navigate = useNavigate();
-  const goToMainPage = () => {
-    navigate("/");
-  };
-  const goToAllTracksPage = () => {
-    navigate("/tracks");
-  };
-  const goToSearchPage = () => {
-    navigate("/search");
-  };
-  const goToAccountPage = () => {
-    navigate("/account");
-  };
   return (
-    <header className="w-100 py-2 bg-primary d-flex align-items-center justify-content-center">
-      <div className="px-3 mw-100 d-flex flex-column flex-sm-row align-items-center justify-content-between text-white gap-3 gap-sm-5">
-        <span onClick={goToMainPage} className="cursor-pointer d-block fw-bold">
-          Витрина ПД
-        </span>
-        <span className="d-flex flex-column flex-sm-row align-items-center justify-content-between text-white gap-3 gap-sm-5">
-          <span onClick={goToAllTracksPage} className="cursor-pointer d-block">
-            Треки
-          </span>
-          <span onClick={goToSearchPage} className="cursor-pointer d-block">
-            Проекты
-          </span>
-          <span onClick={goToAccountPage} className="cursor-pointer d-block">
-            Личный кабинет
-          </span>
-        </span>
-      </div>
+    <header className="flex justify-center pl-3 pr-3 pt-2 pb-2 m-0 bg-highlight text-header">
+      <nav className="flex-auto max-w-5xl">
+        <ul className="flex items-center justify-between max-w-5xl">
+          <div className="flex items-center gap-6">
+            <li className="mr-2">
+              <Link to="/">
+                <img className="max-w-16 max-h-16" src="/logo.png" alt="logo" />
+              </Link>
+            </li>
+            <li>
+              <Link to="/">Витрина ПД</Link>
+            </li>
+            <li>
+              <Link to="/tracks">Треки</Link>
+            </li>
+            <li>
+              <Link to="/search">Проекты</Link>
+            </li>
+          </div>
+          <li>
+            <Link to="/auth">Войти</Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
