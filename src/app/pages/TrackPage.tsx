@@ -5,7 +5,7 @@ import { Projects } from "../../types/database";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { ProjectView } from "../../types/types";
-import { Button } from "../../components/Button/Button";
+import { Button } from "@/components/Button";
 
 export function TrackPage() {
   const { id } = useParams();
@@ -21,8 +21,8 @@ export function TrackPage() {
   return (
     <div>
       <div className="flex gap-4">
-        <Button handleClick={handleGrid}>Плитки</Button>
-        <Button handleClick={handleList}>Лист</Button>
+        <Button onClick={handleGrid}>Плитки</Button>
+        <Button onClick={handleList}>Лист</Button>
       </div>
       <h1 className="m-5 text-center">
         Трек {trackProjects ? trackProjects[0]?.trackName : ""}

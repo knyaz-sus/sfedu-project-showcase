@@ -1,10 +1,10 @@
 import { ChangeEvent, useId, useState } from "react";
-import { Button } from "../../components/Button/Button";
+import { Button } from "@/components/Button";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProjects } from "../../api/fetchProjects";
+import { fetchProjects } from "@/api/fetchProjects";
 import { Cards } from "../../components/Card/Cards";
-import { Projects } from "../../types/database";
-import { ProjectView } from "../../types/types";
+import { Projects } from "@/types/database";
+import { ProjectView } from "@/types/types";
 
 export function SearchPage() {
   const [searchValue, setSearchValue] = useState("");
@@ -32,8 +32,8 @@ export function SearchPage() {
           placeholder="Введите чтото"
         />
         <div className="flex gap-4">
-          <Button handleClick={handleGrid}>Плитки</Button>
-          <Button handleClick={handleList}>Лист</Button>
+          <Button onClick={handleGrid}>Плитки</Button>
+          <Button onClick={handleList}>Лист</Button>
         </div>
       </div>
       {searchValue === "" ? (

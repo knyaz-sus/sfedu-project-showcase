@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { CardHeader } from "./CardHeader";
-import { Project } from "../../types/database";
+import { Project } from "@/types/database";
 import { CardImg } from "./CardImg";
-import { ProjectView } from "../../types/types";
+import { ProjectView } from "@/types/types";
 
 export function Card({
   project,

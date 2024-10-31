@@ -1,6 +1,6 @@
 export function AboutSection() {
   return (
-    <div className="border border-primary bg-primary-25 p-3 flex flex-col gap-3 rounded">
+    <div className="p-3 flex flex-col gap-3">
       <h1 className="text-center">О проектной деятельности</h1>
       <div>
         Проектная деятельность (ПД) — это дисциплина, направленная на получение
