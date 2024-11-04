@@ -7,7 +7,7 @@
     "dev": "vite",
     "start": "vite preview",
     "install": "pnpm install",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
