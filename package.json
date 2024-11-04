@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite preview",
     "install": "pnpm install",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
