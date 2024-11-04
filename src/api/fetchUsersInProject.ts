@@ -1,7 +1,7 @@
 import data from "./data.json";
 
 export function fetchUsersInProject(id: number | string) {
-  return fetch(`${import.meta.env.API_URL}/projects/${id}/users`)
+  return fetch(`https://showcase-g053.onrender.com/users`)
     .then((res) => {
       return res.json();
     })
