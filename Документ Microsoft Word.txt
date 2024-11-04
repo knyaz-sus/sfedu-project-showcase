@@ -1,0 +1,31 @@
+ fetchProject(projectId)
+
+fetchAllProjects()
+
+  const fetchProjects = async () => {
+    const response = await fetch(`/api/projects?search=${searchTerm}&limit=${limit}`);
+    const data = await response.json();
+    return data;
+  };
+
+Фильтровать данные: Параметр search позволяет осуществлять поиск по определенному критерию, 
+что делает ваш интерфейс более интерактивным.
+Пагинация часто реализуется с использованием параметров в запросах к API. Основные параметры:
+
+limit или perPage: количество элементов на странице.
+
+fetchUsersInProject(projectId)
+
+fetchTrack(trackId)
+
+fetchAllTracks()
+
+getUser(id)
+
+changeUser(id, {...user}) //put
+
+deleteUser(id)
+
+getAllUsers()
+
+changeTrack()

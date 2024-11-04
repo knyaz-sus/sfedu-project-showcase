@@ -1,16 +1,17 @@
-import data from "./data.json";
-import { fetchProject } from "./fetchProject";
+import { Projects } from "@/types/database";
 
-export async function fetchFavorite() {
+export async function fetchFavorite(): Promise<Projects | undefined> {
   try {
-    const res = await fetch(`${import.meta.env.API_URL}/favorite`);
-    const data = await res.json();
-    return await Promise.all(
-      data.map((projectId: number) => fetchProject(projectId))
-    );
-  } catch {
-    return data.star.map((projectId_1: number) =>
-      data.projects.find((card) => card.id === projectId_1)
-    );
+    const res = await fetch("https://showcase-im57.onrender.com/tracks");
+    if (!res.ok) {
+      console.error(`Error fetching data: ${res.status} ${res.statusText}`);
+      return;
+    }
+    const data: Projects = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return;
   }
 }

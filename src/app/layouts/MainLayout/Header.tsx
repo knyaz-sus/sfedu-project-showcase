@@ -1,6 +1,6 @@
 import { AppLink } from "@/components/AppLink";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Toggle } from "@/components/ui/Toggle";
+import { Toggle } from "@/components/Toggle";
 import { headerPages } from "@/constants/buttonVariants";
 import { Link, useLocation } from "react-router-dom";
 
