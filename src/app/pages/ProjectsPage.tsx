@@ -5,7 +5,7 @@ import { ProjectCards } from "../../components/Card/ProjectCards";
 import { Projects } from "@/types/database";
 import { Input } from "@/components/Input";
 
-export function SearchPage() {
+export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
 
   const id = useId();

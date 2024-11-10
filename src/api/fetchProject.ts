@@ -1,12 +1,10 @@
-import data from "./data.json";
+import { API_URL } from "@/constants/url";
 
-export async function fetchProject(id: number | string) {
+export async function fetchProject(id: number) {
   try {
-    const res = await fetch(`https://showcase-g053.onrender.com/projects/${id}`);
+    const res = await fetch(`${API_URL}/projects/${id}`);
     return await res.json();
-  } catch {
-    return data.projects.find(
-      (project) => project.id.toString() === id.toString()
-    );
+  } catch (e) {
+    console.log(e);
   }
 }

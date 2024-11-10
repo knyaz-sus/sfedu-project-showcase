@@ -1,10 +1,10 @@
-import data from "./data.json";
+import { API_URL } from "@/constants/url";
 
 export async function fetchTracks() {
   try {
-    const res = await fetch(`https://showcase-g053.onrender.com/tracks`);
+    const res = await fetch(`${API_URL}/tracks`);
     return await res.json();
-  } catch {
-    return data.tracks;
+  } catch (e) {
+    console.log(e);
   }
 }

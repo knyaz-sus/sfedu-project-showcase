@@ -11,10 +11,15 @@ export function AllTracksPage() {
   });
   return (
     <div className="flex flex-col justify-center">
-      {!isLoading &&
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
         tracks?.map((track) => (
-          <Link to={`/tracks/${track.id}`}>{track.name}</Link>
-        ))}
+          <Link to={`/tracks/${track.id}`} key={track.id}>
+            {track.name}
+          </Link>
+        ))
+      )}
     </div>
   );
 }

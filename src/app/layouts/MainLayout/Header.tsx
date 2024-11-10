@@ -32,7 +32,7 @@ export function Header() {
           </div>
           <div className="flex items-center gap-6">
             <li>
-              <AppLink link="/auth" title="Войти" />
+              <a href="">Войти</a>
             </li>
             <li>
               <Toggle>dock</Toggle>

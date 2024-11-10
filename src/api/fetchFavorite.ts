@@ -1,15 +1,17 @@
+import { API_URL } from "@/constants/url";
 import { Projects } from "@/types/database";
 
 export async function fetchFavorite(): Promise<Projects | undefined> {
   try {
-    const res = await fetch(`https://showcase-g053.onrender.com/projects`);
+    const res = await fetch(`${API_URL}/projects`);
     if (!res.ok) {
       console.error(`Error fetching data: ${res.status} ${res.statusText}`);
       return;
     }
     const data: Projects = await res.json();
-    console.log(data);
-    return data;
+    return data.filter((project, i) => {
+      if (i < 3) return project;
+    });
   } catch (error) {
     console.error("Fetch error:", error);
     return;
