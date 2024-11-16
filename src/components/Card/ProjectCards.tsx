@@ -7,16 +7,20 @@ interface ProjectCardsProps {
 
 export function ProjectCards({ projects }: ProjectCardsProps) {
   return (
-    <div className="flex justify-center flex-wrap gap-6">
-      {projects?.map((project) => (
-        <ProjectCard
-          title={project.title}
-          thumbnail={project.screenshots[0]}
-          tags={project.tags}
-          key={project.id}
-          id={project.id}
-        />
-      ))}
+    <div className="flex justify-center items-start flex-wrap gap-6">
+      {projects?.map((project) => {
+        const { title, description, screenshots, tags, id } = project;
+        return (
+          <ProjectCard
+            title={title}
+            description={description}
+            screenshots={screenshots}
+            tags={tags}
+            key={id}
+            id={id}
+          />
+        );
+      })}
     </div>
   );
 }

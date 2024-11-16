@@ -56,6 +56,7 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      borderWidth: { thin: "0.5px" },
       fontFamily: {
         sans: [...theme.fontFamily.sans],
       },

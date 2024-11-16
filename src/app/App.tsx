@@ -1,14 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import {
-  AccountPage,
-  AllTracksPage,
-  Error404Page,
-  MainPage,
-  ProjectPage,
-  ProjectsPage,
-  TrackPage,
-} from "./pages";
 import { MainLayout } from "./layouts/MainLayout";
+import { MainPage } from "./pages/MainPage";
+import { AccountPage } from "./pages/AccountPage";
+import { TrackPage } from "./pages/TrackPage";
+import { ProjectPage } from "./pages/ProjectPage";
+import { ProjectsPage } from "./pages/ProjectsPage";
+import { Error404Page } from "./pages/Error404Page";
 
 export function App() {
   return (
@@ -16,7 +13,6 @@ export function App() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<MainPage />} />'
         <Route path="/account" element={<AccountPage />} />'
-        <Route path="/tracks" element={<AllTracksPage />} />
         <Route path="/tracks/:id" element={<TrackPage />} />
         <Route path="/projects/:id" element={<ProjectPage />} />
         <Route path="/projects" element={<ProjectsPage />} />

@@ -32,6 +32,5 @@ export const buttonVariants = cva(
 
 export const headerPages = [
   { link: "/", title: "Витрина" },
-  { link: "/tracks", title: "Треки" },
   { link: "/projects", title: "Проекты" },
 ];

@@ -29,7 +29,6 @@ export function ProjectsPage() {
           id={`${id}-search`}
           placeholder="Введите чтото"
         />
-        <div className="flex gap-4"></div>
       </div>
       {searchValue === "" ? (
         <div>
