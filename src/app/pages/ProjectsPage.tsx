@@ -1,20 +1,21 @@
 import { ChangeEvent, useId, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProjects } from "@/api/fetchProjects";
-import { ProjectCards } from "../../components/Card/ProjectCards";
+import { ProjectCards } from "@/components/Card/ProjectCards";
 import { Projects } from "@/types/database";
 import { Input } from "@/components/Input";
+import { Loading } from "@/components/Loading";
+import { TagsFilter } from "@/components/TagsFilter";
+import { TracksFilter } from "@/components/TracksFilter";
 
 export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
-
   const id = useId();
-  const { data: projects } = useQuery<Projects>({
+  const { data: projects, isLoading: isProjectsLoading } = useQuery<Projects>({
     queryKey: ["projects"],
     queryFn: fetchProjects,
     refetchOnWindowFocus: false,
   });
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -29,18 +30,24 @@ export function ProjectsPage() {
           id={`${id}-search`}
           placeholder="Введите чтото"
         />
+        <div className="flex gap-3 mr-8">
+          <TagsFilter />
+          <TracksFilter />
+        </div>
       </div>
-      {searchValue === "" ? (
-        <div>
-          <h1 className="m-5 text-center">Все проекты</h1>
-          <ProjectCards projects={projects} />
-        </div>
-      ) : (
-        <div>
-          <h1 className="m-5 text-center">Поиск по "{searchValue}"</h1>
-          <ProjectCards projects={projects} />
-        </div>
-      )}
+      <Loading isLoading={isProjectsLoading}>
+        {searchValue === "" ? (
+          <div>
+            <h1 className="m-5 text-center">Все проекты</h1>
+            <ProjectCards projects={projects} />
+          </div>
+        ) : (
+          <div>
+            <h1 className="m-5 text-center">Поиск по "{searchValue}"</h1>
+            <ProjectCards projects={projects} />
+          </div>
+        )}
+      </Loading>
     </div>
   );
 }

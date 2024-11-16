@@ -1,7 +1,7 @@
 import { API_URL } from "@/constants/url";
 import { Projects } from "@/types/database";
 
-export async function fetchFavorite(): Promise<Projects | undefined> {
+export async function fetchFavorite() {
   try {
     const res = await fetch(`${API_URL}/projects`);
     if (!res.ok) {

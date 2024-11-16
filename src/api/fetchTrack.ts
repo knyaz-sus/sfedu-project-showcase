@@ -1,7 +1,7 @@
 import { API_URL } from "@/constants/url";
 import { Projects, Track } from "@/types/database";
 
-export async function fetchTrack(id: number): Promise<Projects | undefined> {
+export async function fetchTrack(id: number) {
   try {
     const res = await fetch(`${API_URL}/tracks/${id}`);
     const track: Track | undefined = await res.json();

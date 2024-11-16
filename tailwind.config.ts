@@ -58,7 +58,7 @@ const config: Config = {
       },
       borderWidth: { thin: "0.5px" },
       fontFamily: {
-        sans: [...theme.fontFamily.sans],
+        sans: ["Inter", ...theme.fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

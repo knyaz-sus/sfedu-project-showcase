@@ -3,6 +3,7 @@ import { fetchTrack } from "@/api/fetchTrack";
 import { ProjectCards } from "@/components/Card/ProjectCards";
 import { Projects } from "@/types/database";
 import { useParams } from "react-router-dom";
+import { Loading } from "@/components/Loading";
 
 export function TrackPage() {
   const { id } = useParams();
@@ -13,16 +14,12 @@ export function TrackPage() {
   });
   return (
     <div>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <h1 className="m-5 text-center">
-            Трек {trackProjects ? trackProjects[0].track.name : ""}
-          </h1>
-          <ProjectCards projects={trackProjects} />
-        </>
-      )}
+      <Loading isLoading={isLoading}>
+        <h1 className="m-5 text-center">
+          Трек {trackProjects ? trackProjects[0].track.name : ""}
+        </h1>
+        <ProjectCards projects={trackProjects} />
+      </Loading>
     </div>
   );
 }
