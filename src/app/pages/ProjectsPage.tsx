@@ -21,7 +21,10 @@ export function ProjectsPage() {
   };
   return (
     <div className="flex flex-col pt-3 pb-3">
-      <div className="flex justify-between items-center">
+      <div
+        className="flex flex-col justify-start gap-2 items-stretch
+                      md:flex-row md:justify-between"
+      >
         <Input
           type="text"
           value={searchValue}
@@ -30,7 +33,7 @@ export function ProjectsPage() {
           id={`${id}-search`}
           placeholder="Введите чтото"
         />
-        <div className="flex gap-3 mr-8">
+        <div className="flex gap-3">
           <TagsFilter />
           <TracksFilter />
         </div>

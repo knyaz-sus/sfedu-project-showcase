@@ -10,7 +10,7 @@ export function TagsFilter() {
     queryFn: fetchTags,
     refetchOnWindowFocus: false,
   });
-  const tracksFilter = useMemo(
+  const tagsFilter = useMemo(
     () =>
       tags?.map((tag) => {
         const { name, id } = tag;
@@ -20,9 +20,9 @@ export function TagsFilter() {
   );
   return (
     <Filter
-      errorMessage="Треки не найдены"
-      placeholder="Введите трек"
-      entities={tracksFilter}
+      emptyFilterText="Теги не найдены"
+      placeholder="Фильтр по тегу..."
+      entities={tagsFilter}
       isLoading={isLoading}
     />
   );

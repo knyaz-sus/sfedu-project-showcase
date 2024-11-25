@@ -5,7 +5,7 @@ import { AccountPage } from "./pages/AccountPage";
 import { TrackPage } from "./pages/TrackPage";
 import { ProjectPage } from "./pages/ProjectPage";
 import { ProjectsPage } from "./pages/ProjectsPage";
-import { Error404Page } from "./pages/Error404Page";
+import { ErrorPage } from "./pages/ErrorPage";
 
 export function App() {
   return (
@@ -16,8 +16,8 @@ export function App() {
         <Route path="/tracks/:id" element={<TrackPage />} />
         <Route path="/projects/:id" element={<ProjectPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="*" element={<Error404Page />} />
       </Route>
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }

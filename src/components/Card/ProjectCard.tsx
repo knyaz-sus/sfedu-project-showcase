@@ -18,9 +18,14 @@ interface ProjectCardProps {
   id: number;
 }
 
-export function ProjectCard({ title, tags, id }: ProjectCardProps) {
+export function ProjectCard({
+  title,
+
+  tags,
+  id,
+}: ProjectCardProps) {
   return (
-    <Card projectId={id} className="max-w-md">
+    <Card projectId={id} className="">
       <CardHeader className="rounded-lg rounded-b-none overflow-hidden">
         <img
           className="w-full aspect-video object-cover object-center"
@@ -28,9 +33,13 @@ export function ProjectCard({ title, tags, id }: ProjectCardProps) {
           alt="Project"
         />
       </CardHeader>
-      <CardContent className="px-5 py-3">
-        <CardTitle className="text-lg mb-2 line-clamp-2">{title}</CardTitle>
-        <CardDescription className="line-clamp-3">{title}</CardDescription>
+      <CardContent className="flex flex-col gap-2 p-3">
+        <CardTitle className="text-base whitespace-break-spaces line-clamp-2">
+          {title}
+        </CardTitle>
+        <CardDescription className="text-sm line-clamp-2 whitespace-break-spaces">
+          {title}
+        </CardDescription>
         <CardFooter className="gap-2">
           {tags.map((tag) => (
             <Badge variant="secondary" key={tag.id}>

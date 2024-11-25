@@ -5,9 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTracks } from "@/api/fetchTracks";
 
 export function TracksFilter() {
-  const { data: tracks, isLoading } = useQuery<
-    Tracks | undefined
-  >({
+  const { data: tracks, isLoading } = useQuery<Tracks | undefined>({
     queryKey: ["tracks"],
     queryFn: fetchTracks,
     refetchOnWindowFocus: false,
@@ -22,8 +20,8 @@ export function TracksFilter() {
   );
   return (
     <Filter
-      errorMessage="Треки не найдены"
-      placeholder="Введите трек"
+      emptyFilterText="Треки не найдены"
+      placeholder="Фильтр по треку..."
       entities={tracksFilter}
       isLoading={isLoading}
     />

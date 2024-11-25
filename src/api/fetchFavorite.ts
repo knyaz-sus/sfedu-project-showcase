@@ -10,7 +10,7 @@ export async function fetchFavorite() {
     }
     const data: Projects = await res.json();
     return data.filter((project, i) => {
-      if (i < 3) return project;
+      if (i < 4) return project;
     });
   } catch (error) {
     console.error("Fetch error:", error);
