@@ -38,19 +38,21 @@ export function ProjectsPage() {
           <TracksFilter />
         </div>
       </div>
-      <Loading isLoading={isProjectsLoading}>
-        {searchValue === "" ? (
-          <div>
-            <h1 className="m-5 text-center">Все проекты</h1>
+      {searchValue === "" ? (
+        <div>
+          <h1 className="m-5 text-center">Все проекты</h1>
+          <Loading isLoading={isProjectsLoading}>
             <ProjectCards projects={projects} />
-          </div>
-        ) : (
-          <div>
-            <h1 className="m-5 text-center">Поиск по "{searchValue}"</h1>
-            <ProjectCards projects={projects} />
-          </div>
-        )}
-      </Loading>
+          </Loading>
+        </div>
+      ) : (
+        <div>
+          <h1 className="m-5 text-center">Поиск по "{searchValue}"</h1>
+          <Loading isLoading={isProjectsLoading}>
+            <ProjectCards projects={projects} />{" "}
+          </Loading>
+        </div>
+      )}
     </div>
   );
 }
