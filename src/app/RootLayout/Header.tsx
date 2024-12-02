@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom";
 import { AppLink } from "@/components/AppLink";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { headerPages } from "@/constants/buttonVariants";
-import { login } from "@/api/login";
 
 export function Header() {
   const location = useLocation();
@@ -29,20 +28,13 @@ export function Header() {
         </ul>
         <ul className="flex items-center gap-6">
           <li>
-            <button
-              onClick={async () => {
-                const some = await login();
-                console.log(some);
-              }}
+            <a
               className="font-semibold text-base text-muted-foreground transition-color hover:text-foreground"
+              href="https://showcase-2-0.onrender.com/oauth2/authorization/github"
             >
-              Войти
-            </button>
-            <a href="https://showcase-2-0.onrender.com/oauth2/authorization/github">
               Войти
             </a>
           </li>
-          <Link to="/test">test</Link>
           <li>
             <ThemeToggle className="shadow-sm" />
           </li>
