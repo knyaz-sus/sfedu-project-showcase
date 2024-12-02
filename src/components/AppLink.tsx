@@ -11,7 +11,7 @@ export function AppLink({ className, link, title }: AppLinkProps) {
   return (
     <Link
       className={cn(
-        "text-base text-muted-foreground transition-colors hover:text-foreground",
+        "font-semibold text-base text-muted-foreground transition-colors hover:text-foreground",
         className
       )}
       to={link}

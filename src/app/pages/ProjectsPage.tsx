@@ -20,7 +20,7 @@ export function ProjectsPage() {
     setSearchValue(e.target.value);
   };
   return (
-    <div className="flex flex-col pt-3 pb-3">
+    <div className="flex flex-col pt-3 pb-3 w-full">
       <div
         className="flex flex-col justify-start gap-2 items-stretch
                       md:flex-row md:justify-between"

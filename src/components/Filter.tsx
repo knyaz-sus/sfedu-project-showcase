@@ -11,13 +11,13 @@ import {
   CommandList,
 } from "@/components/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
+import { Loading } from "./Loading";
 
 interface FilterProps {
   placeholder: string;
   emptyFilterText: string;
   entities?: { name: string; id: number }[];
   isLoading: boolean;
-  className?: string;
 }
 
 export function Filter({
@@ -30,7 +30,10 @@ export function Filter({
   const [value, setValue] = useState("");
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover
+      open={open}
+      onOpenChange={setOpen}
+    >
       <PopoverTrigger asChild className="flex-auto">
         <Button
           variant="outline"
@@ -43,6 +46,7 @@ export function Filter({
               ? entities?.find((entity) => entity.name === value)?.name
               : "По умолчанию"}
           </span>
+          {/* //--radix-popover-trigger-width	The width of the trigger */}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -50,7 +54,9 @@ export function Filter({
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandList>
-            <CommandEmpty>{isLoading ? value : emptyFilterText}</CommandEmpty>
+            <CommandEmpty>
+              <Loading isLoading={isLoading}>{emptyFilterText}</Loading>
+            </CommandEmpty>
             <CommandGroup>
               {entities?.map((entity) => (
                 <CommandItem

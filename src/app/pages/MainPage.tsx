@@ -20,7 +20,7 @@ export function MainPage() {
       ) : (
         <ProjectCards projects={favorite} />
       )}
-      <div className="p-3 flex flex-col gap-3">
+      {/* <div className="p-3 flex flex-col gap-3">
         <h1 className="text-center">О проектной деятельности</h1>
         <div>
           Проектная деятельность (ПД) — это дисциплина, направленная на
@@ -32,7 +32,7 @@ export function MainPage() {
           столкнуться после окончания университета. Чаще всего это разработка
           какого-либо сайта, портала, мобильного приложения и т.п.
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
