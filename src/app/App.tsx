@@ -3,7 +3,7 @@ import { RootLayout } from "./RootLayout";
 import { MainPage } from "./pages/MainPage";
 import { AccountPage } from "./pages/AccountPage";
 import { ProjectPage } from "./pages/ProjectPage";
-import { ProjectsPage } from "./pages/ProjectsPage/components/ProjectsPage";
+import { ProjectsPage } from "./pages/ProjectsPage";
 import { ErrorPage } from "./pages/ErrorPage";
 import { Test } from "@/app/pages/Test";
 
