@@ -29,8 +29,3 @@ export const buttonVariants = cva(
     },
   }
 );
-
-export const headerPages = [
-  { link: "/", title: "Витрина" },
-  { link: "/projects", title: "Проекты" },
-];

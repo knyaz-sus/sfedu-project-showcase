@@ -5,8 +5,9 @@ import { ProjectCards } from "@/components/Card/ProjectCards";
 import { Projects } from "@/types/database";
 import { Input } from "@/components/Input";
 import { Loading } from "@/components/Loading";
-import { TagsFilter } from "@/components/TagsFilter";
-import { TracksFilter } from "@/components/TracksFilter";
+import { TagsFilter } from "./components/TagsFilter";
+import { TracksFilter } from "./components/TracksFilter";
+
 
 export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
@@ -49,7 +50,7 @@ export function ProjectsPage() {
         <div>
           <h1 className="m-5 text-center">Поиск по "{searchValue}"</h1>
           <Loading isLoading={isProjectsLoading}>
-            <ProjectCards projects={projects} />{" "}
+            <ProjectCards projects={projects} />
           </Loading>
         </div>
       )}

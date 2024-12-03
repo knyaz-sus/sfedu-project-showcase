@@ -1,7 +1,9 @@
 import { fetchFavorite } from "@/api/fetchFavorite";
 import { useQuery } from "@tanstack/react-query";
-import { Projects } from "@/types/database";
+import { Projects, User } from "@/types/database";
 import { ProjectCards } from "@/components/Card/ProjectCards";
+import { fetchUsers } from "@/api/fetchUsers";
+import { Loading } from "@/components/Loading";
 
 export function MainPage() {
   const { data: favorite, isLoading: isFavLoading } = useQuery<
@@ -11,28 +13,21 @@ export function MainPage() {
     queryFn: fetchFavorite,
     refetchOnWindowFocus: false,
   });
-
+  const { data: users, isLoading } = useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: fetchUsers,
+  });
   return (
     <div className="flex flex-col items-center gap-4">
       <h1 className="text-center m-2">Избранные проекты</h1>
-      {isFavLoading ? (
-        <div>Loading ...</div>
-      ) : (
+      <Loading isLoading={isFavLoading}>
         <ProjectCards projects={favorite} />
-      )}
-      {/* <div className="p-3 flex flex-col gap-3">
-        <h1 className="text-center">О проектной деятельности</h1>
-        <div>
-          Проектная деятельность (ПД) — это дисциплина, направленная на
-          получение практического опыта по специальности. Соответственно, для
-          каждой специальности предлагаются уникальные проекты. Это могут быть
-          как задачи, предложенные университетом, так и внешние: от людей и
-          компаний, сотрудничающих с Политехом. Задача этого предмета — дать
-          возможность студентам решить какую-либо проблему, с которой они могут
-          столкнуться после окончания университета. Чаще всего это разработка
-          какого-либо сайта, портала, мобильного приложения и т.п.
-        </div>
-      </div> */}
+      </Loading>
+      <Loading isLoading={isLoading}>
+        {users?.map((user) => (
+          <div>`${user.id}`</div>
+        ))}
+      </Loading>
     </div>
   );
 }

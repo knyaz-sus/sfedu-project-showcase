@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { AppLink } from "@/components/AppLink";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { headerPages } from "@/constants/buttonVariants";
+import { ThemeToggle } from "@/app/RootLayout/components/ThemeToggle";
+import { headerPagesList } from "@/constants/ui";
+import { API_URL } from "@/constants/url";
+import { cn } from "@/lib/cn";
 
 export function Header() {
   const location = useLocation();
@@ -14,23 +15,30 @@ export function Header() {
               <img className="max-w-11 max-h-11" src="/logo.png" alt="logo" />
             </Link>
           </li>
-          {headerPages.map((page) => (
+          {headerPagesList.map((page) => (
             <li key={page.link}>
-              <AppLink
-                className={
-                  location.pathname === page.link ? "text-foreground" : ""
-                }
-                link={page.link}
-                title={page.title}
-              />
+              <Link
+                className={cn(
+                  "font-semibold text-base text-muted-foreground transition-colors hover:text-foreground",
+                  {
+                    "text-foreground": location.pathname === page.link,
+                  }
+                )}
+                to={page.link}
+              >
+                {page.title}
+              </Link>
             </li>
           ))}
+          <li>
+            <Link to="/test">test</Link>
+          </li>
         </ul>
         <ul className="flex items-center gap-6">
           <li>
             <a
               className="font-semibold text-base text-muted-foreground transition-color hover:text-foreground"
-              href="https://showcase-2-0.onrender.com/oauth2/authorization/github"
+              href={`${API_URL}/oauth2/authorization/github`}
             >
               Войти
             </a>

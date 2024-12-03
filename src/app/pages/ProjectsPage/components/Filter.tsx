@@ -11,7 +11,7 @@ import {
   CommandList,
 } from "@/components/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
-import { Loading } from "./Loading";
+import { Loading } from "../../../../components/Loading";
 
 interface FilterProps {
   placeholder: string;
@@ -30,10 +30,7 @@ export function Filter({
   const [value, setValue] = useState("");
 
   return (
-    <Popover
-      open={open}
-      onOpenChange={setOpen}
-    >
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild className="flex-auto">
         <Button
           variant="outline"
@@ -41,11 +38,9 @@ export function Filter({
           aria-expanded={open}
           className="w-[250px] justify-between"
         >
-          <span className="">
-            {value
-              ? entities?.find((entity) => entity.name === value)?.name
-              : "По умолчанию"}
-          </span>
+          {value
+            ? entities?.find((entity) => entity.name === value)?.name
+            : "По умолчанию"}
           {/* //--radix-popover-trigger-width	The width of the trigger */}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>

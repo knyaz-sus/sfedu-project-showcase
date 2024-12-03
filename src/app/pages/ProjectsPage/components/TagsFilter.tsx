@@ -5,7 +5,7 @@ import { fetchTags } from "@/api/fetchTags";
 import { Tags } from "@/types/database";
 
 export function TagsFilter() {
-  const { data: tags, isLoading } = useQuery<Tags | undefined>({
+  const { data: tags, isLoading } = useQuery<Tags>({
     queryKey: ["tags"],
     queryFn: fetchTags,
     refetchOnWindowFocus: false,

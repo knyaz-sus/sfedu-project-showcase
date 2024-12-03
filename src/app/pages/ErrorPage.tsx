@@ -7,7 +7,7 @@ export function ErrorPage() {
     <div className="flex flex-col gap-4 items-center justify-center min-h-svh">
       <h1>Путь {location.pathname} не найден</h1>
       <Button>
-        <Link to={"/"}>На домашнюю страницу</Link>
+        <Link to="/">На домашнюю страницу</Link>
       </Button>
     </div>
   );
