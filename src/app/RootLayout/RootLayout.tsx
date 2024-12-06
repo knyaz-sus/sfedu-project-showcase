@@ -7,8 +7,7 @@ export function RootLayout() {
   return (
     <>
       <Header />
-      <Separator />
-      <main className="flex justify-center pt-16 pb-3 px-5 w-full min-h-svh">
+      <main className="flex justify-center pt-14 pb-3 px-5 w-full min-h-svh">
         <Outlet />
       </main>
       <Separator />
