@@ -24,6 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "vitest-setup.ts", "vitest/globals"],
+  "include": ["src", "vitest-setup.ts", "vitest/globals", "env.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
