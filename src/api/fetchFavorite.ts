@@ -1,4 +1,3 @@
-// import { API_URL } from "@/constants/url";
 import { Projects } from "@/types/database";
 
 export async function fetchFavorite() {
