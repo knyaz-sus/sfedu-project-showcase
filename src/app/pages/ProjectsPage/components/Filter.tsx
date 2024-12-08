@@ -11,13 +11,16 @@ import {
   CommandList,
 } from "@/components/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
-import { Loading } from "@/components/Loading";
+import { useFilters } from "@/hooks/useFilters";
+import { Filters } from "@/types/ui";
+import { CommandLoading } from "cmdk";
 
 interface FilterProps {
   placeholder: string;
   emptyFilterText: string;
   entities?: { name: string; id: number }[];
   isLoading: boolean;
+  name: keyof Filters;
 }
 
 export function Filter({
@@ -25,9 +28,15 @@ export function Filter({
   emptyFilterText,
   entities,
   isLoading,
+  name,
 }: FilterProps) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const { filters, addFilter, deleteFilter } = useFilters();
+  const getButtonText = () => {
+    if (filters[name].length === 0) return "По умолчанию";
+    if (filters[name].length === 1) return filters[name][0];
+    return "Выбрано несколько";
+  };
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild className="flex-auto">
@@ -37,10 +46,7 @@ export function Filter({
           aria-expanded={open}
           className="w-[250px] justify-between"
         >
-          {value
-            ? entities?.find((entity) => entity.name === value)?.name
-            : "По умолчанию"}
-          {/* //--radix-popover-trigger-width	The width of the trigger */}
+          {getButtonText()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -48,23 +54,27 @@ export function Filter({
         <Command>
           <CommandInput placeholder={placeholder} />
           <CommandList>
-            <CommandEmpty>
-              <Loading isLoading={isLoading}>{emptyFilterText}</Loading>
-            </CommandEmpty>
+            {isLoading && <CommandLoading>Loading...</CommandLoading>}
+            <CommandEmpty>{emptyFilterText}</CommandEmpty>
             <CommandGroup>
               {entities?.map((entity) => (
                 <CommandItem
                   key={entity.id}
                   value={entity.name}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
+                    if (filters[name].includes(currentValue)) {
+                      deleteFilter(name, currentValue);
+                    } else {
+                      addFilter(name, currentValue);
+                    }
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === entity.name ? "opacity-100" : "opacity-0"
+                      filters[name].includes(entity.name)
+                        ? "opacity-100"
+                        : "opacity-0"
                     )}
                   />
                   {entity.name}

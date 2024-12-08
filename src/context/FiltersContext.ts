@@ -3,13 +3,23 @@ import { createContext } from "react";
 
 type FiltersProviderState = {
   filters: Filters;
-  updateFilter: (key: keyof Filters, value: string) => void;
+  addFilter: (name: keyof Filters, value: string) => void;
+  deleteFilter: (name: keyof Filters, value: string) => void;
+  resetFilters: () => void;
 };
+
+export type FilterAction =
+  | { type: "ADD_FILTER"; name: keyof Filters; value: string }
+  | { type: "DELETE_FILTER"; name: keyof Filters; value: string }
+  | { type: "RESET_FILTERS" }
+  | { type: "SET_NEW_STATE"; newState: Filters };
 
 export const FiltersContext = createContext<FiltersProviderState>({
   filters: {
-    tagFilter: null,
-    trackFilter: null,
+    tagFilter: [],
+    trackFilter: [],
   },
-  updateFilter: () => {},
+  addFilter: () => {},
+  deleteFilter: () => {},
+  resetFilters: () => {},
 });

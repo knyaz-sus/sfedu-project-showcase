@@ -24,6 +24,7 @@ export function TagsFilter() {
       placeholder="Фильтр по тегу..."
       entities={tagsFilter}
       isLoading={isLoading}
+      name="tagFilter"
     />
   );
 }

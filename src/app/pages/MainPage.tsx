@@ -15,7 +15,7 @@ export function MainPage() {
   });
   const { data: users, isLoading } = useQuery<User[]>({
     queryKey: ["users"],
-    queryFn:()=> fetchUsers("same-origin"),
+    queryFn: fetchUsers,
   });
   return (
     <div className="flex flex-col items-center gap-4">
@@ -25,7 +25,7 @@ export function MainPage() {
       </Loading>
       <Loading isLoading={isLoading}>
         {users?.map((user) => (
-          <div>`${user.id}`</div>
+          <div key={user.id}>`${user.id}`</div>
         ))}
       </Loading>
     </div>

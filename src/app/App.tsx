@@ -6,7 +6,6 @@ import { ProjectPage } from "@/app/pages/ProjectPage";
 import { ProjectsPage } from "@/app/pages/ProjectsPage";
 import { ErrorPage } from "@/app/pages/ErrorPage";
 import { Test } from "@/app/pages/Test";
-import { FiltersProvider } from "@/context/FiltersProvider";
 
 export function App() {
   return (
@@ -15,14 +14,7 @@ export function App() {
         <Route index element={<MainPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/projects/:id" element={<ProjectPage />} />
-        <Route
-          path="/projects"
-          element={
-            <FiltersProvider>
-              <ProjectsPage />
-            </FiltersProvider>
-          }
-        />
+        <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/test" element={<Test />} />
       </Route>
       <Route path="*" element={<ErrorPage />} />

@@ -7,12 +7,15 @@ import { Input } from "@/components/Input";
 import { Loading } from "@/components/Loading";
 import { TagsFilter } from "./components/TagsFilter";
 import { TracksFilter } from "./components/TracksFilter";
+import { SearchParams } from "./components/SearchParams";
 import { Badge } from "@/components/Badge";
-// import { useFilters } from "@/hooks/useFilters";
+import { useFilters } from "@/hooks/useFilters";
+import { ResetIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/Button";
 
 export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
-  // const { filters } = useFilters();
+  const { resetFilters } = useFilters();
   const id = useId();
   const { data: projects, isLoading: isProjectsLoading } = useQuery<Projects>({
     queryKey: ["projects"],
@@ -36,14 +39,24 @@ export function ProjectsPage() {
           id={`${id}-search`}
           placeholder="Введите имя проекта..."
         />
-        <div className="flex gap-3">
+        <div className="flex justify-stretch gap-3">
           <TagsFilter />
           <TracksFilter />
+          <Button size="icon" variant="outline" onClick={resetFilters}>
+            <ResetIcon />
+          </Button>
         </div>
       </div>
       <div>
-        <div className="flex gap-2 items-end py-5">
-          {!!projects && <Badge>Показано проектов: {projects.length}</Badge>}
+        <div className="flex flex-wrap gap-2 items-end py-5">
+          {!!projects && (
+            <>
+              <Badge variant="secondary">
+                Показано проектов: {projects.length}
+              </Badge>
+              <SearchParams />
+            </>
+          )}
         </div>
         <Loading isLoading={isProjectsLoading}>
           <ProjectCards projects={projects} />

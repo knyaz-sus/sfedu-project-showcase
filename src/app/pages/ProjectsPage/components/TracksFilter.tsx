@@ -24,6 +24,7 @@ export function TracksFilter() {
       placeholder="Фильтр по треку..."
       entities={tracksFilter}
       isLoading={isLoading}
+      name="trackFilter"
     />
   );
 }
