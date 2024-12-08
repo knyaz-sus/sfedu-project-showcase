@@ -11,7 +11,7 @@ import {
   CommandList,
 } from "@/components/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/Popover";
-import { Loading } from "../../../../components/Loading";
+import { Loading } from "@/components/Loading";
 
 interface FilterProps {
   placeholder: string;
@@ -28,7 +28,6 @@ export function Filter({
 }: FilterProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild className="flex-auto">

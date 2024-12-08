@@ -6,7 +6,7 @@ import { Loading } from "../../components/Loading";
 export function Test() {
   const { data: users, isLoading } = useQuery<User[]>({
     queryKey: ["users"],
-    queryFn: fetchUsers,
+    queryFn: () => fetchUsers,
   });
   if (!users && !isLoading) return <h1>Похоже что доступ отсутсвует</h1>;
   return (

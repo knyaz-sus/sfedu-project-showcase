@@ -38,8 +38,13 @@ export function Header() {
             <ThemeToggle />
           </li>
           <li>
-            <Button variant="outline">
+            <Button variant="outline" asChild>
               <a href={`${API_URL}/oauth2/authorization/github`}>Войти</a>
+            </Button>
+          </li>
+          <li>
+            <Button variant="outline" asChild>
+              <a href={`${API_URL}/logout`}>Выйти</a>
             </Button>
           </li>
         </ul>

@@ -15,7 +15,7 @@ export function MainPage() {
   });
   const { data: users, isLoading } = useQuery<User[]>({
     queryKey: ["users"],
-    queryFn: fetchUsers,
+    queryFn:()=> fetchUsers("same-origin"),
   });
   return (
     <div className="flex flex-col items-center gap-4">
