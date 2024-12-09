@@ -26,9 +26,13 @@ export type Projects = Project[];
 
 export type AuthUser =
   | {
-      login: string;
-      id: number;
-      email: string;
-      avatar_url: "https://avatars.githubusercontent.com/u/123970931?v=4";
+      accessToken: string;
+      attributes: {
+        login: string;
+        id: number;
+        email: string;
+        avatar_url: "https://avatars.githubusercontent.com/u/123970931?v=4";
+        name: string;
+      };
     }
   | undefined;
