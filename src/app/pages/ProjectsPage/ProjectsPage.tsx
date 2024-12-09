@@ -15,7 +15,7 @@ import { Button } from "@/components/Button";
 
 export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
-  const { resetFilters } = useFilters();
+  const { filters, resetFilters } = useFilters();
   const id = useId();
   const { data: projects, isLoading: isProjectsLoading } = useQuery<Projects>({
     queryKey: ["projects"],
@@ -42,7 +42,14 @@ export function ProjectsPage() {
         <div className="flex justify-stretch gap-3">
           <TagsFilter />
           <TracksFilter />
-          <Button size="icon" variant="outline" onClick={resetFilters}>
+          <Button
+            disabled={
+              filters.tagFilter.length === 0 && filters.trackFilter.length === 0
+            }
+            size="icon"
+            variant="outline"
+            onClick={resetFilters}
+          >
             <ResetIcon />
           </Button>
         </div>
