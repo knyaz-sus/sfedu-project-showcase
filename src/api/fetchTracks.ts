@@ -1,12 +1,6 @@
-import { API_URL } from "@/constants/url";
-import { Tracks } from "@/types/database";
+import { fetchWithValidation } from "./fetchWithValidation";
+import { tagsSchema } from "@/types/schemas";
 
 export async function fetchTracks() {
-  try {
-    const res = await fetch(`${API_URL}/tracks`);
-    const tracks: Tracks = await res.json();
-    return tracks;
-  } catch (e) {
-    console.log(e);
-  }
+  return await fetchWithValidation(tagsSchema, "/tracks");
 }

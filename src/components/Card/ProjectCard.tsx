@@ -1,31 +1,28 @@
 import { Tags } from "@/types/database";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./Card";
-import { Badge } from "../Badge";
+} from "@/components/Card/Card";
+import { Badge } from "@/components/Badge";
+import { Link } from "react-router-dom";
 
 interface ProjectCardProps {
   title: string;
   tags: Tags;
-  thumbnail?: string;
   description?: string;
   screenshots: string[];
   id: number;
 }
 
-export function ProjectCard({
-  title,
-
-  tags,
-  id,
-}: ProjectCardProps) {
+export function ProjectCard({ title, tags, id }: ProjectCardProps) {
   return (
-    <Card projectId={id} className="">
+    <Link
+      to={`/projects/${id}`}
+      className="rounded-xl border border-border bg-card text-card-foreground shadow"
+    >
       <CardHeader className="rounded-lg rounded-b-none overflow-hidden">
         <img
           className="w-full aspect-video object-cover object-center"
@@ -48,6 +45,6 @@ export function ProjectCard({
           ))}
         </CardFooter>
       </CardContent>
-    </Card>
+    </Link>
   );
 }

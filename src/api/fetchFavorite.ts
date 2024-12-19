@@ -1,15 +1,9 @@
-import { API_URL } from "@/constants/url";
-import { Projects } from "@/types/database";
+import { projectsSchema } from "@/types/schemas";
+import { fetchWithValidation } from "./fetchWithValidation";
 
 export async function fetchFavorite() {
-  try {
-    const res = await fetch(`${API_URL}/projects`);
-    const data: Projects = await res.json();
-    return data.filter((project, i) => {
-      if (i < 4) return project;
-    });
-  } catch (error) {
-    console.error("Fetch error:", error);
-    return;
-  }
+  const projects = await fetchWithValidation(projectsSchema, `/projects`);
+  return projects?.filter((project, i) => {
+    if (i < 3) return project;
+  });
 }

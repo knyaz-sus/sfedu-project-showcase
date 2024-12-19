@@ -1,10 +1,6 @@
-import { API_URL } from "@/constants/url";
+import { fetchWithValidation } from "./fetchWithValidation";
+import { projectSchema } from "@/types/schemas";
 
 export async function fetchProject(id: number) {
-  try {
-    const res = await fetch(`${API_URL}/projects/${id}`);
-    return await res.json();
-  } catch (e) {
-    console.log(e);
-  }
+  return await fetchWithValidation(projectSchema, `/projects/${id}`);
 }

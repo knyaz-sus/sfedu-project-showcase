@@ -1,10 +1,6 @@
-import { API_URL } from "@/constants/url";
+import { fetchWithValidation } from "./fetchWithValidation";
+import { tagsSchema } from "@/types/schemas";
 
 export async function fetchTags() {
-  try {
-    const res = await fetch(`${API_URL}/tags`);
-    return await res.json();
-  } catch (e) {
-    console.log(e);
-  }
+  return await fetchWithValidation(tagsSchema, "/tags");
 }

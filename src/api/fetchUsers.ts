@@ -1,12 +1,6 @@
-import { API_URL } from "@/constants/url";
+import { fetchWithValidation } from "./fetchWithValidation";
+import { usersSchema } from "@/types/schemas";
 
 export async function fetchUsers() {
-  try {
-    const res = await fetch(`${API_URL}/users`, {
-      credentials: "include",
-    });
-    return await res.json();
-  } catch (e) {
-    console.log(e);
-  }
+  return await fetchWithValidation(usersSchema, "/users");
 }

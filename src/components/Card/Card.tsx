@@ -1,16 +1,14 @@
 import * as React from "react";
 import { cn } from "@/lib/cn";
-import { Link } from "react-router-dom";
 
 const Card = React.forwardRef<
-  HTMLAnchorElement,
-  { projectId: number } & React.HTMLAttributes<HTMLAnchorElement>
->(({ className, projectId, ...props }, ref) => (
-  <Link
-    to={`/projects/${projectId}`}
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
     ref={ref}
     className={cn(
-      "rounded-xl border border-border  bg-card text-card-foreground shadow-md",
+      "rounded-xl border border-border bg-card text-card-foreground shadow",
       className
     )}
     {...props}
