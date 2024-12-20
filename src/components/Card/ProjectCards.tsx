@@ -1,4 +1,4 @@
-import { Projects } from "@/types/database";
+import { Projects } from "@/types/schemas";
 import { ProjectCard } from "./ProjectCard";
 
 interface ProjectCardsProps {

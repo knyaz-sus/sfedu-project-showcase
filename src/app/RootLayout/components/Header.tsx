@@ -1,10 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { headerPagesList } from "@/constants/ui";
-import { API_URL } from "@/constants/url";
 import { cn } from "@/lib/cn";
 import { Separator } from "@/components/Separator";
 import { Button } from "@/components/Button";
-import { ThemeToggle } from "./ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/Avatar";
 
@@ -39,15 +37,14 @@ export function Header() {
         </ul>
         {!isAuthLoading && (
           <ul className="flex items-center gap-6">
-            <li>
-              <ThemeToggle />
-            </li>
             {!authUser && (
               <li>
                 <Button variant="outline" asChild>
                   <a
                     onClick={() => navigate("/login")}
-                    href={`${API_URL}/oauth2/authorization/github`}
+                    href={`${
+                      import.meta.env.VITE_API_URL
+                    }/oauth2/authorization/github`}
                   >
                     Войти
                   </a>

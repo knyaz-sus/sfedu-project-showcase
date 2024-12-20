@@ -2,7 +2,6 @@ import { ChangeEvent, useId, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProjects } from "@/api/fetchProjects";
 import { ProjectCards } from "@/components/Card/ProjectCards";
-import { Projects } from "@/types/database";
 import { Input } from "@/components/Input";
 import { Loading } from "@/components/Loading";
 import { TagsFilter } from "./components/TagsFilter";
@@ -17,7 +16,7 @@ export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
   const { filters, resetFilters } = useFilters();
   const id = useId();
-  const { data: projects, isLoading: isProjectsLoading } = useQuery<Projects>({
+  const { data: projects, isLoading: isProjectsLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
     refetchOnWindowFocus: false,
@@ -26,7 +25,7 @@ export function ProjectsPage() {
     setSearchValue(e.target.value);
   };
   return (
-    <div className="flex flex-col pt-5 pb-3 w-full">
+    <>
       <div
         className="flex flex-col justify-start gap-2 items-stretch
                       md:flex-row md:justify-between"
@@ -69,6 +68,6 @@ export function ProjectsPage() {
           <ProjectCards projects={projects} />
         </Loading>
       </div>
-    </div>
+    </>
   );
 }

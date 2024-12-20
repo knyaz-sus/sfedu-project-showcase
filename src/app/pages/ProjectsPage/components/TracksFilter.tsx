@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { Filter } from "./Filter";
-import { Tracks } from "@/types/database";
+
 import { useQuery } from "@tanstack/react-query";
 import { fetchTracks } from "@/api/fetchTracks";
 
 export function TracksFilter() {
-  const { data: tracks, isLoading } = useQuery<Tracks | undefined>({
+  const { data: tracks, isLoading } = useQuery({
     queryKey: ["tracks"],
     queryFn: fetchTracks,
     refetchOnWindowFocus: false,

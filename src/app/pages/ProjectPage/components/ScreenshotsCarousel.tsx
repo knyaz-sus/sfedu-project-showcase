@@ -1,11 +1,5 @@
-import { CardContent } from "@/components/Card/Card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/Carousel";
+import { Card, CardContent } from "@/components/Card/Card";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/Carousel";
 
 export function ScreenshotsCarousel({
   screenshots,
@@ -14,22 +8,24 @@ export function ScreenshotsCarousel({
 }) {
   console.log(screenshots);
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel className="max-w-none md:max-w-lg mb-4">
       <CarouselContent>
-        {screenshots?.map((screenshot) => (
-          <CarouselItem key={screenshot}>
-            <div className="p-1">
-              <div>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <img src={screenshot} alt="Материалы проекта" />
+        {Array(3)
+          .fill(0)
+          .map(() => (
+            <CarouselItem>
+              <Card>
+                <CardContent className="flex rounded-xl aspect-video items-center justify-center">
+                  <img
+                    className="rounded-xl w-full aspect-video object-cover object-center"
+                    src="https://cataas.com/cat"
+                    alt="Материалы проекта"
+                  />
                 </CardContent>
-              </div>
-            </div>
-          </CarouselItem>
-        ))}
+              </Card>
+            </CarouselItem>
+          ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
     </Carousel>
   );
 }

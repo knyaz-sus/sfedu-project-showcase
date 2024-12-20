@@ -2,10 +2,9 @@ import { useMemo } from "react";
 import { Filter } from "./Filter";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTags } from "@/api/fetchTags";
-import { Tags } from "@/types/database";
 
 export function TagsFilter() {
-  const { data: tags, isLoading } = useQuery<Tags>({
+  const { data: tags, isLoading } = useQuery({
     queryKey: ["tags"],
     queryFn: fetchTags,
     refetchOnWindowFocus: false,

@@ -1,4 +1,4 @@
-import { Tags } from "@/types/database";
+import { Tags } from "@/types/schemas";
 import {
   CardContent,
   CardDescription,
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 interface ProjectCardProps {
   title: string;
   tags: Tags;
-  description?: string;
+  description: string | null;
   screenshots: string[];
   id: number;
 }

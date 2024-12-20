@@ -7,8 +7,10 @@ export function RootLayout() {
   return (
     <>
       <Header />
-      <main className="flex justify-center pt-14 pb-3 px-5 w-full min-h-svh">
-        <Outlet />
+      <main className="flex flex-auto justify-center pt-14 px-5  min-h-svh w-full">
+        <div className="flex flex-col py-5 w-full">
+          <Outlet />
+        </div>
       </main>
       <Separator />
       <Footer />

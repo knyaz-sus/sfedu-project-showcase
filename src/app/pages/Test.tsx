@@ -1,10 +1,9 @@
 import { fetchUsers } from "@/api/fetchUsers";
-import { User } from "@/types/database";
 import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@/components/Loading";
 
 export function Test() {
-  const { data: users, isLoading } = useQuery<User[]>({
+  const { data: users, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: fetchUsers,
   });

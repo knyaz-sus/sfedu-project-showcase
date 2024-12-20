@@ -47,3 +47,5 @@ export const projectsSchema = z.array(projectSchema);
 
 export type Project = z.infer<typeof projectSchema>;
 export type Projects = Project[];
+
+export type Tags = z.infer<typeof tagsSchema>;

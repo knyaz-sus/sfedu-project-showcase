@@ -1,13 +1,10 @@
 import { fetchFavorite } from "@/api/fetchFavorite";
 import { useQuery } from "@tanstack/react-query";
-import { Projects } from "@/types/database";
 import { ProjectCards } from "@/components/Card/ProjectCards";
 import { Loading } from "@/components/Loading";
 
 export function MainPage() {
-  const { data: favorite, isLoading: isFavLoading } = useQuery<
-    Projects | undefined
-  >({
+  const { data: favorite, isLoading: isFavLoading } = useQuery({
     queryKey: ["favorite"],
     queryFn: fetchFavorite,
     refetchOnWindowFocus: false,
