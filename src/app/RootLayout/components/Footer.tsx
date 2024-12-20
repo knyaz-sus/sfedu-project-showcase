@@ -1,7 +1,9 @@
+import { ThemeToggle } from "./ThemeToggle";
+
 /* eslint-disable no-irregular-whitespace */
 export function Footer() {
   return (
-    <footer className="flex flex-col md:flex-row gap-5 py-6 px-5">
+    <footer className="flex flex-col md:flex-row gap-5 pt-6 px-5">
       <div className="flex-1">
         <h2 className="mb-2">О проектной деятельности</h2>
         <p>
@@ -29,6 +31,9 @@ export function Footer() {
             Vk
           </a>
         </div>
+      </div>
+      <div className="flex justify-end items-start pb-2">
+        <ThemeToggle />
       </div>
     </footer>
   );
