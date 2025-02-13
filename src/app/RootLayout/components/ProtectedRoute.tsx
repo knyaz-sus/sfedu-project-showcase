@@ -7,9 +7,7 @@ export function ProtectedRoute({ authOnly }: { authOnly: boolean }) {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthLoading && !authUser && authOnly) {
-      window.location.href = `${
-        import.meta.env.VITE_API_URL
-      }/oauth2/authorization/github`;
+      window.location.href = `${API_URL}/oauth2/authorization/github`;
     }
   }, [authUser, isAuthLoading, authOnly]);
   if (isAuthLoading) return;

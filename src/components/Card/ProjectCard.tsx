@@ -15,9 +15,10 @@ interface ProjectCardProps {
   description: string | null;
   screenshots: string[];
   id: number;
+  mainImg: string;
 }
 
-export function ProjectCard({ title, tags, id }: ProjectCardProps) {
+export function ProjectCard({ title, tags, id, mainImg }: ProjectCardProps) {
   return (
     <Link
       to={`/projects/${id}`}
@@ -26,7 +27,7 @@ export function ProjectCard({ title, tags, id }: ProjectCardProps) {
       <CardHeader className="rounded-lg rounded-b-none overflow-hidden">
         <img
           className="w-full aspect-video object-cover object-center"
-          src="https://cataas.com/cat"
+          src={mainImg}
           alt="Project"
         />
       </CardHeader>

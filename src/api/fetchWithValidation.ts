@@ -1,4 +1,5 @@
 import { ZodSchema } from "zod";
+import { API_URL } from "@/constants";
 
 export async function fetchWithValidation<T>(
   schema: ZodSchema<T>,
@@ -6,7 +7,7 @@ export async function fetchWithValidation<T>(
   credentials: RequestCredentials = "include"
 ) {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}${path}`, {
+    const res = await fetch(`${API_URL}${path}`, {
       credentials,
     });
     const data: unknown = await res.json();

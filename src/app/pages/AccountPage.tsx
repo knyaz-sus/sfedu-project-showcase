@@ -5,7 +5,7 @@ export function AccountPage() {
     <>
       <h1>This is AccountPage </h1>
       <Button variant="outline" asChild>
-        <a href={`${import.meta.env.VITE_API_URL}/logout`}>Выйти</a>
+        <a href={`${API_URL}/logout`}>Выйти</a>
       </Button>
     </>
   );

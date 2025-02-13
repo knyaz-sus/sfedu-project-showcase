@@ -1,5 +1,4 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { headerPagesList } from "@/constants/ui";
 import { cn } from "@/lib/cn";
 import { Separator } from "@/components/Separator";
 import { Button } from "@/components/Button";
@@ -19,21 +18,32 @@ export function Header() {
               <img className="max-w-9 max-h-9" src="/logo.png" alt="logo" />
             </Link>
           </li>
-          {headerPagesList.map((page) => (
-            <li key={page.link}>
-              <Link
-                className={cn(
-                  "font-medium text-foreground/75 p-1 transition-colors hover:text-foreground",
-                  {
-                    "text-foreground": location.pathname === page.link,
-                  }
-                )}
-                to={page.link}
-              >
-                {page.title}
-              </Link>
-            </li>
-          ))}
+          <li>
+            <Link
+              className={cn(
+                "font-medium text-foreground/75 p-1 transition-colors hover:text-foreground",
+                {
+                  "text-foreground": location.pathname === "/",
+                }
+              )}
+              to="/"
+            >
+              Витрина
+            </Link>
+          </li>
+          <li>
+            <Link
+              className={cn(
+                "font-medium text-foreground/75 p-1 transition-colors hover:text-foreground",
+                {
+                  "text-foreground": location.pathname === "/",
+                }
+              )}
+              to="/projects"
+            >
+              Проекты
+            </Link>
+          </li>
         </ul>
         {!isAuthLoading && (
           <ul className="flex items-center gap-6">
@@ -42,9 +52,7 @@ export function Header() {
                 <Button variant="outline" asChild>
                   <a
                     onClick={() => navigate("/login")}
-                    href={`${
-                      import.meta.env.VITE_API_URL
-                    }/oauth2/authorization/github`}
+                    href={`${API_URL}/oauth2/authorization/github`}
                   >
                     Войти
                   </a>

@@ -1,5 +1,7 @@
 FROM node:22.12.0-alpine
 
+ARG VITE_API_URL
+
 WORKDIR /app
 
 COPY ./package.json  .
