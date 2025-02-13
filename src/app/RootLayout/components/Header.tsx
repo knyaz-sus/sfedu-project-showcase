@@ -4,6 +4,7 @@ import { Separator } from "@/components/Separator";
 import { Button } from "@/components/Button";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/Avatar";
+import { API_URL } from "@/constants";
 
 export function Header() {
   const location = useLocation();

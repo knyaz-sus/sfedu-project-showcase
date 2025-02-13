@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";

@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { API_URL } from "@/constants";
 
 export function AccountPage() {
   return (
