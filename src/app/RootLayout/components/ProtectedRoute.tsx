@@ -1,7 +1,7 @@
-import { API_URL } from "@/constants";
-import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { API_URL } from "@/constants";
+import { useAuth } from "@/hooks/useAuth";
 
 export function ProtectedRoute({ authOnly }: { authOnly: boolean }) {
   const { authUser, isAuthLoading } = useAuth();

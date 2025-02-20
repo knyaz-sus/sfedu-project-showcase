@@ -37,7 +37,7 @@ export function Header() {
               className={cn(
                 "font-medium text-foreground/75 p-1 transition-colors hover:text-foreground",
                 {
-                  "text-foreground": location.pathname === "/",
+                  "text-foreground": location.pathname === "/projects",
                 }
               )}
               to="/projects"

@@ -8,6 +8,7 @@ import { ErrorPage } from "@/app/pages/ErrorPage";
 import { Test } from "@/app/pages/Test";
 import { ProtectedRoute } from "@/app/RootLayout/components/ProtectedRoute";
 import { LoginRedirectPage } from "@/app/pages/LoginRedirectPage";
+import { ProjectEditor } from "./pages/CreateProjectPage";
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
         <Route path="/test" element={<Test />} />
         <Route element={<ProtectedRoute authOnly />}>
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/project-editor" element={<ProjectEditor />} />
         </Route>
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>

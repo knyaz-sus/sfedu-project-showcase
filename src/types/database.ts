@@ -31,7 +31,7 @@ export type AuthUser =
         login: string;
         id: number;
         email: string;
-        avatar_url: "https://avatars.githubusercontent.com/u/123970931?v=4";
+        avatar_url: string;
         name: string;
       };
     }

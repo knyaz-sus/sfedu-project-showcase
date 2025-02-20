@@ -36,7 +36,7 @@ export const projectSchema = z.object({
   description: z.string().nullable(),
   grade: z.number(),
   repo: z.string().url(),
-  screenshots: z.array(z.string()),
+  screenshots: z.array(z.string()).nullable(),
   presentation: z.string().url(),
   tags: tagsSchema,
   users: usersSchema,

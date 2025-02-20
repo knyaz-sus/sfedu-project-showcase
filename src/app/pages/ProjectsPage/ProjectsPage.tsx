@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProjects } from "@/api/fetchProjects";
 import { ProjectCards } from "@/components/Card/ProjectCards";
 import { Input } from "@/components/Input";
-import { Loading } from "@/components/Loading";
 import { TagsFilter } from "./components/TagsFilter";
 import { TracksFilter } from "./components/TracksFilter";
 import { SearchParams } from "./components/SearchParams";
@@ -11,12 +10,13 @@ import { Badge } from "@/components/Badge";
 import { useFilters } from "@/hooks/useFilters";
 import { ResetIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/Button";
+import { ProjectSkeleton } from "@/components/ProjectSkeleton";
 
 export function ProjectsPage() {
   const [searchValue, setSearchValue] = useState("");
   const { filters, resetFilters } = useFilters();
   const id = useId();
-  const { data: projects, isLoading: isProjectsLoading } = useQuery({
+  const { data: projects, isPending } = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
     refetchOnWindowFocus: false,
@@ -64,9 +64,18 @@ export function ProjectsPage() {
             </>
           )}
         </div>
-        <Loading isLoading={isProjectsLoading}>
-          <ProjectCards projects={projects} />
-        </Loading>
+        <div
+          className="grid grid-cols-1 gap-6
+                 md:grid-cols-3 lg:grid-cols-4"
+        >
+          {isPending ? (
+            Array(6)
+              .fill(0)
+              .map(() => <ProjectSkeleton />)
+          ) : (
+            <ProjectCards projects={projects} />
+          )}
+        </div>
       </div>
     </>
   );

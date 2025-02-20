@@ -3,13 +3,19 @@ import { useQuery } from "@tanstack/react-query";
 import { Loading } from "@/components/Loading";
 
 export function Test() {
-  const { data: users, isLoading } = useQuery({
+  const {
+    data: users,
+    isError,
+    isPending,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: fetchUsers,
   });
-  if (!users && !isLoading) return <h1>Похоже что доступ отсутсвует</h1>;
+  if (isError) {
+    return <h1>Похоже что доступ отсутсвует</h1>;
+  }
   return (
-    <Loading isLoading={isLoading}>
+    <Loading isLoading={isPending}>
       {users?.map((user) => (
         <div key={user.id}>`${user.id}`</div>
       ))}
