@@ -4,21 +4,32 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/",
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes("node_modules")) return "vendor";
+        },
+      },
+    },
+  },
   preview: {
     host: true,
     port: 5173,
+    strictPort: true,
   },
   server: {
     host: true,
     port: 5173,
     strictPort: true,
-    origin: "http://0.0.0.0:5173",
   },
   test: {
     globals: true,
     environment: "jsdom",
     setupFiles: ["./vitest-setup.ts"],
-    mockReset: true,
   },
   resolve: {
     alias: {
