@@ -8,7 +8,7 @@ export function ProtectedRoute({ authOnly }: { authOnly: boolean }) {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthLoading && !authUser && authOnly) {
-      window.location.href = `${API_URL}/oauth2/authorization/github`;
+      window.location.href = `${API_URL}/oauth2/authorization/azure`;
     }
   }, [authUser, isAuthLoading, authOnly]);
   if (isAuthLoading) return;

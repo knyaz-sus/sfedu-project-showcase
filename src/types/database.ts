@@ -28,10 +28,8 @@ export type AuthUser =
   | {
       accessToken: string;
       attributes: {
-        login: string;
-        id: number;
         email: string;
-        avatar_url: string;
+        picture: string;
         name: string;
       };
     }

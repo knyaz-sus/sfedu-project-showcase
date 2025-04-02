@@ -30,7 +30,7 @@ export function MainPage() {
                   ) : (
                     <a
                       onClick={() => navigate("/login")}
-                      href={`${API_URL}/oauth2/authorization/github`}
+                      href={`${API_URL}/oauth2/authorization/azure`}
                     >
                       Загрузить проект
                     </a>
