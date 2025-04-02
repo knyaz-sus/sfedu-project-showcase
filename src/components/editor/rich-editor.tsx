@@ -2,7 +2,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Placeholder } from "@tiptap/extension-placeholder";
 import { Underline } from "@tiptap/extension-underline";
-import { Toggle } from "../Toggle";
+import { Toggle } from "@/components/toggle";
 import { Bold, Italic, UnderlineIcon } from "lucide-react";
 
 export function RichEditor() {
