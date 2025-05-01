@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+  /* removes scrollbar shift with radix select */
+  html body[data-scroll-locked] {
+    --removed-body-scroll-bar-size: 0 !important;
+    margin-right: 0 !important;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;

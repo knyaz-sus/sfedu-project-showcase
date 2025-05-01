@@ -4,8 +4,13 @@ export const tagSchema = z.object({
   id: z.number().int(),
   name: z.string(),
 });
-
 export const tagsSchema = z.array(tagSchema);
+
+export const dateSchema = z.object({
+  id: z.number().int(),
+  name: z.string(),
+});
+export const datesSchema = z.array(dateSchema);
 
 export const userSchema = z.object({
   id: z.number().int(),
@@ -22,7 +27,7 @@ export const userSchema = z.object({
 export const usersSchema = z.array(userSchema);
 
 export const trackSchema = z.object({
-  id: z.number(),
+  id: z.number().int(),
   name: z.string(),
   closed: z.any(),
 });
@@ -35,12 +40,13 @@ export const projectSchema = z.object({
   title: z.string(),
   description: z.string().nullable(),
   grade: z.number(),
-  repo: z.string().url(),
+  repo: z.string(),
   screenshots: z.array(z.string()).nullable(),
-  presentation: z.string().url(),
+  presentation: z.string().nullable(),
   tags: tagsSchema,
   users: usersSchema,
-  date: z.any(),
+  date: z.object({ id: z.number(), name: z.string() }),
+  mainScreenshot: z.string().nullable(),
 });
 
 export const projectsSchema = z.array(projectSchema);
@@ -48,4 +54,19 @@ export const projectsSchema = z.array(projectSchema);
 export type Project = z.infer<typeof projectSchema>;
 export type Projects = Project[];
 
-export type Tags = z.infer<typeof tagsSchema>;
+export type Tag = z.infer<typeof tagSchema>;
+export type Tags = Tag[];
+
+export type Date = z.infer<typeof dateSchema>;
+export type Dates = Date[];
+
+export type AuthUser =
+  | {
+      accessToken: string;
+      attributes: {
+        email: string;
+        picture: string;
+        name: string;
+      };
+    }
+  | undefined;

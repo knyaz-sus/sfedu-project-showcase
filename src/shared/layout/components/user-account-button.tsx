@@ -10,7 +10,7 @@ export function UserAccountButton() {
   const navigate = useNavigate();
   if (isAuthLoading) {
     return (
-      <Button variant="outline" asChild>
+      <Button variant="outline">
         <Spinner />
       </Button>
     );

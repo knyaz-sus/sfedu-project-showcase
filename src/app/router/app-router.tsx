@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { RootLayout } from "@/shared/layout";
 import { AccountPage } from "@/pages/account-page";
 import { ProjectPage } from "@/pages/project-page";
-import { ProjectsPage } from "@/pages/projects-page";
+import { ProjectsListPage } from "@/pages/projects-list-page";
 import { ErrorPage } from "@/pages/error-page";
 import { ProtectedRoute } from "@/app/router/protected-route";
 import { LoginRedirectPage } from "@/pages/login-redirect-page";
@@ -15,7 +15,7 @@ export function AppRouter() {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/projects/:id" element={<ProjectPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/projects" element={<ProjectsListPage />} />
         <Route element={<ProtectedRoute authOnly />}>
           <Route path="/account" element={<AccountPage />} />
           <Route path="/project-editor" element={<CreateProjectPage />} />

@@ -11,31 +11,34 @@ import {
   CommandList,
 } from "@/shared/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
-import { useFilters } from "../hooks/use-filters";
-import { Filters } from "@/app/providers/filters/filters-context";
-import { CommandLoading } from "cmdk";
+import { useFilters } from "@/pages/projects-list-page/hooks/use-filters";
+import { Spinner } from "@/shared/ui/spinner";
+import { useGetAllTags } from "@/shared/api/hooks/use-get-all-tags";
 
-interface FilterProps {
-  placeholder: string;
-  emptyFilterText: string;
-  entities?: { name: string; id: number }[];
-  isLoading: boolean;
-  name: keyof Filters;
-}
-
-export function Filter({
-  placeholder,
-  emptyFilterText,
-  entities,
-  isLoading,
-  name,
-}: FilterProps) {
+export function TagsFilter() {
   const [open, setOpen] = useState(false);
-  const { filters, addFilter, deleteFilter } = useFilters();
+  const { data: tags, isPending } = useGetAllTags();
+
+  const { filters, setFilters } = useFilters();
   const getButtonText = () => {
-    if (filters[name].length === 0) return "По умолчанию";
-    if (filters[name].length === 1) return filters[name][0];
+    if (filters.tags.length === 0) return "По умолчанию";
+    if (filters.tags.length === 1) return filters.tags[0];
     return "Выбрано несколько";
+  };
+  const handleSelect = (currentValue: string) => {
+    if (filters.tags.includes(currentValue)) {
+      const updatedFilters = {
+        ...filters,
+        tags: filters.tags.filter((tag) => tag !== currentValue),
+      };
+      setFilters(updatedFilters);
+    } else {
+      const updatedFilters = {
+        ...filters,
+        tags: [...filters.tags, currentValue],
+      };
+      setFilters(updatedFilters);
+    }
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -52,30 +55,22 @@ export function Filter({
       </PopoverTrigger>
       <PopoverContent className="w-[250px] p-0">
         <Command>
-          <CommandInput placeholder={placeholder} />
+          <CommandInput placeholder="Фильтр по тегу" />
           <CommandList>
-            {isLoading && <CommandLoading>Loading...</CommandLoading>}
-            <CommandEmpty>{emptyFilterText}</CommandEmpty>
+            <CommandEmpty>
+              {isPending ? <Spinner /> : "Не удалось загрузить теги"}
+            </CommandEmpty>
             <CommandGroup>
-              {entities?.map((entity) => (
+              {tags?.map((entity) => (
                 <CommandItem
                   key={entity.id}
                   value={entity.name}
-                  onSelect={(currentValue) => {
-                    if (filters[name].includes(currentValue)) {
-                      deleteFilter(name, currentValue);
-                    } else {
-                      addFilter(name, currentValue);
-                    }
-                  }}
+                  onSelect={handleSelect}
                 >
                   <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      filters[name].includes(entity.name)
-                        ? "opacity-100"
-                        : "opacity-0"
-                    )}
+                    className={cn("mr-2 h-4 w-4 opacity-0", {
+                      "opacity-100": filters.tags.includes(entity.name),
+                    })}
                   />
                   {entity.name}
                 </CommandItem>

@@ -3,7 +3,7 @@ import { ThemeToggle } from "./theme-toggle";
 /* eslint-disable no-irregular-whitespace */
 export function Footer() {
   return (
-    <footer className="flex flex-col md:flex-row gap-5 pt-6 px-5">
+    <footer className="flex flex-col md:flex-row gap-5 py-4 px-4 lg:px-0 max-w-7xl mx-auto">
       <div className="flex-1">
         <h2 className="mb-2">О проектной деятельности</h2>
         <p>

@@ -1,4 +1,4 @@
-import { AuthUser } from "@/shared/types/database";
+import { AuthUser } from "@/shared/types/schemas";
 import { createContext } from "react";
 
 type AuthUserState = {
