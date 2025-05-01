@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useState } from "react";
-import { Filters, FiltersContext } from "./filters-context";
+import { Filters, FiltersContext, filtersSchema } from "./filters-context";
 
 const initialState: Filters = {
   tags: [],
@@ -9,20 +9,24 @@ const initialState: Filters = {
 
 export function FiltersProvider({ children }: PropsWithChildren) {
   const [filters, setFilters] = useState(initialState);
-  const resetFilters = () => setFilters(initialState);
-  const isEmpty =
-    filters.tags.length === 0 ||
-    Boolean(!filters.track) ||
-    Boolean(!filters.date);
+  const isEmpty = filters.tags.length === 0 && !filters.track && !filters.date;
 
   const setStorageState = (state: Filters) => {
     setFilters(state);
     localStorage.setItem("filters", JSON.stringify(state));
   };
+  const resetFilters = () => {
+    setStorageState(initialState);
+  };
   useEffect(() => {
     const storageState = localStorage.getItem("filters");
     if (storageState) {
-      setFilters(storageState ? JSON.parse(storageState) : initialState);
+      const parsedState = JSON.parse(storageState);
+
+      const { data, error } = filtersSchema.safeParse(parsedState);
+      if (error) throw error;
+
+      setFilters(storageState ? data : initialState);
     }
   }, []);
   return (

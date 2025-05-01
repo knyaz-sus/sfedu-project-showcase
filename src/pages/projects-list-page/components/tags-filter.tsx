@@ -21,7 +21,7 @@ export function TagsFilter() {
 
   const { filters, setFilters } = useFilters();
   const getButtonText = () => {
-    if (filters.tags.length === 0) return "По умолчанию";
+    if (filters.tags.length === 0) return "Выберите теги";
     if (filters.tags.length === 1) return filters.tags[0];
     return "Выбрано несколько";
   };
@@ -47,7 +47,7 @@ export function TagsFilter() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[250px] justify-between"
+          className="w-[250px] justify-between font-light text-foreground/90"
         >
           {getButtonText()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -55,10 +55,14 @@ export function TagsFilter() {
       </PopoverTrigger>
       <PopoverContent className="w-[250px] p-0">
         <Command>
-          <CommandInput placeholder="Фильтр по тегу" />
+          <CommandInput placeholder="Фильтр по тегам" />
           <CommandList>
-            <CommandEmpty>
-              {isPending ? <Spinner /> : "Не удалось загрузить теги"}
+            <CommandEmpty className="flex justify-center items-center text-center">
+              {isPending ? (
+                <Spinner className="py-4" />
+              ) : (
+                "Не удалось найти теги"
+              )}
             </CommandEmpty>
             <CommandGroup>
               {tags?.map((entity) => (

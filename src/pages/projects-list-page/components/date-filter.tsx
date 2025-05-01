@@ -15,7 +15,7 @@ import { Button } from "@/shared/ui/button";
 import { useState } from "react";
 
 export function DateFilter() {
-  const { data: dates, isPending } = useGetAllDates();
+  const { data: dates, isPending, isError } = useGetAllDates();
   const { filters, setFilters } = useFilters();
   const [open, onOpenChange] = useState(false);
 
@@ -50,8 +50,15 @@ export function DateFilter() {
           </Button>
         </SelectGroup>
         <SelectSeparator />
+        {isError && (
+          <div className="flex items-center justify-center py-2 w-full">
+            <span className="text-sm">Ошибка загрузки данных</span>
+          </div>
+        )}
         {isPending ? (
-          <Spinner />
+          <div className="flex items-center justify-center py-2 w-full">
+            <Spinner />
+          </div>
         ) : (
           <SelectGroup>
             {dates?.map((date) => (
