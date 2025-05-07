@@ -18,11 +18,8 @@ export function ProjectsListPage() {
 
   const id = useId();
   return (
-    <>
-      <div
-        className="flex flex-col justify-start gap-2 items-stretch
-                   md:flex-row md:justify-between mb-5"
-      >
+    <div className="flex flex-col gap-2 max-w-7xl mx-auto px-4 md:px-0">
+      <div className="flex flex-col lg:justify-between lg:flex-row gap-2 mb-5 ">
         <Input
           type="text"
           value={value}
@@ -31,7 +28,7 @@ export function ProjectsListPage() {
           id={`${id}-search`}
           placeholder="Введите имя проекта..."
         />
-        <div className="flex justify-stretch gap-3">
+        <div className="flex gap-2">
           <TrackFilter />
           <DateFilter />
           <TagsFilter />
@@ -51,13 +48,8 @@ export function ProjectsListPage() {
             Показано проектов: {projects.length}
           </Badge>
         )}
-        <div
-          className="grid grid-cols-1 gap-6
-                 md:grid-cols-3 lg:grid-cols-4"
-        >
-          <ProjectCards projects={projects} />
-        </div>
+        <ProjectCards projects={projects} />
       </div>
-    </>
+    </div>
   );
 }

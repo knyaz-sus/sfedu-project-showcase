@@ -36,16 +36,16 @@ export const tracksSchema = z.array(trackSchema);
 
 export const projectSchema = z.object({
   id: z.number().int(),
-  track: trackSchema,
+  track: trackSchema.nullable(),
   title: z.string(),
   description: z.string().nullable(),
-  grade: z.number(),
+  grade: z.number().nullable(),
   repo: z.string(),
   screenshots: z.array(z.string()).nullable(),
   presentation: z.string().nullable(),
-  tags: tagsSchema,
+  tags: tagsSchema.nullable(),
   users: usersSchema,
-  date: z.object({ id: z.number(), name: z.string() }),
+  date: z.object({ id: z.number(), name: z.string() }).nullable(),
   mainScreenshot: z.string().nullable(),
 });
 

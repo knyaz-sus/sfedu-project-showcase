@@ -5,7 +5,6 @@ export function ScreenshotsCarousel({
 }: {
   screenshots?: string[] | null;
 }) {
-  console.log(screenshots);
   return (
     <Carousel className="max-w-none md:max-w-lg mb-4">
       <CarouselContent>
@@ -20,21 +19,26 @@ export function ScreenshotsCarousel({
             </div>
           </div>
         </CarouselItem>
-        {Array(3)
-          .fill(0)
-          .map((_, i) => (
-            <CarouselItem key={i}>
-              <div>
-                <div className="flex rounded-xl aspect-video items-center justify-center">
-                  <img
-                    className="rounded-xl w-full aspect-video object-cover object-center"
-                    src="https://placehold.co/600x400/dc2626/white"
-                    alt="Материалы проекта"
-                  />
-                </div>
+        {screenshots?.map((_, i) => (
+          <CarouselItem key={i}>
+            <div>
+              <div className="flex rounded-xl aspect-video items-center justify-center">
+                <img
+                  className="rounded-xl w-full aspect-video object-cover object-center"
+                  src="https://placehold.co/600x400/dc2626/white"
+                  alt="Материалы проекта"
+                />
               </div>
-            </CarouselItem>
-          ))}
+            </div>
+          </CarouselItem>
+        ))}
+        <CarouselItem>
+          <img
+            className="rounded-xl w-full aspect-video object-cover object-center"
+            src="https://placehold.co/600x400"
+            alt=""
+          />
+        </CarouselItem>
       </CarouselContent>
     </Carousel>
   );

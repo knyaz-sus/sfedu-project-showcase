@@ -12,6 +12,11 @@ export async function getFilteredProjects({ tags, track, date }: Filters) {
   const url =
     params.size === 0 ? "/projects" : `/projects/filter?${params.toString()}`;
   console.log(url);
-  
-  return await fetchWithValidation(projectsSchema, url);
+
+  try {
+    return await fetchWithValidation(projectsSchema, url);
+  } catch (e) {
+    console.log(e);
+    throw new Error("Не удалось загрузить проекты");
+  }
 }

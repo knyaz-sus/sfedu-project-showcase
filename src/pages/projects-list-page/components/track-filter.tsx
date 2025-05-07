@@ -30,7 +30,7 @@ export function TrackFilter() {
       value={filters.track}
       onValueChange={handleValueChange}
     >
-      <SelectTrigger className="w-[250px]">
+      <SelectTrigger className="flex-auto">
         <SelectValue placeholder="Выберите трек" />
       </SelectTrigger>
       <SelectContent>

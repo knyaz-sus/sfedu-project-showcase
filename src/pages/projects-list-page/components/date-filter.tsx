@@ -33,7 +33,7 @@ export function DateFilter() {
       value={filters.date}
       onValueChange={handleValueChange}
     >
-      <SelectTrigger className="w-[250px]">
+      <SelectTrigger className="flex-auto">
         {isPending ? "Loading..." : <SelectValue placeholder="Выберите год" />}
       </SelectTrigger>
       <SelectContent>

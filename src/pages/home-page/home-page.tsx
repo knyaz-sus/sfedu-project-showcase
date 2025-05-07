@@ -15,7 +15,7 @@ export function HomePage() {
         <div className="container">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-              <Badge variant="outline">✨ Учись на мехмате, будь лучшим!</Badge>
+              <Badge variant="outline">Учись на мехмате, будь лучшим!</Badge>
               <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
                 Витрина проектов Мехмата ЮФУ
               </h1>

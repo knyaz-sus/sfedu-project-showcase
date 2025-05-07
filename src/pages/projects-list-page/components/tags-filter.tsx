@@ -42,12 +42,12 @@ export function TagsFilter() {
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild className="flex-auto">
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[250px] justify-between font-light text-foreground/90"
+          className="font-light text-foreground/90"
         >
           {getButtonText()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 
 const used = new Set();
 
-export function ProjectCard({ title, tags, id, track, date }: Project) {
+export function ProjectCard({
+  title,
+  description,
+  tags,
+  id,
+  track,
+  date,
+}: Project) {
   function getUnique1to7() {
     if (used.size === 6) used.clear();
     let num;
@@ -29,12 +36,14 @@ export function ProjectCard({ title, tags, id, track, date }: Project) {
         <h3 className="text-base whitespace-break-spaces line-clamp-2">
           {title}
         </h3>
-        <p className="text-sm line-clamp-2 whitespace-break-spaces">{title}</p>
+        <p className="text-sm line-clamp-2 whitespace-break-spaces">
+          {description}
+        </p>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge>{track.name}</Badge>
-          <Badge>{date.name}</Badge>
+          <Badge>{track?.name}</Badge>
+          <Badge>{date?.name}</Badge>
           <div className="flex flex-wrap gap-2">
-            {tags.slice(0, 5).map((tag) => (
+            {tags?.slice(0, 5).map((tag) => (
               <Badge variant="secondary" key={tag.id}>
                 {tag.name}
               </Badge>
