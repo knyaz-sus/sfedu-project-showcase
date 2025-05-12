@@ -26,7 +26,7 @@ export function HomePage() {
               <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
                 <Button asChild className="w-full sm:w-auto">
                   {!isAuthLoading && authUser ? (
-                    <Link to="/account">Загрузить проект</Link>
+                    <Link to="/project-editor">Загрузить проект</Link>
                   ) : (
                     <a
                       onClick={() => navigate("/login")}

@@ -1,15 +1,18 @@
-import { useState } from "react";
 import { PlusCircleIcon } from "lucide-react";
 
-export default function FileUpload() {
-  const [image, setImage] = useState<string | null>(null);
-
+export default function FileUpload({
+  image,
+  updateImage,
+}: {
+  image: string | null;
+  updateImage: (image: string | null) => void;
+}) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = () => setImage(reader.result as string);
+    reader.onload = () => updateImage(reader.result as string);
     reader.readAsDataURL(file);
   };
 

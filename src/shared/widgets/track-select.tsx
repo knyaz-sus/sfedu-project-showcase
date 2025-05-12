@@ -8,27 +8,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
-import { useFilters } from "@/pages/projects-list-page/hooks/use-filters";
 import { useState } from "react";
 import { Button } from "@/shared/ui/button";
 
-export function TrackFilter() {
-  const { filters, setFilters } = useFilters();
+interface TrackSelectProps {
+  value: string;
+  onValueChange: (value: string) => void;
+}
+
+export function TrackSelect({ value, onValueChange }: TrackSelectProps) {
   const [open, onOpenChange] = useState(false);
 
-  const handleValueChange = (value: string) => {
-    setFilters({ ...filters, track: value });
-  };
   const resetDate = () => {
-    handleValueChange("");
+    onValueChange("");
     onOpenChange(false);
   };
   return (
     <Select
       open={open}
       onOpenChange={onOpenChange}
-      value={filters.track}
-      onValueChange={handleValueChange}
+      value={value}
+      onValueChange={onValueChange}
     >
       <SelectTrigger className="flex-auto">
         <SelectValue placeholder="Выберите трек" />
@@ -38,7 +38,7 @@ export function TrackFilter() {
           <SelectLabel>Треки</SelectLabel>
           <Button
             onClick={resetDate}
-            disabled={!filters.track}
+            disabled={!value}
             size="sm"
             variant="ghost"
             aria-label="Сбросить выбор учебного года"

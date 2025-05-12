@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -8,30 +9,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
-import { useFilters } from "@/pages/projects-list-page/hooks/use-filters";
 import { useGetAllDates } from "@/pages/projects-list-page/api/hooks/use-get-all-dates";
 import { Spinner } from "@/shared/ui/spinner";
 import { Button } from "@/shared/ui/button";
-import { useState } from "react";
 
-export function DateFilter() {
+interface DateSelectProps {
+  value: string;
+  onValueChange: (value: string) => void;
+}
+
+export function DateSelect({ value, onValueChange }: DateSelectProps) {
   const { data: dates, isPending, isError } = useGetAllDates();
-  const { filters, setFilters } = useFilters();
   const [open, onOpenChange] = useState(false);
 
-  const handleValueChange = (value: string) => {
-    setFilters({ ...filters, date: value });
-  };
   const resetDate = () => {
-    handleValueChange("");
+    onValueChange("");
     onOpenChange(false);
   };
   return (
     <Select
       open={open}
       onOpenChange={onOpenChange}
-      value={filters.date}
-      onValueChange={handleValueChange}
+      value={value}
+      onValueChange={onValueChange}
     >
       <SelectTrigger className="flex-auto">
         {isPending ? "Loading..." : <SelectValue placeholder="Выберите год" />}
@@ -41,7 +41,7 @@ export function DateFilter() {
           <SelectLabel>Год</SelectLabel>
           <Button
             onClick={resetDate}
-            disabled={!filters.date}
+            disabled={!value}
             size="sm"
             variant="ghost"
             aria-label="Сбросить выбор трека"

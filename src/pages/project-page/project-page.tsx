@@ -27,24 +27,30 @@ export function ProjectPage() {
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-auto flex-col">
           <ScreenshotsCarousel screenshots={project.screenshots} />
-          <p>{project.description}</p>
+          <p>
+            {project.description
+              ? project.description
+              : "У этого проекта нет описания"}
+          </p>
         </div>
         <div className="flex-1 min-w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-2 text-sm ">
+                {project.date && <Badge>{project.date.name}</Badge>}
+                {project.track && <Badge>{project.track.name}</Badge>}
+              </div>
               {project.tags &&
                 project.tags.map((tag) => (
-                  <Badge key={tag.id}>{tag.name}</Badge>
+                  <Badge variant="secondary" key={tag.id}>
+                    {tag.name}
+                  </Badge>
                 ))}
-            </div>
-            <div className="flex gap-2 text-sm">
-              {project.date && project.date.name}
-              {project.track && project.track.name}
             </div>
             <div className="flex gap-2 items-center mb-2">
               <Link size={16} />
               <div className="flex flex-col">
-                <a href="">{project.repo}</a>
+                <a href={project.repo}>{project.repo}</a>
               </div>
             </div>
           </div>

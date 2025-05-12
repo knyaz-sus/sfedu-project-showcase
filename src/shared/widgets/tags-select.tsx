@@ -11,35 +11,24 @@ import {
   CommandList,
 } from "@/shared/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
-import { useFilters } from "@/pages/projects-list-page/hooks/use-filters";
 import { Spinner } from "@/shared/ui/spinner";
 import { useGetAllTags } from "@/shared/api/hooks/use-get-all-tags";
 
-export function TagsFilter() {
+interface TagsSelectProps {
+  value: string[];
+  onValueChange: (value: string) => void;
+}
+
+export function TagsSelect({ value, onValueChange }: TagsSelectProps) {
   const [open, setOpen] = useState(false);
   const { data: tags, isPending } = useGetAllTags();
 
-  const { filters, setFilters } = useFilters();
   const getButtonText = () => {
-    if (filters.tags.length === 0) return "Выберите теги";
-    if (filters.tags.length === 1) return filters.tags[0];
+    if (value.length === 0) return "Выберите теги";
+    if (value.length === 1) return value[0];
     return "Выбрано несколько";
   };
-  const handleSelect = (currentValue: string) => {
-    if (filters.tags.includes(currentValue)) {
-      const updatedFilters = {
-        ...filters,
-        tags: filters.tags.filter((tag) => tag !== currentValue),
-      };
-      setFilters(updatedFilters);
-    } else {
-      const updatedFilters = {
-        ...filters,
-        tags: [...filters.tags, currentValue],
-      };
-      setFilters(updatedFilters);
-    }
-  };
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -69,11 +58,11 @@ export function TagsFilter() {
                 <CommandItem
                   key={entity.id}
                   value={entity.name}
-                  onSelect={handleSelect}
+                  onSelect={onValueChange}
                 >
                   <Check
                     className={cn("mr-2 h-4 w-4 opacity-0", {
-                      "opacity-100": filters.tags.includes(entity.name),
+                      "opacity-100": value.includes(entity.name),
                     })}
                   />
                   {entity.name}

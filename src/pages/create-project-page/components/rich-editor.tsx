@@ -22,7 +22,11 @@ import {
 } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 
-export function RichTextEditor() {
+interface RichTextEditorProps {
+  onUpdate: (content: string) => void;
+}
+
+export function RichTextEditor({ onUpdate }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       Document,
@@ -48,6 +52,9 @@ export function RichTextEditor() {
     <p><s>Некоторые гиперпараметры могут быть исключены.</s></p>  
     <p><code>Пример кода для загрузки и предобработки данных.</code></p>  
     `,
+    onUpdate({ editor }) {
+      onUpdate(editor.getHTML());
+    },
   }) as Editor;
 
   const toggleBold = useCallback(() => {

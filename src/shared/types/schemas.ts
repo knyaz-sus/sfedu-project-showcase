@@ -49,10 +49,23 @@ export const projectSchema = z.object({
   mainScreenshot: z.string().nullable(),
 });
 
+export const createProjectSchema = z.object({
+  trackId: z.number().nullable(),
+  title: z.string(),
+  description: z.string().nullable(),
+  repo: z.string(),
+  screenshots: z.array(z.string()).nullable(),
+  presentation: z.string().nullable(),
+  tagsId: z.array(z.number()).nullable(),
+  usersId: z.array(z.number()).nullable(),
+  dateId: z.number().nullable(),
+  mainScreenshot: z.string().nullable(),
+});
 export const projectsSchema = z.array(projectSchema);
 
 export type Project = z.infer<typeof projectSchema>;
 export type Projects = Project[];
+export type CreateProject = z.infer<typeof createProjectSchema>;
 
 export type Tag = z.infer<typeof tagSchema>;
 export type Tags = Tag[];
