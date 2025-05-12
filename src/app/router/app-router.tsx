@@ -6,8 +6,15 @@ import { ProjectsListPage } from "@/pages/projects-list-page";
 import { ErrorPage } from "@/pages/error-page";
 import { ProtectedRoute } from "@/app/router/protected-route";
 import { LoginRedirectPage } from "@/pages/login-redirect-page";
-import { CreateProjectPage } from "@/pages/create-project-page/create-project-page";
 import { HomePage } from "@/pages/home-page";
+import { lazy, Suspense } from "react";
+import { Spinner } from "@/shared/ui/spinner";
+
+const CreateProjectPage = lazy(() =>
+  import("@/pages/create-project-page/create-project-page").then((module) => ({
+    default: module.CreateProjectPage,
+  }))
+);
 
 export function AppRouter() {
   return (
@@ -18,7 +25,23 @@ export function AppRouter() {
         <Route path="/projects" element={<ProjectsListPage />} />
         <Route element={<ProtectedRoute authOnly />}>
           <Route path="/account" element={<AccountPage />} />
-          <Route path="/project-editor" element={<CreateProjectPage />} />
+          <Route
+            path="/project-editor"
+            element={
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
+                    <Spinner
+                      className="relative z-50 text-foreground"
+                      size={30}
+                    />
+                  </div>
+                }
+              >
+                <CreateProjectPage />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>

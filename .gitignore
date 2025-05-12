@@ -23,3 +23,7 @@ node_modules
 *.sln
 *.sw?
 dist/*
+
+# Test
+
+stats.html
