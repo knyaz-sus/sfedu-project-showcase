@@ -73,6 +73,9 @@ export type Tags = Tag[];
 export type Date = z.infer<typeof dateSchema>;
 export type Dates = Date[];
 
+export type User = z.infer<typeof userSchema>;
+export type Users = User[];
+
 export type AuthUser =
   | {
       accessToken: string;

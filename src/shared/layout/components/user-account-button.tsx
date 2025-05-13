@@ -4,20 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { API_URL } from "@/shared/api/constants";
 import { Spinner } from "@/shared/ui/spinner";
+import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 
 export function UserAccountButton() {
   const { isAuthLoading, authUser } = useAuth();
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
   if (isAuthLoading) {
     return (
-      <Button variant="outline">
+      <Button variant="outline" size={isMobile ? "sm" : "default"}>
         <Spinner />
       </Button>
     );
   }
   if (!authUser) {
     return (
-      <Button variant="outline" asChild>
+      <Button variant="outline" size={isMobile ? "sm" : "default"} asChild>
         <a
           onClick={() => navigate("/login")}
           href={`${API_URL}/oauth2/authorization/azure`}
@@ -34,7 +36,7 @@ export function UserAccountButton() {
     .join("");
   const name = authUser.attributes.name.split(" ").slice(0, 2).join(" ");
   return (
-    <Button variant="outline" asChild>
+    <Button variant="outline" size={isMobile ? "sm" : "default"} asChild>
       <Link to="/account">
         <Avatar className="w-6 h-6">
           <AvatarImage src={authUser.attributes.picture} />

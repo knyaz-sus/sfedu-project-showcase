@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/app/providers/auth/auth-provider";
 import { ThemeProvider } from "@/app/providers/theme/theme-provider";
 import { FiltersProvider } from "@/app/providers/filters/filters-provider";
+import { ScrollToTop } from "@/app/router/scroll-to-top";
 
 export function AppProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
@@ -11,6 +12,7 @@ export function AppProvider({ children }: PropsWithChildren) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <ThemeProvider>
             <FiltersProvider>{children}</FiltersProvider>
           </ThemeProvider>

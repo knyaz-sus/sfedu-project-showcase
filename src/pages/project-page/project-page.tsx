@@ -1,15 +1,24 @@
 import { useParams } from "react-router-dom";
-import { ScreenshotsCarousel } from "./components/screenshots-carousel";
 import { Badge } from "@/shared/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Separator } from "@/shared/ui/separator";
 import { useGetProject } from "./api/hooks/use-get-project";
 import { Spinner } from "@/shared/ui/spinner";
 import { Link } from "lucide-react";
+import { MemberList } from "./components/member-list";
+import { Button } from "@/shared/ui/button";
+import { useState } from "react";
+import { EmblaCarousel } from "./components/project-carousel/project-carousel";
 
 export function ProjectPage() {
   const { id } = useParams();
-  const { data: project, isPending } = useGetProject(id as string);
+  const {
+    data: project,
+    isPending,
+    error,
+    isError,
+    refetch,
+  } = useGetProject(id as string);
+  const [showError, setShowError] = useState(false);
   if (isPending) {
     return (
       <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
@@ -17,16 +26,36 @@ export function ProjectPage() {
       </div>
     );
   }
-  if (!project) return null;
+  if (!project) {
+    return (
+      <div className="flex flex-col gap-2 items-center justify-center absolute top-0 left-0 h-svh w-full bg-background">
+        <div className="flex gap-2 items-center">
+          <h1 className="text-foreground">Проект не найден</h1>
+          <Button
+            onClick={() => setShowError((prev) => !prev)}
+            size="sm"
+            variant="ghost"
+          >
+            Показать ошибку
+          </Button>
+        </div>
+        {showError && <span>{isError && error.message}</span>}
+        <Button onClick={() => refetch()} size="sm">
+          Попробывать снова
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col justify-center mx-auto gap-2 max-w-7xl">
+    <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <div className="flex flex-col max-w-[75%]">
         <h1 className="w-full mb-1">{project.title}</h1>
       </div>
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-auto flex-col">
-          <ScreenshotsCarousel screenshots={project.screenshots} />
+          <EmblaCarousel slides={Array.from(Array(3).keys())} />
           <p>
             {project.description
               ? project.description
@@ -54,25 +83,8 @@ export function ProjectPage() {
               </div>
             </div>
           </div>
-          <ul className="flex flex-col w-full gap-1">
-            <h2 className="text-sm">Участники проекта</h2>
-            <Separator />
-            {project.users.map((user) => (
-              <>
-                <li className="flex items-center gap-2">
-                  <Avatar className="w-8 h-8">
-                    <AvatarImage />
-                    <AvatarFallback>
-                      {user.fullName.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span key={user.id}>{user.fullName}</span>
-                </li>
-                <Separator />
-              </>
-            ))}
-            <span className="mt-2">Оценка проекта: {project.grade}/100</span>
-          </ul>
+          <MemberList users={project.users} />
+          <span>Оценка проекта: {project.grade}/100</span>
         </div>
       </div>
     </div>
