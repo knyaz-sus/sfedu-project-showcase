@@ -7,7 +7,7 @@ import { Link } from "lucide-react";
 import { MemberList } from "./components/member-list";
 import { Button } from "@/shared/ui/button";
 import { useState } from "react";
-import { EmblaCarousel } from "./components/project-carousel/project-carousel";
+import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 
 export function ProjectPage() {
   const { id } = useParams();
@@ -55,8 +55,8 @@ export function ProjectPage() {
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-auto flex-col">
-          <EmblaCarousel slides={Array.from(Array(3).keys())} />
-          <p>
+          <ProjectCarousel slides={Array.from(Array(3).keys())} />
+          <p className="mt-2">
             {project.description
               ? project.description
               : "У этого проекта нет описания"}

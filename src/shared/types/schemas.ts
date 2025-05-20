@@ -41,12 +41,12 @@ export const projectSchema = z.object({
   description: z.string().nullable(),
   grade: z.number().nullable(),
   repo: z.string(),
-  screenshots: z.array(z.string()).nullable(),
+  screenshots: z.array(z.instanceof(File)).nullable(),
   presentation: z.string().nullable(),
   tags: tagsSchema.nullable(),
   users: usersSchema,
   date: z.object({ id: z.number(), name: z.string() }).nullable(),
-  mainScreenshot: z.string().nullable(),
+  mainScreenshot: z.instanceof(File).nullable(),
 });
 
 export const createProjectSchema = z.object({
@@ -54,12 +54,12 @@ export const createProjectSchema = z.object({
   title: z.string(),
   description: z.string().nullable(),
   repo: z.string(),
-  screenshots: z.array(z.string()).nullable(),
+  screenshots: z.array(z.instanceof(File)).nullable(),
   presentation: z.string().nullable(),
   tagsId: z.array(z.number()).nullable(),
   usersId: z.array(z.number()).nullable(),
   dateId: z.number().nullable(),
-  mainScreenshot: z.string().nullable(),
+  mainScreenshot: z.instanceof(File).nullable(),
 });
 export const projectsSchema = z.array(projectSchema);
 

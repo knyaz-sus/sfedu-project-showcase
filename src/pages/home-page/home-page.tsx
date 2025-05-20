@@ -29,7 +29,7 @@ export function HomePage() {
                     <Link to="/project-editor">Загрузить проект</Link>
                   ) : (
                     <a
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/login", { replace: true })}
                       href={`${API_URL}/oauth2/authorization/azure`}
                     >
                       Загрузить проект
@@ -41,7 +41,7 @@ export function HomePage() {
             <div className="flex flex-col text-center">
               <img
                 src="/img/img7.jpg"
-                alt="Hero section demo image showing interface components"
+                alt="Изображение проекта"
                 className="w-full aspect-video object-center rounded-md object-cover"
               />
               <span className="opacity-60">
@@ -70,7 +70,7 @@ export function HomePage() {
               <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
                 <img
                   src="/img/img5.png"
-                  alt="Feature 1"
+                  alt="Лучший проект 1"
                   className="aspect-[16/9] h-full w-full object-cover object-center"
                 />
               </div>
@@ -109,7 +109,7 @@ export function HomePage() {
               <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
                 <img
                   src="/img/img6.png"
-                  alt="Feature 2"
+                  alt="Лучший проект 2"
                   className="aspect-[16/9] h-full w-full object-cover object-center"
                 />
               </div>

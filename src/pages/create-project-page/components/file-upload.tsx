@@ -1,43 +1,39 @@
 import { PlusCircleIcon } from "lucide-react";
 
-export default function FileUpload({
-  image,
-  updateImage,
+export function FileUpload({
+  images,
+  updateImages,
 }: {
-  image: string | null;
-  updateImage: (image: string | null) => void;
+  images: File[] | null;
+  updateImages: (image: File[] | null) => void;
 }) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => updateImage(reader.result as string);
-    reader.readAsDataURL(file);
+    const files = event.target.files;
+    if (files) updateImages(files);
   };
 
   return (
-    <div>
-      <div className="flex items-center gap-4">
-        {image && (
+    <>
+      {images?.map((image) => (
+        <div className="embla__slide">
           <img
-            src={image}
-            alt="Preview"
-            className="w-[520px] h-[285px] rounded-md max-w-lg object-cover mt-2"
+            src={URL.createObjectURL(image)}
+            alt="Предпросмотр"
+            className="embla__slide__img"
           />
-        )}
-        <button className="w-[520px] h-[285px] bg-gray-100 rounded-md">
-          <label className="flex items-center justify-center w-full h-full">
-            <input
-              hidden
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-            <PlusCircleIcon />
-          </label>
-        </button>
-      </div>
-    </div>
+        </div>
+      ))}
+      <button className="embla__slide">
+        <label className="embla__slide__img flex justify-center items-center h-full bg-accent">
+          <input
+            hidden
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          <PlusCircleIcon />
+        </label>
+      </button>
+    </>
   );
 }

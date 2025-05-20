@@ -21,7 +21,7 @@ export function UserAccountButton() {
     return (
       <Button variant="outline" size={isMobile ? "sm" : "default"} asChild>
         <a
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/login", { replace: true })}
           href={`${API_URL}/oauth2/authorization/azure`}
         >
           Войти

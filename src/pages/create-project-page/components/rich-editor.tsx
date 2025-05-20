@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
@@ -57,25 +56,25 @@ export function RichTextEditor({ onUpdate }: RichTextEditorProps) {
     },
   }) as Editor;
 
-  const toggleBold = useCallback(() => {
+  const toggleBold = () => {
     editor.chain().focus().toggleBold().run();
-  }, [editor]);
+  };
 
-  const toggleUnderline = useCallback(() => {
+  const toggleUnderline = () => {
     editor.chain().focus().toggleUnderline().run();
-  }, [editor]);
+  };
 
-  const toggleItalic = useCallback(() => {
+  const toggleItalic = () => {
     editor.chain().focus().toggleItalic().run();
-  }, [editor]);
+  };
 
-  const toggleStrike = useCallback(() => {
+  const toggleStrike = () => {
     editor.chain().focus().toggleStrike().run();
-  }, [editor]);
+  };
 
-  const toggleCode = useCallback(() => {
+  const toggleCode = () => {
     editor.chain().focus().toggleCode().run();
-  }, [editor]);
+  };
 
   if (!editor) {
     return null;

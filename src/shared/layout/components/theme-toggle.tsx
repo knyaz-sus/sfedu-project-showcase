@@ -4,9 +4,9 @@ import { DesktopIcon } from "@radix-ui/react-icons";
 import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   return (
-    <ToggleGroup type="single">
+    <ToggleGroup type="single" value={theme}>
       <ToggleGroupItem
         value="light"
         className="p-2 h-auto"

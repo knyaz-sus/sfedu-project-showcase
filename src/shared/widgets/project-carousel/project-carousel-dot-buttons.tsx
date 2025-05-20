@@ -3,11 +3,7 @@ import { ComponentPropsWithRef } from "react";
 type DotButtonProps = ComponentPropsWithRef<"button">;
 
 export function DotButton(props: DotButtonProps) {
-  const { children, ...restProps } = props;
-
   return (
-    <button type="button" {...restProps}>
-      {children}
-    </button>
+    <button type="button" className="hover:after:bg-border" {...props}></button>
   );
 }
