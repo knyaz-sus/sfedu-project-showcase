@@ -10,7 +10,7 @@ export function Header() {
         <ul className="flex items-center  sm:gap-2">
           <li className="mr-3">
             <Link to="/" className="flex items-center">
-              <img className="max-w-9 max-h-9" src="/logo.png" alt="logo" />
+              <img className="max-w-9 max-h-9" src="/img/logo.png" alt="logo" />
             </Link>
           </li>
           <li>

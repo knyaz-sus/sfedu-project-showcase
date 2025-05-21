@@ -25,7 +25,11 @@ export function ProtectedRoute({ authOnly }: ProtectedRouteProps) {
   }, [authUser, isAuthLoading, authOnly, navigate]);
 
   if (isAuthLoading) {
-    return <Spinner />;
+    return (
+      <div className="h-svh w-full flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return <Outlet />;

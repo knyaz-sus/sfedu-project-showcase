@@ -14,7 +14,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
-    rollupOptions: { output: { manualChunks: { zod: ["zod"] } } },
+    rollupOptions: {
+      output: { manualChunks: { zod: ["zod"], sanitizeHtml: ["sanitize-html"] } },
+    },
   },
   preview: {
     host: true,

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FileUpload } from "@/pages/create-project-page/components/file-upload";
 import { RichTextEditor } from "./components/rich-editor";
 import { Separator } from "@/shared/ui/separator";
 import { Input } from "@/shared/ui/input";
@@ -10,17 +9,22 @@ import { TagsSelect } from "@/shared/widgets/tags-select";
 import { DateSelect } from "@/shared/widgets/date-select";
 import { useGetAllDates } from "@/pages/projects-list-page/api/hooks/use-get-all-dates";
 import { useGetAllTags } from "@/shared/api/hooks/use-get-all-tags";
-import { CreateProject, Project } from "@/shared/types/schemas";
+import { CreateProject } from "@/shared/types/schemas";
 import { ProjectCarousel } from "@/shared/widgets/project-carousel";
+import { FileUpload } from "./components/file-upload";
+import { useToast } from "@/shared/hooks/use-toast";
 
-type CreateProjectState = Omit<
-  Project,
-  "id" | "grade" | "track" | "date" | "users" | "tags"
-> & {
+type CreateProjectState = {
+  mainScreenshot: File | null;
+  screenshots: File[] | null;
   track: string;
   date: string;
   tags: string[];
   users: null | string[];
+  presentation: string;
+  description: string;
+  title: string;
+  repo: string;
 };
 
 const initialCreateProjectState = {
@@ -32,8 +36,8 @@ const initialCreateProjectState = {
   date: "",
   tags: [],
   users: null,
-  mainScreenshot: null,
   screenshots: null,
+  mainScreenshot: null,
 };
 
 export function CreateProjectPage() {
@@ -42,49 +46,56 @@ export function CreateProjectPage() {
   );
   const { data: dates } = useGetAllDates();
   const { data: tags } = useGetAllTags();
-  const { mutate } = useCreateProject();
-
-  const handleProjectCreate = () => {
+  const { mutateAsync } = useCreateProject();
+  const { toast } = useToast();
+  const handleProjectCreate = async () => {
     const trackId = project.track === "Бакалавриат" ? 1 : 2;
     const dateId = dates?.find((date) => date.name === project.date)?.id ?? 0;
     const tagsId =
       tags
         ?.filter((tag) => project.tags.includes(tag.name))
         .map((tag) => tag.id) ?? [];
-    const mappedProject: CreateProject = {
+    const mappedProject: Omit<
+      CreateProject,
+      "mainScreenshot" | "screenshots"
+    > & {
+      mainScreenshot: File | null;
+      screenshots: File[] | null;
+    } = {
       title: project.title,
       description: project.description,
       repo: project.repo,
       presentation: project.presentation,
-      mainScreenshot: project.mainScreenshot,
+      mainScreenshot: project.screenshots ? project.screenshots[0] : null,
       trackId,
       tagsId,
       dateId,
       usersId: [1],
-      screenshots: null,
+      screenshots: project.screenshots,
     };
-    mutate(mappedProject);
+    try {
+      await mutateAsync(mappedProject);
+      toast({
+        title: "Ваш проект успешно загружен!",
+      });
+      setProject(initialCreateProjectState);
+    } catch (error) {
+      toast({
+        title: "Ошибка при загрузке проекта",
+        description:
+          error instanceof Error ? error.message : "Что-то пошло не так",
+        variant: "destructive",
+      });
+    }
   };
 
-  const updateField = <K extends keyof CreateProjectState>(
-    field: K,
-    value: CreateProjectState[K]
-  ) => {
+  const updateImages = (image: File | null) => {
+    if (!image) return;
     setProject((prev) => ({
       ...prev,
-      [field]: value,
+      screenshots: prev.screenshots ? [...prev.screenshots, image] : [image],
     }));
   };
-
-  const updateImage = (images: File[] | null) =>
-    updateField("screenshots", images);
-
-  const updateTrack = (track: string) => updateField("track", track);
-
-  const updateDescription = (description: string) =>
-    updateField("description", description);
-
-  const updateDate = (date: string) => updateField("date", date);
 
   const updateTags = (tag: string) => {
     setProject((prev) => {
@@ -102,6 +113,20 @@ export function CreateProjectPage() {
     });
   };
 
+  const updateField = <K extends keyof CreateProjectState>(
+    field: K,
+    value: CreateProjectState[K]
+  ) => {
+    setProject((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+  const updateTrack = (track: string) => updateField("track", track);
+  const updateDescription = (description: string) =>
+    updateField("description", description);
+  const updateDate = (date: string) => updateField("date", date);
+
   return (
     <div className="flex-1 flex flex-col order-1 md:order-2 gap-2 items-start max-w-7xl mx-auto">
       <Input
@@ -111,8 +136,12 @@ export function CreateProjectPage() {
         onChange={(e) => updateField("title", e.target.value)}
       />
       <Separator />
-      <ProjectCarousel className="w-full" slides={Array.from(Array(0).keys())}>
-        <FileUpload images={project.screenshots} updateImages={updateImage} />
+      <ProjectCarousel
+        className="w-full"
+        images={project.screenshots}
+        showControls={!!project.screenshots && project.screenshots?.length > 0}
+      >
+        <FileUpload updateImages={updateImages} />
       </ProjectCarousel>
       <div className="flex gap-2">
         <Input

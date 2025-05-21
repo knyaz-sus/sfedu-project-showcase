@@ -41,24 +41,24 @@ export const projectSchema = z.object({
   description: z.string().nullable(),
   grade: z.number().nullable(),
   repo: z.string(),
-  screenshots: z.array(z.instanceof(File)).nullable(),
+  screenshots: z.array(z.string()).nullable(),
   presentation: z.string().nullable(),
   tags: tagsSchema.nullable(),
   users: usersSchema,
   date: z.object({ id: z.number(), name: z.string() }).nullable(),
-  mainScreenshot: z.instanceof(File).nullable(),
+  mainScreenshot: z.string().nullable(),
 });
 
 export const createProjectSchema = z.object({
-  trackId: z.number().nullable(),
+  trackId: z.number(),
   title: z.string(),
-  description: z.string().nullable(),
+  description: z.string(),
   repo: z.string(),
+  presentation: z.string(),
+  tagsId: z.array(z.number()),
+  usersId: z.array(z.number()),
+  dateId: z.number(),
   screenshots: z.array(z.instanceof(File)).nullable(),
-  presentation: z.string().nullable(),
-  tagsId: z.array(z.number()).nullable(),
-  usersId: z.array(z.number()).nullable(),
-  dateId: z.number().nullable(),
   mainScreenshot: z.instanceof(File).nullable(),
 });
 export const projectsSchema = z.array(projectSchema);

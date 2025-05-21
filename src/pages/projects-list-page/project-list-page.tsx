@@ -1,14 +1,14 @@
 import { useId } from "react";
 import { ProjectCards } from "@/pages/projects-list-page/components/project-cards";
 import { Input } from "@/shared/ui/input";
-import { TagsSelect } from "../../shared/widgets/tags-select";
+import { TagsSelect } from "@/shared/widgets/tags-select";
 import { Badge } from "@/shared/ui/badge";
 import { useFilters } from "./hooks/use-filters";
 import { ResetIcon } from "@radix-ui/react-icons";
 import { Button } from "@/shared/ui/button";
 import { useGetFilteredProjects } from "./api/hooks/use-get-filtered-projects";
-import { TrackSelect } from "../../shared/widgets/track-select";
-import { DateSelect } from "../../shared/widgets/date-select";
+import { TrackSelect } from "@/shared/widgets/track-select";
+import { DateSelect } from "@/shared/widgets/date-select";
 import { useDebouncedInput } from "@/shared/hooks/use-debounce";
 
 export function ProjectsListPage() {

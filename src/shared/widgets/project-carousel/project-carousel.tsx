@@ -1,22 +1,20 @@
 import "./project-carousel.css";
-import React, { ReactNode } from "react";
-import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
+import { cn } from "@/shared/lib/cn";
 import { DotButton } from "./project-carousel-dot-buttons";
 import { NextButton, PrevButton } from "./project-carousel-next-buttons";
 import { useDotButton, usePrevNextButtons } from "./hooks";
-import { cn } from "@/shared/lib/cn";
 
-type PropType = {
-  slides: number[];
-  options?: EmblaOptionsType;
-  children?: ReactNode;
+type ProjectCarouselProps = {
+  images: File[] | null;
   className?: string;
+  children?: React.ReactNode;
+  showControls: boolean;
 };
 
-export const ProjectCarousel: React.FC<PropType> = (props) => {
-  const { slides, options, children, className } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+export function ProjectCarousel(props: ProjectCarouselProps) {
+  const { images, children, className, showControls } = props;
+  const [emblaRef, emblaApi] = useEmblaCarousel();
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -32,33 +30,51 @@ export const ProjectCarousel: React.FC<PropType> = (props) => {
     <section className={cn("embla", className)}>
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((index) => (
-            <div className="embla__slide" key={index}>
-              <img className="embla__slide__img" src="/img/bro.png" />
+          {children}
+          {images?.map((image, index) => (
+            <div className="embla__slide" key={image.name + index}>
+              <img
+                className={cn("embla__slide__img", {
+                  "border-4 border-primary": index === 0,
+                })}
+                src={URL.createObjectURL(image)}
+                alt={`Загруженное изображение ${index + 1}`}
+              />
+              {index === 0 && (
+                <span className="text-center text-muted-foreground block mt-2">
+                  Главное изображение проекта
+                </span>
+              )}
             </div>
           ))}
-          {children}
         </div>
       </div>
-
-      <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-        </div>
-
-        <div className="embla__dots">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={"embla__dot".concat(
-                index === selectedIndex ? " embla__dot--selected" : ""
-              )}
+      {showControls && (
+        <div className="embla__controls">
+          <div className="embla__buttons">
+            <PrevButton
+              onClick={onPrevButtonClick}
+              disabled={prevBtnDisabled}
             />
-          ))}
+            <NextButton
+              onClick={onNextButtonClick}
+              disabled={nextBtnDisabled}
+            />
+          </div>
+
+          <div className="embla__dots">
+            {scrollSnaps.map((_, index) => (
+              <DotButton
+                key={index}
+                onClick={() => onDotButtonClick(index)}
+                className={"embla__dot".concat(
+                  index === selectedIndex ? " embla__dot--selected" : ""
+                )}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
-};
+}

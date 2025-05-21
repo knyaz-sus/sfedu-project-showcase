@@ -40,13 +40,10 @@ export function HomePage() {
             </div>
             <div className="flex flex-col text-center">
               <img
-                src="/img/img7.jpg"
+                src="/img/placeholder.svg"
                 alt="Изображение проекта"
                 className="w-full aspect-video object-center rounded-md object-cover"
               />
-              <span className="opacity-60">
-                Изображение: Роман Филоненко ФИИТ-МИ-2
-              </span>
             </div>
           </div>
         </div>
@@ -69,7 +66,7 @@ export function HomePage() {
             <div className="flex flex-col overflow-clip rounded-xl border border-border md:col-span-2 md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
               <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
                 <img
-                  src="/img/img5.png"
+                  src="/img/placeholder.svg"
                   alt="Лучший проект 1"
                   className="aspect-[16/9] h-full w-full object-cover object-center"
                 />
@@ -108,7 +105,7 @@ export function HomePage() {
               </div>
               <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
                 <img
-                  src="/img/img6.png"
+                  src="/img/placeholder.svg"
                   alt="Лучший проект 2"
                   className="aspect-[16/9] h-full w-full object-cover object-center"
                 />

@@ -1,8 +1,7 @@
+import { Link } from "react-router-dom";
 import { Project } from "@/shared/types/schemas";
 import { Badge } from "@/shared/ui/badge";
-import { Link } from "react-router-dom";
-
-const used = new Set();
+import { StaticEditor } from "@/shared/ui/static-editor";
 
 export function ProjectCard({
   title,
@@ -12,14 +11,6 @@ export function ProjectCard({
   track,
   date,
 }: Project) {
-  function getUnique1to7() {
-    if (used.size === 6) used.clear();
-    let num;
-    do num = Math.floor(Math.random() * 6) + 1;
-    while (used.has(num));
-    used.add(num);
-    return num;
-  }
   return (
     <Link
       to={`/projects/${id}`}
@@ -28,17 +19,18 @@ export function ProjectCard({
       <div className="rounded-lg rounded-b-none overflow-hidden">
         <img
           className="w-full aspect-video object-cover object-center"
-          src={`/img/img${getUnique1to7()}.png`}
-          alt="Project"
+          src="/img/placeholder.svg"
+          alt="Изображение проекта"
         />
       </div>
       <div className="flex flex-col gap-2 p-3">
         <h3 className="text-base whitespace-break-spaces line-clamp-2">
           {title}
         </h3>
-        <p className="text-sm line-clamp-2 whitespace-break-spaces">
-          {description}
-        </p>
+        <StaticEditor
+          className="line-clamp-2 whitespace-break-spaces"
+          dangerousString={description ?? ""}
+        />
         <div className="flex flex-wrap items-center gap-2">
           <Badge>{track?.name}</Badge>
           <Badge>{date?.name}</Badge>

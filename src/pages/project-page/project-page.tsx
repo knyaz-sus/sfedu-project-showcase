@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Badge } from "@/shared/ui/badge";
 import { Separator } from "@/shared/ui/separator";
@@ -6,8 +7,7 @@ import { Spinner } from "@/shared/ui/spinner";
 import { Link } from "lucide-react";
 import { MemberList } from "./components/member-list";
 import { Button } from "@/shared/ui/button";
-import { useState } from "react";
-import { ProjectCarousel } from "@/shared/widgets/project-carousel";
+import { StaticEditor } from "@/shared/ui/static-editor";
 
 export function ProjectPage() {
   const { id } = useParams();
@@ -46,7 +46,6 @@ export function ProjectPage() {
       </div>
     );
   }
-
   return (
     <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <div className="flex flex-col max-w-[75%]">
@@ -55,12 +54,24 @@ export function ProjectPage() {
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex flex-auto flex-col">
-          <ProjectCarousel slides={Array.from(Array(3).keys())} />
-          <p className="mt-2">
-            {project.description
-              ? project.description
-              : "У этого проекта нет описания"}
-          </p>
+          {/* Server doesn't send images yet */}
+          {/* {project.mainScreenshot && (
+            <ProjectCarousel
+              showControls
+              images={[
+                ...(project.mainScreenshot ? [project.mainScreenshot] : []),
+                ...(project.screenshots ?? []),
+              ]}
+            />
+          )} */}
+          <StaticEditor
+            className="mt-2"
+            dangerousString={
+              project.description
+                ? project.description
+                : "У этого проекта нет описания"
+            }
+          />
         </div>
         <div className="flex-1 min-w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
