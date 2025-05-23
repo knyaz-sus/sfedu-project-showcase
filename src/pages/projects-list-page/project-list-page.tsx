@@ -63,14 +63,15 @@ export function ProjectsListPage() {
           </Button>
         </div>
       </div>
-      <div>
-        {!!projects && (
+      {!!projects && (
+        <div className="w-full">
           <Badge className="mb-2" variant="secondary">
             Показано проектов: {projects.length}
           </Badge>
-        )}
-        <ProjectCards projects={projects} />
-      </div>
+        </div>
+      )}
+
+      <ProjectCards projects={projects} />
     </div>
   );
 }

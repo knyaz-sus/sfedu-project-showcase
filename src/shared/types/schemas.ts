@@ -40,7 +40,7 @@ export const projectSchema = z.object({
   title: z.string(),
   description: z.string().nullable(),
   grade: z.number().nullable(),
-  repo: z.string(),
+  repo: z.string().nullable(),
   screenshots: z.array(z.string()).nullable(),
   presentation: z.string().nullable(),
   tags: tagsSchema.nullable(),
@@ -51,14 +51,14 @@ export const projectSchema = z.object({
 
 export const createProjectSchema = z.object({
   trackId: z.number(),
-  title: z.string(),
-  description: z.string(),
+  title: z.string().nonempty(),
+  description: z.string().nonempty(),
   repo: z.string(),
   presentation: z.string(),
   tagsId: z.array(z.number()),
   usersId: z.array(z.number()),
-  dateId: z.number(),
   screenshots: z.array(z.instanceof(File)).nullable(),
+  dateId: z.number(),
   mainScreenshot: z.instanceof(File).nullable(),
 });
 export const projectsSchema = z.array(projectSchema);

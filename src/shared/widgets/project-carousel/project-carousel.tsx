@@ -41,7 +41,7 @@ export function ProjectCarousel(props: ProjectCarouselProps) {
                 alt={`Загруженное изображение ${index + 1}`}
               />
               {index === 0 && (
-                <span className="text-center text-muted-foreground block mt-2">
+                <span className="text-center text-muted-foreground block">
                   Главное изображение проекта
                 </span>
               )}

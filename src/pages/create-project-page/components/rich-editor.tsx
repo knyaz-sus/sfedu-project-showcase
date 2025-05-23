@@ -2,59 +2,63 @@ import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
-import Link from "@tiptap/extension-link";
 import Bold from "@tiptap/extension-bold";
 import Underline from "@tiptap/extension-underline";
 import Italic from "@tiptap/extension-italic";
 import Strike from "@tiptap/extension-strike";
 import Code from "@tiptap/extension-code";
 import History from "@tiptap/extension-history";
+import Placeholder from "@tiptap/extension-placeholder";
 import {
   BoldIcon,
   CodeIcon,
   ItalicIcon,
-  LinkIcon,
   Redo,
   Strikethrough,
   UnderlineIcon,
   Undo,
 } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
+import { Toggle } from "@/shared/ui/toggle";
+import { Separator } from "@/shared/ui/separator";
+import { useEffect } from "react";
 
 interface RichTextEditorProps {
+  content: string;
   onUpdate: (content: string) => void;
+  className?: string;
 }
 
-export function RichTextEditor({ onUpdate }: RichTextEditorProps) {
+export function RichTextEditor({
+  content,
+  onUpdate,
+  className,
+}: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       Document,
       History,
       Paragraph,
       Text,
-      Link.configure({
-        openOnClick: false,
-      }),
       Bold,
       Underline,
       Italic,
       Strike,
       Code,
+      Placeholder.configure({
+        placeholder: "Введите описание вашего проекта...",
+      }),
     ],
-    content: `<p>Этот проект посвящен машинному обучению и анализу данных. Он позволяет обучать модели, оценивать их точность и применять на практике.</p>  
-    <p>Для удобства доступны горячие клавиши: отмена последнего действия (Control/Cmd Z) и повтор (Control/Cmd Shift Z).</p>  
-    <p>Алгоритмы используют <a href="https://ru.wikipedia.org/wiki/Нейронная_сеть">нейронные сети</a> и другие методы анализа данных. Можно загружать датасеты и тренировать модели. Давайте проверим <a href="https://scikit-learn.org/">еще один инструмент!</a> Отлично работает.</p>  
-    <p>По умолчанию система учитывает важные параметры модели, но их можно изменить для тонкой настройки.</p>  
-    <p><strong>Обученная модель готова к тестированию.</strong></p>  
-    <p><u>Выделенные параметры влияют на точность предсказаний.</u></p>  
-    <p><em>Используйте разные алгоритмы для сравнения результатов.</em></p>  
-    <p><s>Некоторые гиперпараметры могут быть исключены.</s></p>  
-    <p><code>Пример кода для загрузки и предобработки данных.</code></p>  
-    `,
     onUpdate({ editor }) {
       onUpdate(editor.getHTML());
     },
   }) as Editor;
+
+  useEffect(() => {
+    if (editor && content !== editor.getHTML()) {
+      editor.commands.setContent(content || "");
+    }
+  }, [content, editor]);
 
   const toggleBold = () => {
     editor.chain().focus().toggleBold().run();
@@ -81,72 +85,77 @@ export function RichTextEditor({ onUpdate }: RichTextEditorProps) {
   }
 
   return (
-    <div className="editor">
-      <div className="menu">
-        <button
-          className="menu-button"
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().undo()}
-        >
-          <Undo />
-        </button>
-        <button
-          className="menu-button"
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().redo()}
-        >
-          <Redo />
-        </button>
-        <button
-          className={cn("menu-button", {
-            "is-active": editor.isActive("link"),
-          })}
-        >
-          <LinkIcon />
-        </button>
-        <button
-          className={cn("menu-button", {
-            "is-active": editor.isActive("bold"),
-          })}
-          onClick={toggleBold}
+    <div
+      className={cn(
+        "flex flex-col w-full border border-border rounded-md bg-background p-2 gap-2",
+        className
+      )}
+    >
+      <div className="flex gap-1">
+        <Toggle
+          pressed={editor.isActive("bold")}
+          onPressedChange={toggleBold}
+          size="sm"
+          aria-label="Format Bold"
         >
           <BoldIcon />
-        </button>
-        <button
-          className={cn("menu-button", {
-            "is-active": editor.isActive("underline"),
-          })}
-          onClick={toggleUnderline}
+        </Toggle>
+        <Toggle
+          pressed={editor.isActive("underline")}
+          onPressedChange={toggleUnderline}
+          size="sm"
+          aria-label="Format Underline"
         >
           <UnderlineIcon />
-        </button>
-        <button
-          className={cn("menu-button", {
-            "is-active": editor.isActive("intalic"),
-          })}
-          onClick={toggleItalic}
+        </Toggle>
+        <Toggle
+          pressed={editor.isActive("italic")}
+          onPressedChange={toggleItalic}
+          size="sm"
+          aria-label="Format Italic"
         >
           <ItalicIcon />
-        </button>
-        <button
-          className={cn("menu-button", {
-            "is-active": editor.isActive("strike"),
-          })}
-          onClick={toggleStrike}
+        </Toggle>
+        <Toggle
+          pressed={editor.isActive("strike")}
+          onPressedChange={toggleStrike}
+          size="sm"
+          aria-label="Format Strike"
         >
           <Strikethrough />
-        </button>
-        <button
-          className={cn("menu-button", {
-            "is-active": editor.isActive("code"),
-          })}
-          onClick={toggleCode}
+        </Toggle>
+        <Toggle
+          pressed={editor.isActive("code")}
+          onPressedChange={toggleCode}
+          size="sm"
+          aria-label="Format Code"
         >
           <CodeIcon />
-        </button>
+        </Toggle>
+        <Toggle
+          pressed={false}
+          onPressedChange={() => editor.chain().focus().undo().run()}
+          size="sm"
+          disabled={!editor.can().undo()}
+          aria-label="Undo"
+        >
+          <Undo />
+        </Toggle>
+        <Toggle
+          pressed={false}
+          onPressedChange={() => editor.chain().focus().redo().run()}
+          size="sm"
+          disabled={!editor.can().redo()}
+          aria-label="Redo"
+        >
+          <Redo />
+        </Toggle>
       </div>
-
-      <EditorContent editor={editor} />
+      <Separator />
+      <EditorContent
+        className="pl-2 flex-auto h-full [&_.tiptap.ProseMirror_p]:h-full"
+        editor={editor}
+      />
     </div>
   );
 }

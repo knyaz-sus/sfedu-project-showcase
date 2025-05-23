@@ -46,6 +46,8 @@ export function ProjectPage() {
       </div>
     );
   }
+
+  const hasLinks = project.repo || project.presentation;
   return (
     <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <div className="flex flex-col max-w-[75%]">
@@ -53,7 +55,7 @@ export function ProjectPage() {
       </div>
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex flex-auto flex-col">
+        <div className="flex md:w-[75%] flex-col">
           {/* Server doesn't send images yet */}
           {/* {project.mainScreenshot && (
             <ProjectCarousel
@@ -73,7 +75,7 @@ export function ProjectPage() {
             }
           />
         </div>
-        <div className="flex-1 min-w-[25%] flex flex-col gap-2 items-start">
+        <div className="flex-1 md:w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
             <div className="flex gap-2 flex-wrap">
               <div className="flex gap-2 text-sm ">
@@ -87,12 +89,17 @@ export function ProjectPage() {
                   </Badge>
                 ))}
             </div>
-            <div className="flex gap-2 items-center mb-2">
-              <Link size={16} />
-              <div className="flex flex-col">
-                <a href={project.repo}>{project.repo}</a>
+            {hasLinks && (
+              <div className="flex gap-2 items-center mb-2">
+                <Link size={16} />
+                <div className="flex flex-col">
+                  {project.repo && <a href={project.repo}>{project.repo}</a>}
+                  {project.presentation && (
+                    <a href={project.presentation}>{project.presentation}</a>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <MemberList users={project.users} />
           <span>Оценка проекта: {project.grade}/100</span>

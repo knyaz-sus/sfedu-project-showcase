@@ -49,31 +49,33 @@ export function CreateProjectPage() {
   const { mutateAsync } = useCreateProject();
   const { toast } = useToast();
   const handleProjectCreate = async () => {
-    const trackId = project.track === "Бакалавриат" ? 1 : 2;
-    const dateId = dates?.find((date) => date.name === project.date)?.id ?? 0;
-    const tagsId =
-      tags
-        ?.filter((tag) => project.tags.includes(tag.name))
-        .map((tag) => tag.id) ?? [];
-    const mappedProject: Omit<
-      CreateProject,
-      "mainScreenshot" | "screenshots"
-    > & {
-      mainScreenshot: File | null;
-      screenshots: File[] | null;
-    } = {
-      title: project.title,
-      description: project.description,
-      repo: project.repo,
-      presentation: project.presentation,
-      mainScreenshot: project.screenshots ? project.screenshots[0] : null,
-      trackId,
-      tagsId,
-      dateId,
-      usersId: [1],
-      screenshots: project.screenshots,
-    };
     try {
+      const trackId = project.track === "Бакалавриат" ? 1 : 2;
+      const dateId = dates?.find((date) => date.name === project.date)?.id ?? 0;
+      const tagsId = tags
+        ?.filter((tag) => project.tags.includes(tag.name))
+        .map((tag) => tag.id);
+      if (!tagsId || tagsId.length === 0) {
+        throw new Error("Не все необходимые поля корректно заполнены");
+      }
+      const mappedProject: Omit<
+        CreateProject,
+        "mainScreenshot" | "screenshots"
+      > & {
+        mainScreenshot: File | null;
+        screenshots: File[] | null;
+      } = {
+        title: project.title,
+        description: project.description,
+        repo: project.repo,
+        presentation: project.presentation,
+        mainScreenshot: project.screenshots ? project.screenshots[0] : null,
+        trackId,
+        tagsId,
+        dateId,
+        usersId: [],
+        screenshots: project.screenshots,
+      };
       await mutateAsync(mappedProject);
       toast({
         title: "Ваш проект успешно загружен!",
@@ -128,7 +130,7 @@ export function CreateProjectPage() {
   const updateDate = (date: string) => updateField("date", date);
 
   return (
-    <div className="flex-1 flex flex-col order-1 md:order-2 gap-2 items-start max-w-7xl mx-auto">
+    <div className="flex flex-col items-start flex-1 gap-2 order-1 md:order-2 max-w-7xl w-full">
       <Input
         placeholder="Введите имя вашего проекта..."
         className="border-none shadow-none min-w-96 leading-tight font-semibold text-xl"
@@ -158,7 +160,11 @@ export function CreateProjectPage() {
         <DateSelect value={project.date} onValueChange={updateDate} />
         <TagsSelect value={project.tags} onValueChange={updateTags} />
       </div>
-      <RichTextEditor onUpdate={updateDescription} />
+      <RichTextEditor
+        className="flex-auto"
+        content={project.description}
+        onUpdate={updateDescription}
+      />
       <Button onClick={handleProjectCreate} disabled={!project}>
         Загрузить
       </Button>
