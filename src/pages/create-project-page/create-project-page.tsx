@@ -41,46 +41,48 @@ const initialCreateProjectState = {
 };
 
 export function CreateProjectPage() {
+  const { toast } = useToast();
   const [project, setProject] = useState<CreateProjectState>(
     initialCreateProjectState
   );
   const { data: dates } = useGetAllDates();
   const { data: tags } = useGetAllTags();
   const { mutateAsync } = useCreateProject();
-  const { toast } = useToast();
+
   const handleProjectCreate = async () => {
     try {
+      if (!dates || !tags) {
+        throw new Error("Что-то пошло не так, попробуйте позже");
+      }
+
       const trackId = project.track === "Бакалавриат" ? 1 : 2;
-      const dateId = dates?.find((date) => date.name === project.date)?.id ?? 0;
+
+      const dateId =
+        dates.find((date) => date.name === project.date)?.id ??
+        dates.at(-1)?.id;
+
       const tagsId = tags
         ?.filter((tag) => project.tags.includes(tag.name))
         .map((tag) => tag.id);
-      if (!tagsId || tagsId.length === 0) {
+
+      if (!tagsId || !dateId || tagsId.length === 0) {
         throw new Error("Не все необходимые поля корректно заполнены");
       }
-      const mappedProject: Omit<
-        CreateProject,
-        "mainScreenshot" | "screenshots"
-      > & {
-        mainScreenshot: File | null;
-        screenshots: File[] | null;
-      } = {
-        title: project.title,
-        description: project.description,
-        repo: project.repo,
-        presentation: project.presentation,
+
+      const mappedProject: CreateProject = {
+        ...project,
         mainScreenshot: project.screenshots ? project.screenshots[0] : null,
         trackId,
         tagsId,
         dateId,
         usersId: [],
-        screenshots: project.screenshots,
       };
+
       await mutateAsync(mappedProject);
+      setProject(initialCreateProjectState);
       toast({
         title: "Ваш проект успешно загружен!",
       });
-      setProject(initialCreateProjectState);
     } catch (error) {
       toast({
         title: "Ошибка при загрузке проекта",
@@ -124,6 +126,7 @@ export function CreateProjectPage() {
       [field]: value,
     }));
   };
+
   const updateTrack = (track: string) => updateField("track", track);
   const updateDescription = (description: string) =>
     updateField("description", description);

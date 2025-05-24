@@ -75,13 +75,11 @@ export function ProjectPage() {
             }
           />
         </div>
-        <div className="flex-1 md:w-[25%] flex flex-col gap-2 items-start">
+        <div className="md:w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
             <div className="flex gap-2 flex-wrap">
-              <div className="flex gap-2 text-sm ">
-                {project.date && <Badge>{project.date.name}</Badge>}
-                {project.track && <Badge>{project.track.name}</Badge>}
-              </div>
+              {project.date && <Badge>{project.date.name}</Badge>}
+              {project.track && <Badge>{project.track.name}</Badge>}
               {project.tags &&
                 project.tags.map((tag) => (
                   <Badge variant="secondary" key={tag.id}>
@@ -93,16 +91,22 @@ export function ProjectPage() {
               <div className="flex gap-2 items-center mb-2">
                 <Link size={16} />
                 <div className="flex flex-col">
-                  {project.repo && <a href={project.repo}>{project.repo}</a>}
+                  {project.repo && (
+                    <a className="break-all" href={project.repo}>
+                      {project.repo}
+                    </a>
+                  )}
                   {project.presentation && (
-                    <a href={project.presentation}>{project.presentation}</a>
+                    <a className="break-all" href={project.presentation}>
+                      {project.presentation}
+                    </a>
                   )}
                 </div>
               </div>
             )}
           </div>
           <MemberList users={project.users} />
-          <span>Оценка проекта: {project.grade}/100</span>
+          {project.grade && <span>Оценка проекта: {project.grade}/100</span>}
         </div>
       </div>
     </div>

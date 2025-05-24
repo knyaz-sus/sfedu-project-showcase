@@ -3,13 +3,7 @@ import { CreateProject, createProjectSchema } from "@/shared/types/schemas";
 
 function createFormData(project: CreateProject) {
   const validatedProject = createProjectSchema.safeParse(project);
-  if (
-    !project.mainScreenshot ||
-    !project.screenshots ||
-    project.screenshots.length === 0
-  ) {
-    throw Error("Пожалуйста, загрузите изображения");
-  }
+
   if (validatedProject.error) {
     throw Error("Не все необходимые поля корректно заполнены");
   }
@@ -19,21 +13,24 @@ function createFormData(project: CreateProject) {
   formData.append("description", project.description ?? "");
   formData.append("repo", project.repo);
   formData.append("presentation", project.presentation ?? "");
-  formData.append("mainScreenshot", project.mainScreenshot);
 
   formData.append("trackId", String(project.trackId));
   formData.append("dateId", String(project.dateId));
 
   if (project.usersId.length === 0) {
-    project.usersId.forEach(() =>
-      formData.append("usersId", JSON.stringify([]))
-    );
+    project.usersId.forEach(() => formData.append("usersId", "[]"));
   } else {
     project.usersId.forEach((id) => formData.append("usersId", String(id)));
   }
 
   project.tagsId.forEach((id) => formData.append("tagsId", String(id)));
-  project.screenshots.forEach((file) => formData.append("screenshots", file));
+
+  if (project.mainScreenshot) {
+    formData.append("mainScreenshot", project.mainScreenshot);
+  }
+  if (project.screenshots) {
+    project.screenshots.forEach((file) => formData.append("screenshots", file));
+  }
 
   return formData;
 }
