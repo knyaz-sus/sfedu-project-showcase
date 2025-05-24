@@ -1,4 +1,6 @@
+import { Button } from "@/shared/ui/button";
 import { ThemeToggle } from "./theme-toggle";
+import { Link } from "react-router-dom";
 
 /* eslint-disable no-irregular-whitespace */
 export function Footer() {
@@ -32,7 +34,10 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <div className="flex justify-end items-start pb-2">
+      <div className="flex md:flex-col gap-4 justify-between items-center pb-2">
+        <Button variant="outline">
+          <Link to="/admin">Войти как администратор</Link>
+        </Button>
         <ThemeToggle />
       </div>
     </footer>

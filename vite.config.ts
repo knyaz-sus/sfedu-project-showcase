@@ -15,7 +15,7 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
     rollupOptions: {
-      output: { manualChunks: { zod: ["zod"], sanitizeHtml: ["sanitize-html"] } },
+      output: { manualChunks: { zod: ["zod"], dompurify: ["dompurify"] } },
     },
   },
   preview: {

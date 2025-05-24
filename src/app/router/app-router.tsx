@@ -9,6 +9,7 @@ import { LoginRedirectPage } from "@/pages/login-redirect-page";
 import { HomePage } from "@/pages/home-page";
 import { lazy, Suspense } from "react";
 import { Spinner } from "@/shared/ui/spinner";
+import { AdminPage } from "@/pages/admin";
 
 const CreateProjectPage = lazy(() =>
   import("@/pages/create-project-page/create-project-page").then((module) => ({
@@ -43,6 +44,7 @@ export function AppRouter() {
             }
           />
         </Route>
+        <Route path="/admin" element={<AdminPage />}></Route>
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>
         <Route path="/login" element={<LoginRedirectPage />} />
