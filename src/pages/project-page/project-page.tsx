@@ -7,6 +7,7 @@ import { Link } from "lucide-react";
 import { MemberList } from "./components/member-list";
 import { StaticEditor } from "@/shared/ui/static-editor";
 import { ErrorFallback } from "@/shared/ui/error-fallback";
+import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 
 export function ProjectPage() {
   const { id } = useParams();
@@ -22,6 +23,8 @@ export function ProjectPage() {
     return <ErrorFallback refetch={refetch} />;
   }
   const hasLinks = project.repo || project.presentation;
+
+  const testImages = ["/img/placeholder.svg", "/img/logo.png"];
   return (
     <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <div className="flex flex-col max-w-[75%]">
@@ -30,6 +33,16 @@ export function ProjectPage() {
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex md:w-[75%] flex-col">
+          {project.mainScreenshot && (
+            <ProjectCarousel
+              imagesType="url"
+              images={[
+                ...(project.mainScreenshot ? [project.mainScreenshot] : []),
+                ...(project.screenshots ?? []),
+              ]}
+              showControls={testImages.length > 1}
+            />
+          )}
           <StaticEditor
             className="mt-2"
             dangerousString={

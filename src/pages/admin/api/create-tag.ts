@@ -14,6 +14,7 @@ export async function createTag(req: {
       Authorization: "Basic " + btoa(`${req.login}:${req.password}`),
     },
     body: req.name,
+    credentials: "include",
   });
   if (!res.ok) {
     throw new Error("Не удалось создать тег");

@@ -14,6 +14,7 @@ export async function createDate(req: {
       Authorization: "Basic " + btoa(`${req.login}:${req.password}`),
     },
     body: JSON.stringify({ name: req.name }),
+    credentials: "include",
   });
   if (!res.ok) {
     throw new Error("Не удалось создать дату");

@@ -142,26 +142,43 @@ export function CreateProjectPage() {
       />
       <Separator />
       <ProjectCarousel
+        imagesType="file"
         className="w-full"
         images={project.screenshots}
         showControls={!!project.screenshots && project.screenshots?.length > 0}
       >
         <FileUpload updateImages={updateImages} />
       </ProjectCarousel>
-      <div className="flex gap-2">
-        <Input
-          placeholder="Ссылка на репозиторий..."
-          value={project.repo}
-          onChange={(e) => updateField("repo", e.target.value)}
+      <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 w-full">
+          <Input
+            className="flex-auto"
+            placeholder="Ссылка на репозиторий..."
+            value={project.repo}
+            onChange={(e) => updateField("repo", e.target.value)}
+          />
+          <Input
+            className="flex-auto"
+            placeholder="Ссылка на презентацию..."
+            value={project.presentation ?? ""}
+            onChange={(e) => updateField("presentation", e.target.value)}
+          />
+        </div>
+        <TrackSelect
+          triggerClassName="w-52"
+          value={project.track}
+          onValueChange={updateTrack}
         />
-        <Input
-          placeholder="Ссылка на презентацию..."
-          value={project.presentation ?? ""}
-          onChange={(e) => updateField("presentation", e.target.value)}
+        <DateSelect
+          triggerClassName="w-52"
+          value={project.date}
+          onValueChange={updateDate}
         />
-        <TrackSelect value={project.track} onValueChange={updateTrack} />
-        <DateSelect value={project.date} onValueChange={updateDate} />
-        <TagsSelect value={project.tags} onValueChange={updateTags} />
+        <TagsSelect
+          triggerClassName="w-52 flex-auto"
+          value={project.tags}
+          onValueChange={updateTags}
+        />
       </div>
       <RichTextEditor
         className="flex-auto"

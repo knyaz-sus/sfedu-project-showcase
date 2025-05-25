@@ -5,6 +5,7 @@ export async function getAdmin(login: string, password: string) {
     headers: {
       Authorization: "Basic " + btoa(`${login}:${password}`),
     },
+    credentials: "include",
   });
 
   if (!res.ok) {

@@ -13,9 +13,13 @@ export async function loadPrimaryFilling(
   track: string,
   files: File[]
 ) {
-  const res = await fetch(`${API_URL}/admin/primary-filling`, {
+  const res = await fetch(`${API_URL}/admin/primary_filling`, {
     method: "POST",
     body: createFormData(date, track, files),
+    headers: {
+      Authorization: "Basic " + btoa(`admin:admin`),
+    },
+    credentials: "include",
   });
   if (!res.ok) throw new Error("Что-то пошло не так");
 }

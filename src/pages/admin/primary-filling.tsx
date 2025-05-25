@@ -3,11 +3,13 @@ import { DateSelect } from "@/shared/widgets/date-select";
 import { TrackSelect } from "@/shared/widgets/track-select";
 import { useState } from "react";
 import { loadPrimaryFilling } from "./api/load-primary-filling";
+import { useToast } from "@/shared/hooks/use-toast";
 
 export function PrimaryFilling() {
   const [date, setDate] = useState("");
   const [track, setTrack] = useState("");
   const [files, setFiles] = useState<File[] | null>(null);
+  const { toast } = useToast();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files;
@@ -20,8 +22,25 @@ export function PrimaryFilling() {
     setFiles((prev) => prev?.filter((_, idx) => idx !== indexToRemove) ?? null);
   };
   const handleUpload = async () => {
-    if (!files) return;
-    await loadPrimaryFilling(date, track, files);
+    try {
+      if (!files) return;
+      console.log(date, track, files);
+      await loadPrimaryFilling(date, track, files);
+
+      toast({
+        title: "Проекты успешно загружены",
+        description:
+          "Вы можете просмотреть их в соответствующем разделе основного приложения.",
+        variant: "default",
+      });
+    } catch (error) {
+      toast({
+        title: "Не удалось загрузить проекты",
+        description:
+          error instanceof Error ? error.message : "Что-то пошло не так",
+        variant: "destructive",
+      });
+    }
   };
   return (
     <div className="flex flex-col max-w-7xl w-full gap-4 p-4">
@@ -50,7 +69,7 @@ export function PrimaryFilling() {
           </a>
         </Button>
       </div>
-      <label className="flex justify-center relative items-center h-[50svh] rounded-md bg-accent">
+      <label className="flex justify-center relative items-center cursor-pointer h-[50svh] rounded-md bg-accent">
         <input
           hidden
           type="file"
@@ -58,7 +77,7 @@ export function PrimaryFilling() {
           multiple
           onChange={handleFileChange}
         />
-        <ol className="flex flex-col ">
+        <ol className="flex flex-col">
           Нажмите сюда чтобы загрузить:
           <li>1. Общие списки.</li>
           <li>2. Аннотации.</li>

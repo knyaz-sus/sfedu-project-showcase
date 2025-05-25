@@ -17,9 +17,14 @@ import { useGetAllTags } from "@/shared/api/hooks/use-get-all-tags";
 interface TagsSelectProps {
   value: string[];
   onValueChange: (value: string) => void;
+  triggerClassName?: string;
 }
 
-export function TagsSelect({ value, onValueChange }: TagsSelectProps) {
+export function TagsSelect({
+  value,
+  onValueChange,
+  triggerClassName,
+}: TagsSelectProps) {
   const [open, setOpen] = useState(false);
   const { data: tags, isPending } = useGetAllTags();
 
@@ -36,7 +41,7 @@ export function TagsSelect({ value, onValueChange }: TagsSelectProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="font-light text-foreground/90"
+          className={cn("font-light text-foreground/90", triggerClassName)}
         >
           {getButtonText()}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
