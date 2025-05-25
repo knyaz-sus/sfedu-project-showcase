@@ -2,30 +2,78 @@ import { Button } from "@/shared/ui/button";
 import { DateSelect } from "@/shared/widgets/date-select";
 import { TrackSelect } from "@/shared/widgets/track-select";
 import { useState } from "react";
-import { loadPrimaryFilling } from "./api/load-primary-filling";
+import { uploadPrimaryFilling } from "./api/upload-primary-filling";
 import { useToast } from "@/shared/hooks/use-toast";
+import { read, utils } from "xlsx";
+import { Trash } from "lucide-react";
+import { useGetAllDates } from "../projects-list-page/api/hooks/use-get-all-dates";
 
+export type PrimaryFillingSheets = {
+  summary: File | null;
+  annotation: File | null;
+  score: File | null;
+};
 export function PrimaryFilling() {
   const [date, setDate] = useState("");
   const [track, setTrack] = useState("");
-  const [files, setFiles] = useState<File[] | null>(null);
+  const [files, setFiles] = useState<PrimaryFillingSheets | null>(null);
   const { toast } = useToast();
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { data: dates } = useGetAllDates();
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files;
-    if (selected) {
-      const fileArray = Array.from(selected);
-      setFiles((prev) => (prev ? [...prev, ...fileArray] : fileArray));
+    if (!selected || selected.length === 0) return;
+
+    const file = selected[0];
+    const data = await file.arrayBuffer();
+    const workbook = read(data, { type: "array" });
+
+    const newFiles: PrimaryFillingSheets = {
+      summary: null,
+      annotation: null,
+      score: null,
+    };
+
+    const sheetToKey = {
+      "Общие списки": "summary",
+      Аннотации: "annotation",
+      Баллы: "score",
+    } as const;
+
+    type FileKeys = keyof typeof newFiles;
+
+    for (const sheetName of Object.keys(
+      sheetToKey
+    ) as (keyof typeof sheetToKey)[]) {
+      if (workbook.SheetNames.includes(sheetName)) {
+        const csvString = utils.sheet_to_csv(workbook.Sheets[sheetName]);
+        const blob = new Blob([csvString], { type: "text/csv" });
+        const fileFromSheet = new File([blob], `${sheetName}.csv`, {
+          type: "text/csv",
+        });
+
+        const key = sheetToKey[sheetName];
+        newFiles[key as FileKeys] = fileFromSheet;
+      }
     }
+
+    setFiles(newFiles);
   };
-  const handleRemoveFile = (indexToRemove: number) => {
-    setFiles((prev) => prev?.filter((_, idx) => idx !== indexToRemove) ?? null);
+
+  const hadnleFileRemove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setFiles(null);
   };
   const handleUpload = async () => {
     try {
       if (!files) return;
-      console.log(date, track, files);
-      await loadPrimaryFilling(date, track, files);
+      const dateId = dates?.find((_date) => _date.name === date)?.id;
+      const trackId = track === "Бакалавриат" ? 0 : 1;
+      if (!dateId || !trackId) {
+        throw new Error("Что-то пошло не так");
+      }
+      await uploadPrimaryFilling(dateId, trackId, files);
 
       toast({
         title: "Проекты успешно загружены",
@@ -73,36 +121,20 @@ export function PrimaryFilling() {
         <input
           hidden
           type="file"
-          accept=".csv, .xlsx"
+          accept=".xlsx"
           multiple
           onChange={handleFileChange}
         />
-        <ol className="flex flex-col">
-          Нажмите сюда чтобы загрузить:
-          <li>1. Общие списки.</li>
-          <li>2. Аннотации.</li>
-          <li className="mb-6">3. Баллы.</li>
-          {files?.length ? (
-            <div className="flex flex-col text-sm text-muted-foreground absolute bottom-4 left-4">
-              <div>Загруженные файлы:</div>
-              <ul className="flex gap-4 flex-wrap">
-                {files.map((file, idx) => (
-                  <li
-                    key={idx}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleRemoveFile(idx);
-                    }}
-                    className="cursor-pointer underline hover:text-destructive transition"
-                    title="Нажмите, чтобы удалить"
-                  >
-                    {file.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </ol>
+        <div className="flex gap-2">
+          <span className="flex flex-col">
+            Нажмите сюда чтобы загрузить xlsx файл с проектами
+          </span>
+          {files !== null && (
+            <Button onClick={hadnleFileRemove} variant="ghost" size="icon">
+              <Trash />
+            </Button>
+          )}
+        </div>
       </label>
 
       <Button

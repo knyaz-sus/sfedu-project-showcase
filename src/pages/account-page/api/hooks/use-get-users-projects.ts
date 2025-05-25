@@ -4,7 +4,7 @@ import { mapProjects } from "@/shared/utils/map-projects";
 
 export function useGetUsersProjects(id?: string) {
   return usePersistentQuery({
-    queryKey: ["users-projects"],
+    queryKey: ["projects", id],
     queryFn: () => getUserProjects(id),
     select(data) {
       if (data) return mapProjects(data);

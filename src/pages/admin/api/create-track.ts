@@ -12,7 +12,6 @@ export async function createTrack(req: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name: req.name }),
-    credentials: "include",
   });
   if (!res.ok) {
     throw new Error("Не удалось создать трек");

@@ -70,7 +70,6 @@ export function ProjectsListPage() {
           </Badge>
         </div>
       )}
-
       <ProjectCards projects={projects} />
     </div>
   );

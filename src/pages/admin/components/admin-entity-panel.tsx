@@ -42,6 +42,7 @@ export function AdminEntityPanel<T>({
           title: "Данные успешно загружены",
           variant: "default",
         });
+        setName("");
       } catch (error) {
         if (error instanceof Error)
           toast({

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Project } from "@/shared/types/schemas";
 import { Badge } from "@/shared/ui/badge";
 import { StaticEditor } from "@/shared/ui/static-editor";
+import { ImageWithPlaceholder } from "./image-with-placeholder";
 
 export function ProjectCard({
   title,
@@ -18,16 +19,7 @@ export function ProjectCard({
       className="rounded-xl border border-border bg-card text-card-foreground shadow"
     >
       <div className="rounded-lg rounded-b-none overflow-hidden">
-        <img
-          className="w-full aspect-video object-cover object-center"
-          src={mainScreenshot ?? "/img/placeholder.svg"}
-          alt="Изображение проекта"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.onerror = null;
-            target.src = "/img/placeholder.svg";
-          }}
-        />
+        <ImageWithPlaceholder mainScreenshot={mainScreenshot} />
       </div>
       <div className="flex flex-col gap-2 p-3">
         <h3 className="text-base whitespace-break-spaces line-clamp-2">

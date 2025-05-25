@@ -14,12 +14,17 @@ import { AdminLayout } from "@/pages/admin/admin-layout";
 import { AdminTags } from "@/pages/admin/admin-tags";
 import { AdminTracks } from "@/pages/admin/admin-tracks";
 import { AdminDates } from "@/pages/admin/admin-dates";
-import { PrimaryFilling } from "@/pages/admin/primary-filling";
 import { AdminProjectEditor } from "@/pages/admin/admin-project-editor";
 
 const CreateProjectPage = lazy(() =>
   import("@/pages/create-project-page/create-project-page").then((module) => ({
     default: module.CreateProjectPage,
+  }))
+);
+
+const PrimaryFilling = lazy(() =>
+  import("@/pages/admin/primary-filling").then((module) => ({
+    default: module.PrimaryFilling,
   }))
 );
 
@@ -56,7 +61,23 @@ export function AppRouter() {
         <Route path="tags" element={<AdminTags />} />
         <Route path="tracks" element={<AdminTracks />} />
         <Route path="dates" element={<AdminDates />} />
-        <Route path="primary-filling" element={<PrimaryFilling />} />
+        <Route
+          path="primary-filling"
+          element={
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
+                  <Spinner
+                    className="relative z-50 text-foreground"
+                    size={30}
+                  />
+                </div>
+              }
+            >
+              <PrimaryFilling />
+            </Suspense>
+          }
+        />
         <Route path="project-editor" element={<AdminProjectEditor />} />
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>

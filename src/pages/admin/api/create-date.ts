@@ -8,11 +8,10 @@ export async function createDate(req: {
   const res = await fetch(`${API_URL}/admin/dates`, {
     method: "POST",
     headers: {
-      Authorization: "Basic " + btoa(`admin:admin`),
-     "Content-Type": "application/json",
+      Authorization: "Basic " + btoa(`${req.login}:${req.password}`),
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ name: req.name }),
-    credentials: "include",
   });
   if (!res.ok) {
     throw new Error("Не удалось создать дату");
