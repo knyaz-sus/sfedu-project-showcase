@@ -10,7 +10,9 @@ interface ProjectCardsProps {
 
 export function ProjectCards({ projects }: ProjectCardsProps) {
   const { filters } = useFilters();
-  const { isPending } = useGetFilteredProjects(filters);
+  const {
+    query: { isPending },
+  } = useGetFilteredProjects(filters);
   if (isPending) {
     return <FullPageSpinner />;
   }
@@ -19,8 +21,8 @@ export function ProjectCards({ projects }: ProjectCardsProps) {
       className="grid grid-cols-1 gap-6
          md:grid-cols-2 lg:grid-cols-3"
     >
-      {projects?.map((project, i) => (
-        <ProjectCard key={i} {...project} />
+      {projects?.map((project) => (
+        <ProjectCard key={project.id} {...project} />
       ))}
     </div>
   );

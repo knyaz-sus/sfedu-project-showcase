@@ -3,9 +3,21 @@ import { API_URL } from "@/shared/api/constants";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { useGetUsersProjects } from "./api/hooks/use-get-users-projects";
+import { ProjectCard } from "../projects-list-page/components/project-card";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function AccountPage() {
   const { authUser, isAuthLoading } = useAuth();
+  const { data: usersProjects } = useGetUsersProjects(
+    authUser?.attributes.name
+  );
+  const queryClient = useQueryClient();
+
+  const logout = () => {
+    queryClient.clear();
+    window.location.href = `${API_URL}/logout`;
+  };
   if (!authUser && !isAuthLoading) {
     return <div>Пользователь не авторизован</div>;
   }
@@ -32,9 +44,14 @@ export function AccountPage() {
         <Button asChild>
           <Link to="/project-editor">Загрузить проект</Link>
         </Button>
-        <Button variant="outline" asChild>
-          <a href={`${API_URL}/logout`}>Выйти</a>
+        <Button variant="outline" onClick={logout}>
+          Выйти
         </Button>
+      </div>
+      <div className="flex gap-2">
+        {usersProjects?.map((project) => {
+          return <ProjectCard {...project} />;
+        })}
       </div>
     </div>
   );

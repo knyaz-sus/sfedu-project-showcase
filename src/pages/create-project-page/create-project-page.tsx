@@ -13,6 +13,8 @@ import { CreateProject } from "@/shared/types/schemas";
 import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 import { FileUpload } from "./components/file-upload";
 import { useToast } from "@/shared/hooks/use-toast";
+import { useAuth } from "@/shared/hooks/use-auth";
+import { useGetDatabaseUser } from "./api/hooks/use-get-database-user";
 
 type CreateProjectState = {
   mainScreenshot: File | null;
@@ -41,6 +43,11 @@ const initialCreateProjectState = {
 };
 
 export function CreateProjectPage() {
+  const { authUser, isAuthLoading } = useAuth();
+  const { data: databaseUser } = useGetDatabaseUser(
+    authUser?.attributes.email as string,
+    !!authUser && !isAuthLoading
+  );
   const { toast } = useToast();
   const [project, setProject] = useState<CreateProjectState>(
     initialCreateProjectState
@@ -51,7 +58,7 @@ export function CreateProjectPage() {
 
   const handleProjectCreate = async () => {
     try {
-      if (!dates || !tags) {
+      if (!dates || !tags || !databaseUser) {
         throw new Error("Что-то пошло не так, попробуйте позже");
       }
 
@@ -75,7 +82,7 @@ export function CreateProjectPage() {
         trackId,
         tagsId,
         dateId,
-        usersId: [],
+        usersId: [databaseUser.id],
       };
 
       await mutateAsync(mappedProject);

@@ -25,7 +25,7 @@ export function useGetFilteredProjects(
   }, [query.data, searchValue]);
 
   return {
-    ...query,
+    query,
     data: filteredData,
   };
 }

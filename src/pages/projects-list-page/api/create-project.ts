@@ -17,11 +17,9 @@ function createFormData(project: CreateProject) {
   formData.append("trackId", String(project.trackId));
   formData.append("dateId", String(project.dateId));
 
-  if (project.usersId.length === 0) {
-    project.usersId.forEach(() => formData.append("usersId", "[]"));
-  } else {
-    project.usersId.forEach((id) => formData.append("usersId", String(id)));
-  }
+  project.usersId.forEach(() =>
+    formData.append("usersId", String(project.usersId[0]))
+  );
 
   project.tagsId.forEach((id) => formData.append("tagsId", String(id)));
 

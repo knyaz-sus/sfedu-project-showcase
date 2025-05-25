@@ -35,6 +35,7 @@ export function ProjectCarousel(props: ProjectCarouselProps) {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
+  console.log("images", images);
   return (
     <section className={cn("embla", className)}>
       <div className="embla__viewport" ref={emblaRef}>
@@ -62,6 +63,11 @@ export function ProjectCarousel(props: ProjectCarouselProps) {
                   })}
                   src={src}
                   alt={`Изображение проекта ${index + 1}`}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "/img/placeholder.svg";
+                  }}
                 />
                 {index === 0 && imagesType === "file" && (
                   <span className="text-center text-muted-foreground block">

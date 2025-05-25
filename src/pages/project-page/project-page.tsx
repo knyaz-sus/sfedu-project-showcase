@@ -22,9 +22,9 @@ export function ProjectPage() {
   if (!project) {
     return <ErrorFallback refetch={refetch} />;
   }
+
   const hasLinks = project.repo || project.presentation;
 
-  const testImages = ["/img/placeholder.svg", "/img/logo.png"];
   return (
     <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <div className="flex flex-col max-w-[75%]">
@@ -36,11 +36,8 @@ export function ProjectPage() {
           {project.mainScreenshot && (
             <ProjectCarousel
               imagesType="url"
-              images={[
-                ...(project.mainScreenshot ? [project.mainScreenshot] : []),
-                ...(project.screenshots ?? []),
-              ]}
-              showControls={testImages.length > 1}
+              images={project.screenshots}
+              showControls={project.screenshots?.length !== 0}
             />
           )}
           <StaticEditor

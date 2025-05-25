@@ -10,6 +10,7 @@ export function ProjectCard({
   id,
   track,
   date,
+  mainScreenshot,
 }: Project) {
   return (
     <Link
@@ -19,8 +20,13 @@ export function ProjectCard({
       <div className="rounded-lg rounded-b-none overflow-hidden">
         <img
           className="w-full aspect-video object-cover object-center"
-          src="/img/placeholder.svg"
+          src={mainScreenshot ?? "/img/placeholder.svg"}
           alt="Изображение проекта"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = "/img/placeholder.svg";
+          }}
         />
       </div>
       <div className="flex flex-col gap-2 p-3">
