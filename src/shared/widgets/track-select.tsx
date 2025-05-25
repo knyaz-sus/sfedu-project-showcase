@@ -10,13 +10,21 @@ import {
 } from "@/shared/ui/select";
 import { useState } from "react";
 import { Button } from "@/shared/ui/button";
+import { cn } from "../lib/cn";
 
 interface TrackSelectProps {
   value: string;
   onValueChange: (value: string) => void;
+  className?: string;
+  triggerClassName?: string;
 }
 
-export function TrackSelect({ value, onValueChange }: TrackSelectProps) {
+export function TrackSelect({
+  value,
+  onValueChange,
+  className,
+  triggerClassName,
+}: TrackSelectProps) {
   const [open, onOpenChange] = useState(false);
 
   const resetDate = () => {
@@ -30,10 +38,10 @@ export function TrackSelect({ value, onValueChange }: TrackSelectProps) {
       value={value}
       onValueChange={onValueChange}
     >
-      <SelectTrigger className="flex-auto">
+      <SelectTrigger className={cn("flex-auto", triggerClassName)}>
         <SelectValue placeholder="Выберите трек" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className={className}>
         <SelectGroup className="flex justify-between">
           <SelectLabel>Треки</SelectLabel>
           <Button

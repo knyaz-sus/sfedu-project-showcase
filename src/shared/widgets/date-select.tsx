@@ -12,13 +12,21 @@ import {
 import { useGetAllDates } from "@/pages/projects-list-page/api/hooks/use-get-all-dates";
 import { Spinner } from "@/shared/ui/spinner";
 import { Button } from "@/shared/ui/button";
+import { cn } from "../lib/cn";
 
 interface DateSelectProps {
   value: string;
   onValueChange: (value: string) => void;
+  className?: string;
+  triggerClassName?: string;
 }
 
-export function DateSelect({ value, onValueChange }: DateSelectProps) {
+export function DateSelect({
+  value,
+  onValueChange,
+  className,
+  triggerClassName,
+}: DateSelectProps) {
   const { data: dates, isPending, isError } = useGetAllDates();
   const [open, onOpenChange] = useState(false);
 
@@ -33,10 +41,10 @@ export function DateSelect({ value, onValueChange }: DateSelectProps) {
       value={value}
       onValueChange={onValueChange}
     >
-      <SelectTrigger className="flex-auto">
+      <SelectTrigger className={cn("flex-auto", triggerClassName)}>
         {isPending ? "Loading..." : <SelectValue placeholder="Выберите год" />}
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className={className}>
         <SelectGroup className="flex justify-between">
           <SelectLabel>Год</SelectLabel>
           <Button

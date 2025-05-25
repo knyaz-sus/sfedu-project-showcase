@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 export function AdminLayout() {
   return (
     <>
-      <div className="flex flex-col min-h-svh p-3">
+      <div className="flex flex-col min-h-svh py-3 pl-3">
         <header>
           <Button
             asChild
@@ -19,7 +19,9 @@ export function AdminLayout() {
             </Link>
           </Button>
         </header>
-        <Outlet />
+        <div className="flex flex-col items-center w-full">
+          <Outlet />
+        </div>
       </div>
       <Footer />
     </>

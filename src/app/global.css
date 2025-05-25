@@ -6,6 +6,9 @@
   html {
     scrollbar-gutter: stable;
   }
+  li {
+    list-style: none;
+  }
   /* removes scrollbar shift with radix select */
   html body[data-scroll-locked] {
     --removed-body-scroll-bar-size: 0 !important;

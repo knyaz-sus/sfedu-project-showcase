@@ -56,7 +56,7 @@ export function AdminEntityPanel<T>({
       <div className="flex flex-col items-center w-full max-h-[70svh] mb-4 overflow-auto">
         {entities.map((entity, index) => (
           <div key={index} className="w-full p-4 border-b last:border-b-0">
-            <pre>{entity.name}</pre>
+            <div>{entity.name}</div>
           </div>
         ))}
       </div>
