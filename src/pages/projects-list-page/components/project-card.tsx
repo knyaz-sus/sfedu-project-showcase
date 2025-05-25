@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Project } from "@/shared/types/schemas";
 import { Badge } from "@/shared/ui/badge";
 import { StaticEditor } from "@/shared/ui/static-editor";
@@ -13,9 +13,13 @@ export function ProjectCard({
   date,
   mainScreenshot,
 }: Project) {
+  const { pathname } = useLocation();
+  const link = pathname.includes("admin")
+    ? `/admin/projects/${id}`
+    : `/projects/${id}`;
   return (
     <Link
-      to={`/projects/${id}`}
+      to={link}
       className="rounded-xl border border-border bg-card text-card-foreground shadow"
     >
       <div className="rounded-lg rounded-b-none overflow-hidden">

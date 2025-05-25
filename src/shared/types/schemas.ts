@@ -61,11 +61,20 @@ export const createProjectSchema = z.object({
   dateId: z.number(),
   mainScreenshot: z.instanceof(File).nullable(),
 });
+
+export const createAdminProjectSchema = createProjectSchema.extend({
+  grade: z.number(),
+  login: z.string(),
+  password: z.string(),
+});
+
 export const projectsSchema = z.array(projectSchema);
 
 export type Project = z.infer<typeof projectSchema>;
 export type Projects = Project[];
+
 export type CreateProject = z.infer<typeof createProjectSchema>;
+export type CreateAdminProject = z.infer<typeof createAdminProjectSchema>;
 
 export type Tag = z.infer<typeof tagSchema>;
 export type Tags = Tag[];

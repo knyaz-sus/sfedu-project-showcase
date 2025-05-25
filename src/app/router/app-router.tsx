@@ -8,17 +8,22 @@ import { ProtectedRoute } from "@/app/router/protected-route";
 import { LoginRedirectPage } from "@/pages/login-redirect-page";
 import { HomePage } from "@/pages/home-page";
 import { lazy, Suspense } from "react";
-import { Spinner } from "@/shared/ui/spinner";
 import { AdminPage } from "@/pages/admin";
 import { AdminLayout } from "@/pages/admin/admin-layout";
 import { AdminTags } from "@/pages/admin/admin-tags";
 import { AdminTracks } from "@/pages/admin/admin-tracks";
 import { AdminDates } from "@/pages/admin/admin-dates";
-import { AdminProjectEditor } from "@/pages/admin/admin-project-editor";
+import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 
 const CreateProjectPage = lazy(() =>
   import("@/pages/create-project-page/create-project-page").then((module) => ({
     default: module.CreateProjectPage,
+  }))
+);
+
+const AdminProjectEditor = lazy(() =>
+  import("@/pages/admin/admin-project-editor").then((module) => ({
+    default: module.AdminProjectEditor,
   }))
 );
 
@@ -40,16 +45,7 @@ export function AppRouter() {
           <Route
             path="/project-editor"
             element={
-              <Suspense
-                fallback={
-                  <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
-                    <Spinner
-                      className="relative z-50 text-foreground"
-                      size={30}
-                    />
-                  </div>
-                }
-              >
+              <Suspense fallback={<FullPageSpinner />}>
                 <CreateProjectPage />
               </Suspense>
             }
@@ -64,21 +60,20 @@ export function AppRouter() {
         <Route
           path="primary-filling"
           element={
-            <Suspense
-              fallback={
-                <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
-                  <Spinner
-                    className="relative z-50 text-foreground"
-                    size={30}
-                  />
-                </div>
-              }
-            >
+            <Suspense fallback={<FullPageSpinner />}>
               <PrimaryFilling />
             </Suspense>
           }
         />
-        <Route path="project-editor" element={<AdminProjectEditor />} />
+        <Route
+          path="project-editor"
+          element={
+            <Suspense fallback={<FullPageSpinner />}>
+              <AdminProjectEditor />
+            </Suspense>
+          }
+        />
+        <Route path="projects" element={<ProjectsListPage />} />
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>
         <Route path="/login" element={<LoginRedirectPage />} />

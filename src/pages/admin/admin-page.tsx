@@ -1,5 +1,5 @@
 import { Footer } from "@/shared/layout/components/footer";
-import { Tag, University, Calendar, Edit, File } from "lucide-react";
+import { Tag, University, Calendar, Edit, File, List } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { Link } from "react-router-dom";
 
@@ -82,7 +82,23 @@ export function AdminPage() {
               </CardContent>
             </Link>
           </Card>
-
+          <Card className="cursor-pointer transition-all hover:shadow-md hover:scale-105 active:scale-95">
+            <Link to="projects">
+              <CardHeader className="text-center pb-2">
+                <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-teal-100 dark:bg-teal-900">
+                  <List className="h-6 w-6 text-teal-600 dark:text-teal-400" />
+                </div>
+                <CardTitle className="text-lg">
+                  Перейти к списку проектов
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  Редактирование существующих проектов
+                </p>
+              </CardContent>
+            </Link>
+          </Card>
           <Card className="cursor-pointer transition-all hover:shadow-md hover:scale-105 active:scale-95">
             <Link to="primary-filling">
               <CardHeader className="text-center pb-2">

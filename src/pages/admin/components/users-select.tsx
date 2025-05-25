@@ -12,24 +12,24 @@ import {
 } from "@/shared/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Spinner } from "@/shared/ui/spinner";
-import { useGetAllTags } from "@/shared/api/hooks/use-get-all-tags";
+import { useGetAllUsers } from "../api/hooks/use-get-all-users";
 
-interface TagsSelectProps {
+interface UsersSelectProps {
   value: string[];
   onValueChange: (value: string) => void;
   triggerClassName?: string;
 }
 
-export function TagsSelect({
+export function UsersSelect({
   value,
   onValueChange,
   triggerClassName,
-}: TagsSelectProps) {
+}: UsersSelectProps) {
   const [open, setOpen] = useState(false);
-  const { data: tags, isPending } = useGetAllTags();
+  const { data: users, isPending } = useGetAllUsers();
 
   const getButtonText = () => {
-    if (value.length === 0) return "Выберите теги";
+    if (value.length === 0) return "Выберите участников";
     if (value.length === 1) return value[0];
     return "Выбрано несколько";
   };
@@ -49,28 +49,28 @@ export function TagsSelect({
       </PopoverTrigger>
       <PopoverContent className="w-[250px] p-0">
         <Command>
-          <CommandInput placeholder="Фильтр по тегам" />
+          <CommandInput placeholder="Выбор участников" />
           <CommandList>
-            <CommandEmpty className="flex justify-center items-center text-center">
+            <CommandEmpty className="flex justify-center items-center text-center p-4">
               {isPending ? (
                 <Spinner className="py-4" />
               ) : (
-                <span className="py-4">Не удалось найти теги</span>
+                <span className="py-4">Не удалось найти пользователей</span>
               )}
             </CommandEmpty>
             <CommandGroup>
-              {tags?.map((entity) => (
+              {users?.map((entity) => (
                 <CommandItem
                   key={entity.id}
-                  value={entity.name}
+                  value={entity.fullName}
                   onSelect={onValueChange}
                 >
                   <Check
                     className={cn("mr-2 h-4 w-4 opacity-0", {
-                      "opacity-100": value.includes(entity.name),
+                      "opacity-100": value.includes(entity.fullName),
                     })}
                   />
-                  {entity.name}
+                  {entity.fullName}
                 </CommandItem>
               ))}
             </CommandGroup>
