@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Badge } from "@/shared/ui/badge";
 import { Separator } from "@/shared/ui/separator";
@@ -6,19 +5,12 @@ import { useGetProject } from "./api/hooks/use-get-project";
 import { Spinner } from "@/shared/ui/spinner";
 import { Link } from "lucide-react";
 import { MemberList } from "./components/member-list";
-import { Button } from "@/shared/ui/button";
 import { StaticEditor } from "@/shared/ui/static-editor";
+import { ErrorFallback } from "@/shared/ui/error-fallback";
 
 export function ProjectPage() {
   const { id } = useParams();
-  const {
-    data: project,
-    isPending,
-    error,
-    isError,
-    refetch,
-  } = useGetProject(id as string);
-  const [showError, setShowError] = useState(false);
+  const { data: project, isPending, refetch } = useGetProject(id as string);
   if (isPending) {
     return (
       <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
@@ -27,26 +19,8 @@ export function ProjectPage() {
     );
   }
   if (!project) {
-    return (
-      <div className="flex flex-col gap-2 items-center justify-center absolute top-0 left-0 h-svh w-full bg-background">
-        <div className="flex gap-2 items-center">
-          <h1 className="text-foreground">Проект не найден</h1>
-          <Button
-            onClick={() => setShowError((prev) => !prev)}
-            size="sm"
-            variant="ghost"
-          >
-            Показать ошибку
-          </Button>
-        </div>
-        {showError && <span>{isError && error.message}</span>}
-        <Button onClick={() => refetch()} size="sm">
-          Попробывать снова
-        </Button>
-      </div>
-    );
+    return <ErrorFallback refetch={refetch} />;
   }
-
   const hasLinks = project.repo || project.presentation;
   return (
     <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
@@ -56,16 +30,6 @@ export function ProjectPage() {
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex md:w-[75%] flex-col">
-          {/* Server doesn't send images yet */}
-          {/* {project.mainScreenshot && (
-            <ProjectCarousel
-              showControls
-              images={[
-                ...(project.mainScreenshot ? [project.mainScreenshot] : []),
-                ...(project.screenshots ?? []),
-              ]}
-            />
-          )} */}
           <StaticEditor
             className="mt-2"
             dangerousString={

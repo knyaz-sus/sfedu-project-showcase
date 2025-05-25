@@ -2,7 +2,7 @@ import { Projects } from "@/shared/types/schemas";
 import { ProjectCard } from "./project-card";
 import { useGetFilteredProjects } from "@/pages/projects-list-page/api/hooks/use-get-filtered-projects";
 import { useFilters } from "@/pages/projects-list-page/hooks/use-filters";
-import { Spinner } from "@/shared/ui/spinner";
+import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 
 interface ProjectCardsProps {
   projects?: Projects;
@@ -12,11 +12,7 @@ export function ProjectCards({ projects }: ProjectCardsProps) {
   const { filters } = useFilters();
   const { isPending } = useGetFilteredProjects(filters);
   if (isPending) {
-    return (
-      <div className="flex items-center justify-center absolute top-0 left-0 h-svh -z-10 w-full bg-background">
-        <Spinner className="relative z-50 text-foreground" size={30} />
-      </div>
-    );
+    return <FullPageSpinner />;
   }
   return (
     <div

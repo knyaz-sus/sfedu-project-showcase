@@ -10,6 +10,10 @@ import { HomePage } from "@/pages/home-page";
 import { lazy, Suspense } from "react";
 import { Spinner } from "@/shared/ui/spinner";
 import { AdminPage } from "@/pages/admin";
+import { AdminLayout } from "@/pages/admin/admin-layout";
+import { AdminTags } from "@/pages/admin/admin-tags";
+import { AdminTracks } from "@/pages/admin/admin-tracks";
+import { AdminDates } from "@/pages/admin/admin-dates";
 
 const CreateProjectPage = lazy(() =>
   import("@/pages/create-project-page/create-project-page").then((module) => ({
@@ -44,7 +48,12 @@ export function AppRouter() {
             }
           />
         </Route>
-        <Route path="/admin" element={<AdminPage />}></Route>
+      </Route>
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="tags" element={<AdminTags />} />
+        <Route path="tracks" element={<AdminTracks />} />
+        <Route path="dates" element={<AdminDates />} />
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>
         <Route path="/login" element={<LoginRedirectPage />} />

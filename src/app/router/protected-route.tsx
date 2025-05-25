@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { API_URL } from "@/shared/api/constants";
-import { Spinner } from "@/shared/ui/spinner";
+import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 
 interface ProtectedRouteProps {
   authOnly: boolean;
@@ -25,11 +25,7 @@ export function ProtectedRoute({ authOnly }: ProtectedRouteProps) {
   }, [authUser, isAuthLoading, authOnly, navigate]);
 
   if (isAuthLoading) {
-    return (
-      <div className="h-svh w-full flex justify-center items-center">
-        <Spinner />
-      </div>
-    );
+    return <FullPageSpinner />;
   }
 
   return <Outlet />;
