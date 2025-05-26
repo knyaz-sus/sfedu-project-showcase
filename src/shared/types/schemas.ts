@@ -79,6 +79,9 @@ export type CreateAdminProject = z.infer<typeof createAdminProjectSchema>;
 export type Tag = z.infer<typeof tagSchema>;
 export type Tags = Tag[];
 
+export type Track = z.infer<typeof tagSchema>;
+export type Tracks = Track[];
+
 export type Date = z.infer<typeof dateSchema>;
 export type Dates = Date[];
 

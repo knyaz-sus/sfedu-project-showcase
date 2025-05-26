@@ -9,6 +9,8 @@ import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { UpdatableTitle } from "./components/updatable-title";
 import { UpdatableDescription } from "./components/updatable-description";
+import { UpdatableDate } from "./components/updatable-date";
+import { UpdatableTrack } from "./components/updatable-track";
 
 export function AdminProjectEditor() {
   const { id } = useParams();
@@ -45,8 +47,14 @@ export function AdminProjectEditor() {
         <div className="md:w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
             <div className="flex gap-2 flex-wrap">
-              {project.date && <Badge>{project.date.name}</Badge>}
-              {project.track && <Badge>{project.track.name}</Badge>}
+              <UpdatableDate
+                projectId={id as string}
+                previousValue={project.date?.name ?? null}
+              />
+              <UpdatableTrack
+                projectId={id as string}
+                previousValue={project.track?.name ?? null}
+              />
               {project.tags &&
                 project.tags.map((tag) => (
                   <Badge variant="secondary" key={tag.id}>
