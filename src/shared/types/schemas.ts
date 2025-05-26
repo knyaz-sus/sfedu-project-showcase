@@ -95,3 +95,8 @@ export type AuthUser =
       };
     }
   | undefined;
+
+export type Credentials = {
+  login: string;
+  password: string;
+};

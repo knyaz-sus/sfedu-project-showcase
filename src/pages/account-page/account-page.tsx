@@ -14,20 +14,23 @@ export function AccountPage() {
   );
   const queryClient = useQueryClient();
 
+  if (!authUser && !isAuthLoading) {
+    return <div>Пользователь не авторизован</div>;
+  }
+
   const logout = () => {
     queryClient.clear();
     window.location.href = `${API_URL}/logout`;
   };
-  if (!authUser && !isAuthLoading) {
-    return <div>Пользователь не авторизован</div>;
-  }
+
   const fallback = authUser?.attributes.name
     .split(" ")
     .slice(0, 2)
     .map((namePart) => namePart[0])
     .join("");
+
   return (
-    <div className="flex flex-col justify-between items-center gap-2 max-w-7xl w-full">
+    <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <div className="flex gap-4 items-center">
         <Avatar className="w-16 h-16">
           <AvatarImage src={authUser?.attributes.picture} />
@@ -40,6 +43,12 @@ export function AccountPage() {
           <span>{authUser?.attributes.email}</span>
         </div>
       </div>
+      <h2>Ваши проекты:</h2>
+      <div className="flex gap-2">
+        {usersProjects?.map((project) => {
+          return <ProjectCard {...project} />;
+        })}
+      </div>
       <div className="flex gap-2 ">
         <Button asChild>
           <Link to="/project-editor">Загрузить проект</Link>
@@ -47,11 +56,6 @@ export function AccountPage() {
         <Button variant="outline" onClick={logout}>
           Выйти
         </Button>
-      </div>
-      <div className="flex gap-2">
-        {usersProjects?.map((project) => {
-          return <ProjectCard {...project} />;
-        })}
       </div>
     </div>
   );

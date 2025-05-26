@@ -44,7 +44,7 @@ const initialCreateProjectState = {
   grade: "",
 };
 
-export function AdminProjectEditor() {
+export function AdminProjectUploader() {
   const { toast } = useToast();
   const [project, setProject] = useState<CreateAdminProjectState>(
     initialCreateProjectState

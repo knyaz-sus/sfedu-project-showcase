@@ -5,6 +5,7 @@ import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
 import { Input } from "@/shared/ui/input";
 import { UseMutateAsyncFunction } from "@tanstack/react-query";
 import { useState } from "react";
+import { getAdminCredentials } from "@/pages/admin/utils/get-admin-credentials";
 
 interface AdminEntityPanelProps<T> {
   entities: (T & { name: string }[]) | undefined;
@@ -32,24 +33,19 @@ export function AdminEntityPanel<T>({
     return <ErrorFallback refetch={refetch} />;
   }
   const handleMutate = async () => {
-    const login = window.prompt("Введите логин");
-    const password = window.prompt("Введите пароль");
-
-    if (login && password) {
-      try {
-        await mutateAsync({ login, password, name });
-        toast({
-          title: "Данные успешно загружены",
-          variant: "default",
-        });
-        setName("");
-      } catch (error) {
-        if (error instanceof Error)
-          toast({
-            title: error.message,
-            variant: "destructive",
-          });
-      }
+    try {
+      const { login, password } = getAdminCredentials();
+      await mutateAsync({ login, password, name });
+      toast({
+        title: "Данные успешно загружены",
+        variant: "default",
+      });
+      setName("");
+    } catch (error) {
+      toast({
+        title: error instanceof Error ? error.message : "Что-то пошло не так",
+        variant: "destructive",
+      });
     }
   };
   return (

@@ -21,9 +21,9 @@ const CreateProjectPage = lazy(() =>
   }))
 );
 
-const AdminProjectEditor = lazy(() =>
-  import("@/pages/admin/admin-project-editor").then((module) => ({
-    default: module.AdminProjectEditor,
+const AdminProjectUploader = lazy(() =>
+  import("@/pages/admin/admin-project-uploader").then((module) => ({
+    default: module.AdminProjectUploader,
   }))
 );
 
@@ -33,6 +33,11 @@ const PrimaryFilling = lazy(() =>
   }))
 );
 
+const AdminProjectEditor = lazy(() =>
+  import("@/pages/admin/admin-project-editor").then((module) => ({
+    default: module.AdminProjectEditor,
+  }))
+);
 export function AppRouter() {
   return (
     <Routes>
@@ -69,11 +74,20 @@ export function AppRouter() {
           path="project-editor"
           element={
             <Suspense fallback={<FullPageSpinner />}>
-              <AdminProjectEditor />
+              <AdminProjectUploader />
             </Suspense>
           }
         />
         <Route path="projects" element={<ProjectsListPage />} />
+
+        <Route
+          path="projects/:id"
+          element={
+            <Suspense fallback={<FullPageSpinner />}>
+              <AdminProjectEditor />
+            </Suspense>
+          }
+        />
       </Route>
       <Route element={<ProtectedRoute authOnly={false} />}>
         <Route path="/login" element={<LoginRedirectPage />} />
