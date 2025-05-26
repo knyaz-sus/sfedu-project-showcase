@@ -46,7 +46,7 @@ export function ProjectsListPage() {
           id={`${id}-search`}
           placeholder="Введите имя проекта..."
         />
-        <div className="flex gap-2">
+        <div className="flex flex-wrap md:flex-nowrap gap-2">
           <TrackSelect
             value={filters.track}
             onValueChange={updateTrackFilter}

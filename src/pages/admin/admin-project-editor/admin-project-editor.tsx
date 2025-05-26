@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { Separator } from "@/shared/ui/separator";
 import { useGetProject } from "@/pages/project-page/api/hooks/use-get-project";
 import { Link } from "lucide-react";
-import { MemberList } from "@/pages/project-page/components/member-list";
 import { ErrorFallback } from "@/shared/ui/error-fallback";
 import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";
@@ -14,6 +13,7 @@ import { UpdatableTags } from "./components/updatable-tags";
 import { UpdatablePresentation } from "./components/updatable-presentation";
 import { UpdatableRepo } from "./components/updatable-repo";
 import { UpdatableGrade } from "./components/updatable-grade";
+import { UpdatableProjectUsers } from "./components/updatable-project-users";
 
 export function AdminProjectEditor() {
   const { id } = useParams();
@@ -79,7 +79,10 @@ export function AdminProjectEditor() {
               </div>
             )}
           </div>
-          <MemberList users={project.users} />
+          <UpdatableProjectUsers
+            projectId={id as string}
+            projectUsers={project.users}
+          />
           <UpdatableGrade
             projectId={id as string}
             previousValue={project.grade?.toString() ?? ""}

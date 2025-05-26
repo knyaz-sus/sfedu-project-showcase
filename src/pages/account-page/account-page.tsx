@@ -43,8 +43,11 @@ export function AccountPage() {
           <span>{authUser?.attributes.email}</span>
         </div>
       </div>
-      <h2>Ваши проекты:</h2>
-      <div className="flex gap-2">
+      <h2 className="text-base">Ваши проекты:</h2>
+      <div
+        className="grid grid-cols-1 gap-6
+         md:grid-cols-2 lg:grid-cols-3"
+      >
         {usersProjects?.map((project) => {
           return <ProjectCard {...project} />;
         })}

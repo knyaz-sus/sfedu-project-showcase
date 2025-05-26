@@ -2,9 +2,11 @@ import { Button } from "@/shared/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { Link, useLocation } from "react-router-dom";
 import { Separator } from "@/shared/ui/separator";
+import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 
 /* eslint-disable no-irregular-whitespace */
 export function Footer() {
+  const isMobile = useIsMobile();
   const location = useLocation();
   return (
     <>
@@ -39,11 +41,15 @@ export function Footer() {
           </div>
         </div>
         <div className="flex md:flex-col gap-4 justify-between items-center pb-2">
-          <Button asChild variant="outline">
+          <Button size={isMobile ? "sm" : "default"} variant="outline">
             {location.pathname.includes("/admin") ? (
-              <Link to="/">Перейти в основное приложение</Link>
+              <Link className="max-w-32 sm:max-w-none truncate" to="/">
+                Перейти в основное приложение
+              </Link>
             ) : (
-              <Link to="/admin">Войти как администратор</Link>
+              <Link className="max-w-32 sm:max-w-none truncate" to="/admin">
+                Войти как администратор
+              </Link>
             )}
           </Button>
           <ThemeToggle />

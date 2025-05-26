@@ -79,7 +79,7 @@ export function ProjectPage() {
               </div>
             )}
           </div>
-          <MemberList users={project.users} />
+          <MemberList users={project.users} isEditable={false} />
           {project.grade && <span>Оценка проекта: {project.grade}/100</span>}
         </div>
       </div>
