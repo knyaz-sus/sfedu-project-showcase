@@ -11,6 +11,9 @@ import { UpdatableDescription } from "./components/updatable-description";
 import { UpdatableDate } from "./components/updatable-date";
 import { UpdatableTrack } from "./components/updatable-track";
 import { UpdatableTags } from "./components/updatable-tags";
+import { UpdatablePresentation } from "./components/updatable-presentation";
+import { UpdatableRepo } from "./components/updatable-repo";
+import { UpdatableGrade } from "./components/updatable-grade";
 
 export function AdminProjectEditor() {
   const { id } = useParams();
@@ -63,23 +66,24 @@ export function AdminProjectEditor() {
             {hasLinks && (
               <div className="flex gap-2 items-center mb-2">
                 <Link size={16} />
-                <div className="flex flex-col">
-                  {project.repo && (
-                    <a className="break-all" href={project.repo}>
-                      {project.repo}
-                    </a>
-                  )}
-                  {project.presentation && (
-                    <a className="break-all" href={project.presentation}>
-                      {project.presentation}
-                    </a>
-                  )}
+                <div className="flex flex-col gap-1">
+                  <UpdatableRepo
+                    projectId={id as string}
+                    previousValue={project.repo ?? ""}
+                  />
+                  <UpdatablePresentation
+                    projectId={id as string}
+                    previousValue={project.presentation ?? ""}
+                  />
                 </div>
               </div>
             )}
           </div>
           <MemberList users={project.users} />
-          {project.grade && <span>Оценка проекта: {project.grade}/100</span>}
+          <UpdatableGrade
+            projectId={id as string}
+            previousValue={project.grade?.toString() ?? ""}
+          />
         </div>
       </div>
     </div>
