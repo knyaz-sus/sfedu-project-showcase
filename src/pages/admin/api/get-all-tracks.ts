@@ -4,8 +4,7 @@ import { tracksSchema } from "@/shared/types/schemas";
 export async function getAllTracks() {
   try {
     return await fetchWithValidation(tracksSchema, "/tracks");
-  } catch (e) {
-    console.log(e);
+  } catch {
     throw new Error("Не удалось загрузить треки");
   }
 }

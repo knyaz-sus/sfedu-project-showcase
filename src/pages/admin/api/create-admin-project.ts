@@ -10,7 +10,6 @@ function createFormData(
   const validatedProject = createAdminProjectSchema.safeParse(project);
 
   if (validatedProject.error) {
-    console.log(validatedProject.error);
     throw Error("Не все необходимые поля корректно заполнены");
   }
 

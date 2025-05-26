@@ -52,7 +52,11 @@ export function ProjectsListPage() {
             onValueChange={updateTrackFilter}
           />
           <DateSelect value={filters.date} onValueChange={updateDateFilter} />
-          <TagsSelect value={filters.tags} onValueChange={updateTagsFilter} />
+          <TagsSelect
+            triggerClassName="flex-auto"
+            value={filters.tags}
+            onValueChange={updateTagsFilter}
+          />
           <Button
             disabled={isEmpty}
             size="icon"

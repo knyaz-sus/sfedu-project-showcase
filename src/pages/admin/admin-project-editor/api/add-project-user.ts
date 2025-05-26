@@ -10,7 +10,6 @@ export async function addProjectUser({
   projectId: string;
   userId: number;
 } & Credentials) {
-  console.log(userId);
   const res = await fetch(
     `${API_URL}/admin/projects/${projectId}/users/add?userId=${encodeURIComponent(
       userId

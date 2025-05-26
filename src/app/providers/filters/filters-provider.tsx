@@ -24,9 +24,11 @@ export function FiltersProvider({ children }: PropsWithChildren) {
       const parsedState = JSON.parse(storageState);
 
       const { data, error } = filtersSchema.safeParse(parsedState);
-      if (error) throw error;
-
-      setFilters(storageState ? data : initialState);
+      if (!error) {
+        setFilters(data);
+      } else {
+        setFilters(initialState);
+      }
     }
   }, []);
   return (

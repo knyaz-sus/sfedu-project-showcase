@@ -35,7 +35,6 @@ export function ProjectCarousel(props: ProjectCarouselProps) {
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
 
-  console.log("images", images);
   return (
     <section className={cn("embla", className)}>
       <div className="embla__viewport" ref={emblaRef}>

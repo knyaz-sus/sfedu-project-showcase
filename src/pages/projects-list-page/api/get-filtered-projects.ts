@@ -16,8 +16,7 @@ export async function getFilteredProjects({ tags, track, date }: Filters) {
   try {
     const projects = await fetchWithValidation(projectsSchema, url);
     return mapProjects(projects);
-  } catch (e) {
-    console.log(e);
+  } catch {
     throw new Error("Не удалось загрузить проекты");
   }
 }

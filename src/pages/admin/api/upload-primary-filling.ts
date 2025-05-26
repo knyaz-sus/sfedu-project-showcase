@@ -15,8 +15,7 @@ function createFormData(
   formData.append("summary", files.summary);
   formData.append("annotation", files.annotation);
   formData.append("score", files.score);
-  console.log({ dateId, trackId, files });
-  console.log(formData);
+
   return formData;
 }
 

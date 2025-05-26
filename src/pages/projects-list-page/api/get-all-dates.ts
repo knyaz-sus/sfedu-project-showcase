@@ -4,8 +4,7 @@ import { datesSchema } from "@/shared/types/schemas";
 export async function getAllDates() {
   try {
     return await fetchWithValidation(datesSchema, "/dates");
-  } catch (e) {
-    console.log(e);
+  } catch {
     throw new Error("Не удалось загрузить даты");
   }
 }

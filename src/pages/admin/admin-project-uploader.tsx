@@ -82,7 +82,6 @@ export function AdminProjectUploader() {
         tagsId.length === 0 ||
         usersId.length === 0
       ) {
-        console.log(tagsId, dateId, usersId, project.grade);
         throw new Error("Не все необходимые поля корректно заполнены");
       }
 
