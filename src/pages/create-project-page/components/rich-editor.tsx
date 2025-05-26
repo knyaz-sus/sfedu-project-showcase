@@ -98,7 +98,7 @@ export function RichTextEditor({
           size="sm"
           aria-label="Format Bold"
         >
-          <BoldIcon />
+          <BoldIcon size={20} />
         </Toggle>
         <Toggle
           pressed={editor.isActive("underline")}
@@ -106,7 +106,7 @@ export function RichTextEditor({
           size="sm"
           aria-label="Format Underline"
         >
-          <UnderlineIcon />
+          <UnderlineIcon size={20} />
         </Toggle>
         <Toggle
           pressed={editor.isActive("italic")}
@@ -114,7 +114,7 @@ export function RichTextEditor({
           size="sm"
           aria-label="Format Italic"
         >
-          <ItalicIcon />
+          <ItalicIcon size={20} />
         </Toggle>
         <Toggle
           pressed={editor.isActive("strike")}
@@ -122,7 +122,7 @@ export function RichTextEditor({
           size="sm"
           aria-label="Format Strike"
         >
-          <Strikethrough />
+          <Strikethrough size={20} />
         </Toggle>
         <Toggle
           pressed={editor.isActive("code")}
@@ -130,7 +130,7 @@ export function RichTextEditor({
           size="sm"
           aria-label="Format Code"
         >
-          <CodeIcon />
+          <CodeIcon size={20} />
         </Toggle>
         <Toggle
           pressed={false}
@@ -139,7 +139,7 @@ export function RichTextEditor({
           disabled={!editor.can().undo()}
           aria-label="Undo"
         >
-          <Undo />
+          <Undo size={20} />
         </Toggle>
         <Toggle
           pressed={false}
@@ -148,7 +148,7 @@ export function RichTextEditor({
           disabled={!editor.can().redo()}
           aria-label="Redo"
         >
-          <Redo />
+          <Redo size={20} />
         </Toggle>
       </div>
       <Separator />

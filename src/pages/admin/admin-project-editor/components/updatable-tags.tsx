@@ -110,7 +110,11 @@ export function UpdatableTags({ projectId, projectTags }: UpdatableTitleProps) {
             triggerClassName="mb-1 w-full"
           />
           <div className="flex gap-2 items-center w-full">
-            <ConfirmButton isLoading={isAddPending} onConfirm={handleAddTag} />
+            <ConfirmButton
+              isLoading={isAddPending}
+              onConfirm={handleAddTag}
+              disabled={!tag}
+            />
             <Button onClick={() => setEdit(false)} variant="outline">
               Отменить
             </Button>
