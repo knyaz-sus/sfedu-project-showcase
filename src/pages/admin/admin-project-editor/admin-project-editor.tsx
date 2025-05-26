@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { Badge } from "@/shared/ui/badge";
 import { Separator } from "@/shared/ui/separator";
 import { useGetProject } from "@/pages/project-page/api/hooks/use-get-project";
 import { Link } from "lucide-react";
@@ -11,6 +10,7 @@ import { UpdatableTitle } from "./components/updatable-title";
 import { UpdatableDescription } from "./components/updatable-description";
 import { UpdatableDate } from "./components/updatable-date";
 import { UpdatableTrack } from "./components/updatable-track";
+import { UpdatableTags } from "./components/updatable-tags";
 
 export function AdminProjectEditor() {
   const { id } = useParams();
@@ -55,12 +55,10 @@ export function AdminProjectEditor() {
                 projectId={id as string}
                 previousValue={project.track?.name ?? null}
               />
-              {project.tags &&
-                project.tags.map((tag) => (
-                  <Badge variant="secondary" key={tag.id}>
-                    {tag.name}
-                  </Badge>
-                ))}
+              <UpdatableTags
+                projectId={id as string}
+                projectTags={project.tags}
+              />
             </div>
             {hasLinks && (
               <div className="flex gap-2 items-center mb-2">
