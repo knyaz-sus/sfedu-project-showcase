@@ -2,18 +2,20 @@ import { cn } from "@/shared/lib/cn";
 import { HTMLAttributes } from "react";
 import DOMPurify from "dompurify";
 
-export function StaticEditor(
-  props: { dangerousString: string } & HTMLAttributes<HTMLDivElement>
-) {
+type StaticEditorProps = {
+  dangerousString: string;
+} & HTMLAttributes<HTMLDivElement>;
+
+export function StaticEditor({ dangerousString, ...rest }: StaticEditorProps) {
   return (
     <div
-      {...props}
+      {...rest}
       dangerouslySetInnerHTML={{
-        __html: DOMPurify.sanitize(props.dangerousString, {
-          ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "u"],
+        __html: DOMPurify.sanitize(dangerousString, {
+          ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "u", "s"],
         }),
       }}
-      className={cn("text-sm", props.className)}
+      className={cn("text-sm", rest.className)}
     />
   );
 }

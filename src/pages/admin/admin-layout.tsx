@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 export function AdminLayout() {
   return (
     <>
-      <div className="flex flex-col min-h-svh p-3">
+      <div className="flex flex-col min-h-svh py-3 px-5">
         <header className="mb-2">
           <Button
             asChild

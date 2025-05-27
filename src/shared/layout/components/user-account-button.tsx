@@ -42,7 +42,7 @@ export function UserAccountButton() {
           <AvatarImage src={authUser.attributes.picture} />
           <AvatarFallback>{fallback}</AvatarFallback>
         </Avatar>
-        <span>{name}</span>
+        <div className="max-w-24 xs:max-w-none truncate">{name}</div>
       </Link>
     </Button>
   );

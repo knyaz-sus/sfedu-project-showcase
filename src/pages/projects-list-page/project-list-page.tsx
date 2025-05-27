@@ -36,7 +36,7 @@ export function ProjectsListPage() {
   };
   const id = useId();
   return (
-    <div className="flex flex-col gap-2 max-w-7xl items-center px-4 md:px-0 w-full">
+    <div className="flex flex-col gap-2 max-w-7xl items-center w-full">
       <div className="flex flex-col lg:justify-between lg:flex-row gap-2 mb-5 w-full">
         <Input
           type="text"

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export function AdminPage() {
   return (
     <>
-      <div className="min-h-svh p-6 space-y-6 max-w-7xl mx-auto">
+      <div className="min-h-svh py-6 px-5 space-y-6 max-w-7xl mx-auto">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
             Панель администратора
