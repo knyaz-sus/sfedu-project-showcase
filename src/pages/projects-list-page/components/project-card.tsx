@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Project } from "@/shared/types/schemas";
 import { Badge } from "@/shared/ui/badge";
-import { StaticEditor } from "@/shared/ui/static-editor";
+import { StaticPreviewEditor } from "@/shared/ui/editors/static-preview-editor";
 import { ImageWithPlaceholder } from "./image-with-placeholder";
 
 export function ProjectCard({
@@ -29,7 +29,7 @@ export function ProjectCard({
         <h3 className="text-base whitespace-break-spaces line-clamp-2">
           {title}
         </h3>
-        <StaticEditor
+        <StaticPreviewEditor
           className="line-clamp-2 whitespace-break-spaces"
           dangerousString={description ?? ""}
         />

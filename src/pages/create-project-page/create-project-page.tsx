@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RichTextEditor } from "./components/rich-editor";
+import { RichEditor } from "@/shared/ui/editors/rich-editor";
 import { Separator } from "@/shared/ui/separator";
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/button";
@@ -187,7 +187,7 @@ export function CreateProjectPage() {
           onValueChange={updateTags}
         />
       </div>
-      <RichTextEditor
+      <RichEditor
         className="flex-auto"
         content={project.description}
         onUpdate={updateDescription}

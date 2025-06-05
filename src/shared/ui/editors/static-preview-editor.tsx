@@ -2,11 +2,14 @@ import { cn } from "@/shared/lib/cn";
 import { HTMLAttributes } from "react";
 import DOMPurify from "dompurify";
 
-type StaticEditorProps = {
+type StaticPreviewEditorProps = {
   dangerousString: string;
 } & HTMLAttributes<HTMLDivElement>;
 
-export function StaticEditor({ dangerousString, ...rest }: StaticEditorProps) {
+export function StaticPreviewEditor({
+  dangerousString,
+  ...rest
+}: StaticPreviewEditorProps) {
   return (
     <div
       {...rest}

@@ -1,4 +1,4 @@
-import { useEditor, EditorContent, Editor } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
@@ -23,17 +23,17 @@ import { Toggle } from "@/shared/ui/toggle";
 import { Separator } from "@/shared/ui/separator";
 import { useEffect } from "react";
 
-interface RichTextEditorProps {
+interface RichEditorProps {
   content: string;
   onUpdate: (content: string) => void;
   className?: string;
 }
 
-export function RichTextEditor({
+export function RichEditor({
   content,
   onUpdate,
   className,
-}: RichTextEditorProps) {
+}: RichEditorProps) {
   const editor = useEditor({
     extensions: [
       Document,
@@ -52,7 +52,7 @@ export function RichTextEditor({
     onUpdate({ editor }) {
       onUpdate(editor.getHTML());
     },
-  }) as Editor;
+  });
 
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
@@ -61,23 +61,23 @@ export function RichTextEditor({
   }, [content, editor]);
 
   const toggleBold = () => {
-    editor.chain().focus().toggleBold().run();
+    editor?.chain().focus().toggleBold().run();
   };
 
   const toggleUnderline = () => {
-    editor.chain().focus().toggleUnderline().run();
+    editor?.chain().focus().toggleUnderline().run();
   };
 
   const toggleItalic = () => {
-    editor.chain().focus().toggleItalic().run();
+    editor?.chain().focus().toggleItalic().run();
   };
 
   const toggleStrike = () => {
-    editor.chain().focus().toggleStrike().run();
+    editor?.chain().focus().toggleStrike().run();
   };
 
   const toggleCode = () => {
-    editor.chain().focus().toggleCode().run();
+    editor?.chain().focus().toggleCode().run();
   };
 
   if (!editor) {

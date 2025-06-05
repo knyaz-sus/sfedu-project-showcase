@@ -5,7 +5,7 @@ import { useGetProject } from "./api/hooks/use-get-project";
 import { Spinner } from "@/shared/ui/spinner";
 import { Link } from "lucide-react";
 import { MemberList } from "./components/member-list";
-import { StaticEditor } from "@/shared/ui/static-editor";
+import { StaticRichEditor } from "@/shared/ui/editors/static-rich-editor";
 import { ErrorFallback } from "@/shared/ui/error-fallback";
 import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 
@@ -40,9 +40,9 @@ export function ProjectPage() {
               showControls={project.screenshots?.length !== 0}
             />
           )}
-          <StaticEditor
+          <StaticRichEditor
             className="mt-2"
-            dangerousString={
+            content={
               project.description
                 ? project.description
                 : "У этого проекта нет описания"

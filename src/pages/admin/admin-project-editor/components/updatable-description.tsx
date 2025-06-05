@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { RichTextEditor } from "@/pages/create-project-page/components/rich-editor";
-import { StaticEditor } from "@/shared/ui/static-editor";
+import { RichEditor } from "@/shared/ui/editors/rich-editor";
+import { StaticRichEditor } from "@/shared/ui/editors/static-rich-editor";
 import { useUpdateProjectDescription } from "../api/hooks/use-update-project-description";
 import { getAdminCredentials } from "@/pages/admin/utils/get-admin-credentials";
 import { ConfirmButton } from "./confirm-button";
@@ -48,7 +48,7 @@ export function UpdatableDescription({
   };
   return showEditor ? (
     <>
-      <RichTextEditor
+      <RichEditor
         content={currentDescription}
         onUpdate={setDescription}
         className="my-2"
@@ -67,12 +67,10 @@ export function UpdatableDescription({
     </>
   ) : (
     <button>
-      <StaticEditor
+      <StaticRichEditor
         onClick={() => setShowEditor((prev) => !prev)}
         className="mt-2 hover:text-primary cursor-pointer text-left"
-        dangerousString={
-          previousValue ? previousValue : "У этого проекта нет описания"
-        }
+        content={previousValue ? previousValue : "У этого проекта нет описания"}
       />
     </button>
   );
