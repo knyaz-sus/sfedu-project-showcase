@@ -62,6 +62,7 @@ export function ProjectsListPage() {
             size="icon"
             variant="outline"
             onClick={resetFilters}
+            aria-label="Сбросить фильтры"
           >
             <ResetIcon />
           </Button>

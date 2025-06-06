@@ -131,7 +131,12 @@ export function PrimaryFilling() {
               : "Нажмите сюда чтобы загрузить xlsx файл с проектами"}
           </span>
           {files !== null && (
-            <Button onClick={hadnleFileRemove} variant="ghost" size="icon">
+            <Button
+              onClick={hadnleFileRemove}
+              variant="ghost"
+              size="icon"
+              aria-label="Удалить файл"
+            >
               <Trash />
             </Button>
           )}

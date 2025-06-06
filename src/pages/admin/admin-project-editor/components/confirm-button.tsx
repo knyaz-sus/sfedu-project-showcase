@@ -24,6 +24,7 @@ export function ConfirmButton({
         size="icon"
         disabled={disabled}
         className={className}
+        aria-label={isLoading ? "Подтверждение выполняется" : "Подтвердить"}
       >
         {isLoading ? (
           <Spinner className="text-primary-foreground" />

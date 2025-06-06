@@ -48,12 +48,12 @@ export function UpdatableGrade({
   };
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 w-full">
       <span
-        className="hover:text-primary cursor-pointer"
+        className="hover:text-primary cursor-pointer truncate pl-2 py-1"
         onClick={() => setEdit((prev) => !prev)}
       >
-        Оценка проекта: {currentGrade}/100
+        Оценка проекта: {currentGrade ? currentGrade + "/100" : "не выставлена"}
       </span>
       {edit && (
         <div className="flex gap-2 items-center w-full">
@@ -62,13 +62,20 @@ export function UpdatableGrade({
             className="border-none shadow-none px-1"
             value={currentGrade}
             onChange={(e) => setGrade(e.target.value)}
+            autoFocus
           />
           <ConfirmButton
             isLoading={isPending}
             onConfirm={handleGradeChange}
             disabled={!currentGrade || currentGrade === previousValue}
           />
-          <Button onClick={() => setEdit(false)} variant="outline">
+          <Button
+            onClick={() => {
+              setEdit(false);
+              setGrade(previousValue ?? "");
+            }}
+            variant="outline"
+          >
             Отменить
           </Button>
         </div>

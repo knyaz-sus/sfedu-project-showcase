@@ -11,8 +11,8 @@ export function FileUpload({
   };
 
   return (
-    <div className="embla__slide">
-      <label className="embla__slide__img flex justify-center items-center h-full bg-accent">
+    <div className="embla__slide ">
+      <label className="embla__slide__img flex justify-center items-center h-full bg-accent cursor-pointer">
         <input
           hidden
           type="file"

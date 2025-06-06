@@ -80,7 +80,11 @@ export function ProjectPage() {
             )}
           </div>
           <MemberList users={project.users} isEditable={false} />
-          {project.grade && <span>Оценка проекта: {project.grade}/100</span>}
+          {project.grade && (
+            <span className="text-center py-1 pl-2">
+              Оценка проекта: {project.grade}/100
+            </span>
+          )}
         </div>
       </div>
     </div>

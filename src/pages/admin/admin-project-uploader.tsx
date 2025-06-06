@@ -156,6 +156,28 @@ export function AdminProjectUploader() {
     });
   };
 
+  const handleDeleteImage = (index: number) => {
+    setProject((prev) => {
+      const updated = prev.screenshots?.filter((_, i) => i !== index) || [];
+      return {
+        ...prev,
+        screenshots: updated,
+      };
+    });
+  };
+
+  const handleSetAsMainImage = (index: number) => {
+    setProject((prev) => {
+      if (!prev.screenshots || index === 0) return prev;
+      const newMain = prev.screenshots[index];
+      const others = prev.screenshots.filter((_, i) => i !== index);
+      return {
+        ...prev,
+        screenshots: [newMain, ...others],
+      };
+    });
+  };
+
   const updateField = <K extends keyof CreateAdminProjectState>(
     field: K,
     value: CreateAdminProjectState[K]
@@ -185,6 +207,8 @@ export function AdminProjectUploader() {
         className="w-full"
         images={project.screenshots}
         showControls={!!project.screenshots && project.screenshots?.length > 0}
+        onDeleteImage={handleDeleteImage}
+        onSetMainImage={handleSetAsMainImage}
       >
         <FileUpload updateImages={updateImages} />
       </ProjectCarousel>

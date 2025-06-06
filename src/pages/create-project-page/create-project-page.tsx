@@ -10,11 +10,11 @@ import { DateSelect } from "@/shared/widgets/date-select";
 import { useGetAllDates } from "@/pages/projects-list-page/api/hooks/use-get-all-dates";
 import { useGetAllTags } from "@/shared/api/hooks/use-get-all-tags";
 import { CreateProject } from "@/shared/types/schemas";
-import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 import { FileUpload } from "./components/file-upload";
 import { useToast } from "@/shared/hooks/use-toast";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { useGetDatabaseUser } from "./api/hooks/use-get-database-user";
+import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 
 type CreateProjectState = {
   mainScreenshot: File | null;
@@ -124,6 +124,28 @@ export function CreateProjectPage() {
     });
   };
 
+  const handleDeleteImage = (index: number) => {
+    setProject((prev) => {
+      const updated = prev.screenshots?.filter((_, i) => i !== index) || [];
+      return {
+        ...prev,
+        screenshots: updated,
+      };
+    });
+  };
+
+  const handleSetAsMainImage = (index: number) => {
+    setProject((prev) => {
+      if (!prev.screenshots || index === 0) return prev;
+      const newMain = prev.screenshots[index];
+      const others = prev.screenshots.filter((_, i) => i !== index);
+      return {
+        ...prev,
+        screenshots: [newMain, ...others],
+      };
+    });
+  };
+
   const updateField = <K extends keyof CreateProjectState>(
     field: K,
     value: CreateProjectState[K]
@@ -143,7 +165,7 @@ export function CreateProjectPage() {
     <div className="flex flex-col items-start flex-1 gap-2 order-1 md:order-2 max-w-7xl w-full">
       <Input
         placeholder="Введите имя вашего проекта..."
-        className="border-none shadow-none min-w-96 leading-tight font-semibold text-xl"
+        className="border-none shadow-none w-full lg:max-w-[505px] leading-tight font-semibold text-xl"
         value={project.title}
         onChange={(e) => updateField("title", e.target.value)}
       />
@@ -153,11 +175,13 @@ export function CreateProjectPage() {
         className="w-full"
         images={project.screenshots}
         showControls={!!project.screenshots && project.screenshots?.length > 0}
+        onDeleteImage={handleDeleteImage}
+        onSetMainImage={handleSetAsMainImage}
       >
         <FileUpload updateImages={updateImages} />
       </ProjectCarousel>
       <div className="flex gap-2 flex-wrap">
-        <div className="flex gap-2 w-full">
+        <div className="flex gap-2 w-full flex-col xs:flex-row">
           <Input
             className="flex-auto"
             placeholder="Ссылка на репозиторий..."

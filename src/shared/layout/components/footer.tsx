@@ -2,11 +2,9 @@ import { Button } from "@/shared/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { Link, useLocation } from "react-router-dom";
 import { Separator } from "@/shared/ui/separator";
-import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 
 /* eslint-disable no-irregular-whitespace */
 export function Footer() {
-  const isMobile = useIsMobile();
   const location = useLocation();
   return (
     <>
@@ -33,25 +31,29 @@ export function Footer() {
           <div className="flex flex-col flex-1">
             <h2 className="mb-2">Социальные сети</h2>
             <div className="flex flex-col gap-2">
-              <a className="underline" href="https://mmcs.sfedu.ru/">
+              <a className="underline w-fit" href="https://mmcs.sfedu.ru/">
                 Официальный сайт
               </a>
-              <a className="underline" href="https://vk.com/mmcs.official">
-                Vk
+              <a
+                className="underline w-fit"
+                href="https://vk.com/mmcs.official"
+              >
+                Группа ВКонтакте
               </a>
             </div>
           </div>
           <div className="flex md:flex-col gap-4 justify-between items-center pb-2">
-            <Button size={isMobile ? "sm" : "default"} variant="outline">
-              {location.pathname.includes("/admin") ? (
-                <Link className="max-w-40 xs:max-w-none truncate" to="/">
-                  Перейти в основное приложение
-                </Link>
-              ) : (
-                <Link className="max-w-40 xs:max-w-none truncate" to="/admin">
-                  Войти как администратор
-                </Link>
-              )}
+            <Button variant="outline" asChild>
+              <Link
+                to={location.pathname.includes("/admin") ? "/" : "/admin"}
+                className="max-w-44 xs:max-w-none overflow-hidden"
+              >
+                <span className="truncate block">
+                  {location.pathname.includes("/admin")
+                    ? "Перейти в основное приложение"
+                    : "Войти как администратор"}
+                </span>
+              </Link>
             </Button>
             <ThemeToggle />
           </div>
