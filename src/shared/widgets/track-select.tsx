@@ -1,16 +1,5 @@
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
-import { useState } from "react";
-import { Button } from "@/shared/ui/button";
-import { cn } from "../lib/cn";
+import { EntitySelect } from "./entity-select";
+import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
 
 interface TrackSelectProps {
   value: string;
@@ -25,41 +14,18 @@ export function TrackSelect({
   className,
   triggerClassName,
 }: TrackSelectProps) {
-  const [open, onOpenChange] = useState(false);
-
-  const resetDate = () => {
-    onValueChange("");
-    onOpenChange(false);
-  };
+  const { data: tracks, isError, isPending } = useGetAllTracks();
   return (
-    <Select
-      open={open}
-      onOpenChange={onOpenChange}
+    <EntitySelect
       value={value}
       onValueChange={onValueChange}
-    >
-      <SelectTrigger className={cn("flex-auto", triggerClassName)}>
-        <SelectValue placeholder="Выберите трек" />
-      </SelectTrigger>
-      <SelectContent className={className}>
-        <SelectGroup className="flex justify-between">
-          <SelectLabel>Треки</SelectLabel>
-          <Button
-            onClick={resetDate}
-            disabled={!value}
-            size="sm"
-            variant="ghost"
-            aria-label="Сбросить выбор учебного года"
-          >
-            Сбросить
-          </Button>
-        </SelectGroup>
-        <SelectSeparator />
-        <SelectGroup>
-          <SelectItem value="Бакалавриат">Бакалавриат</SelectItem>
-          <SelectItem value="Магистратура">Магистратура</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+      entities={tracks}
+      isError={isError}
+      isPending={isPending}
+      placeholder="Выберите трек"
+      label="Трек"
+      className={className}
+      triggerClassName={triggerClassName}
+    />
   );
 }
