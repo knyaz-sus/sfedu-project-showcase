@@ -4,52 +4,51 @@ import { API_URL } from "@/shared/api/constants";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { FavoriteProjectCard } from "./favorite-project-card";
 
 export function HomePage() {
   const { isAuthLoading, authUser } = useAuth();
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <section className="py-16">
-        <div className="container">
-          <div className="grid items-center gap-8 lg:grid-cols-2">
-            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-              <Badge variant="outline">Учись на мехмате, будь лучшим!</Badge>
-              <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
-                Витрина проектов Мехмата ЮФУ
-              </h1>
-              <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">
-                Мехмат ЮФУ - структурное подразделение Южного федерального
-                университета
-              </p>
-              <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-                <Button asChild className="w-full sm:w-auto">
-                  {!isAuthLoading && authUser ? (
-                    <Link to="/project-editor">Загрузить проект</Link>
-                  ) : (
-                    <a
-                      onClick={() => navigate("/login", { replace: true })}
-                      href={`${API_URL}/oauth2/authorization/azure`}
-                    >
-                      Загрузить проект
-                    </a>
-                  )}
-                </Button>
-              </div>
+    <div className="flex flex-col items-center gap-4 max-w-7xl w-full">
+      <section className="flex items-center justify-center min-h-[calc(100svh-5.75rem)] py-2">
+        <div className="grid items-center gap-8 md:grid-cols-2">
+          <div className="flex flex-col items-center text-center md:items-start md:text-left">
+            <Badge variant="outline">Учись на мехмате, будь лучшим!</Badge>
+            <h1 className="my-4 text-pretty text-4xl font-bold xl:text-6xl ">
+              Витрина проектов Мехмата ЮФУ
+            </h1>
+            <p className="mb-8 max-w-xl text-muted-foreground xl:text-xl">
+              Мехмат ЮФУ - структурное подразделение Южного федерального
+              университета
+            </p>
+            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row md:justify-start">
+              <Button asChild className="w-full sm:w-auto">
+                {!isAuthLoading && authUser ? (
+                  <Link to="/project-editor">Загрузить проект</Link>
+                ) : (
+                  <a
+                    onClick={() => navigate("/login", { replace: true })}
+                    href={`${API_URL}/oauth2/authorization/azure`}
+                  >
+                    Загрузить проект
+                  </a>
+                )}
+              </Button>
             </div>
-            <div className="flex flex-col text-center">
-              <img
-                src="/img/placeholder.svg"
-                alt="Изображение проекта"
-                className="w-full aspect-video object-center rounded-md object-cover"
-              />
-            </div>
+          </div>
+          <div className="flex flex-col text-center">
+            <img
+              src="/img/placeholder.svg"
+              alt="Изображение проекта"
+              className="w-full aspect-video object-center rounded-md object-cover"
+            />
           </div>
         </div>
       </section>
       <section>
-        <div className="container flex flex-col gap-16 lg:px-16">
+        <div className="flex flex-col gap-8">
           <div className="lg:max-w-sm">
             <h2 className="mb-3 text-xl font-semibold md:mb-4 md:text-4xl lg:mb-6">
               Избранные проекты последнего семестра
@@ -63,54 +62,30 @@ export function HomePage() {
             </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-            <div className="flex flex-col overflow-clip rounded-xl border border-border md:col-span-2 md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
-              <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
-                <img
-                  src="/img/placeholder.svg"
-                  alt="Лучший проект 1"
-                  className="aspect-[16/9] h-full w-full object-cover object-center"
-                />
-              </div>
-              <div className="flex flex-col justify-center px-6 py-8 md:px-8 md:py-10 lg:px-10 lg:py-12">
-                <h3 className="mb-3 text-lg font-semibold md:mb-4 md:text-2xl lg:mb-6">
-                  Игровая экосистема с использованием компьютерного зрения:
+            <FavoriteProjectCard
+              title="Игровая экосистема с использованием компьютерного зрения:
                   распознавание движений для управления персонажем в виртуальном
-                  мире.
-                </h3>
-                <p className="text-muted-foreground lg:text-lg">
-                  Наш проект — это кроссплатформенное решение, включающее в себя
+                  мире."
+              description="Наш проект — это кроссплатформенное решение, включающее в себя
                   мобильное и веб-приложение, разработанное с использованием
                   современных технологий и подходов к программированию. Фронтенд
                   реализован на React с использованием TypeScript, что
                   обеспечивает строгую типизацию и упрощает поддержку кода.
                   Бэкенд построен на Node.js с использованием Express, что
                   позволяет быстро обрабатывать запросы и предоставлять API для
-                  взаимодействия клиентских приложений с сервером.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-col-reverse overflow-clip rounded-xl border border-border md:col-span-2 md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
-              <div className="flex flex-col justify-center px-6 py-8 md:px-8 md:py-10 lg:px-10 lg:py-12">
-                <h3 className="mb-3 text-lg font-semibold md:mb-4 md:text-2xl lg:mb-6">
-                  Веб-платформа для обучения программированию через создание
-                  собственных текстовых квестов и их визуализацию.
-                </h3>
-                <p className="text-muted-foreground lg:text-lg">
-                  Promise — это отличительная особенность JavaScript как
+                  взаимодействия клиентских приложений с сервером."
+              index={1}
+            />
+            <FavoriteProjectCard
+              title="Веб-платформа для обучения программированию через создание
+                  собственных текстовых квестов и их визуализацию."
+              description="Promise — это отличительная особенность JavaScript как
                   асинхронного языка программирования. Нравится вам это или нет,
                   понять его в любом случае придется. В этой статье автор
                   приводит 10 примеров кода с Promise, начиная от базового
-                  уровня заканчивая продвинутым. Готовы? Начнем!
-                </p>
-              </div>
-              <div className="md:min-h-[24rem] lg:min-h-[28rem] xl:min-h-[32rem]">
-                <img
-                  src="/img/placeholder.svg"
-                  alt="Лучший проект 2"
-                  className="aspect-[16/9] h-full w-full object-cover object-center"
-                />
-              </div>
-            </div>
+                  уровня заканчивая продвинутым. Готовы? Начнем!"
+              index={2}
+            />
           </div>
         </div>
       </section>

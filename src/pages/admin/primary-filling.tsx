@@ -7,6 +7,7 @@ import { useToast } from "@/shared/hooks/use-toast";
 import { read, utils } from "xlsx";
 import { Trash } from "lucide-react";
 import { useGetAllDates } from "../projects-list-page/api/hooks/use-get-all-dates";
+import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
 
 export type PrimaryFillingSheets = {
   summary: File | null;
@@ -20,6 +21,7 @@ export function PrimaryFilling() {
   const { toast } = useToast();
 
   const { data: dates } = useGetAllDates();
+  const { data: tracks } = useGetAllTracks();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files;
@@ -69,8 +71,8 @@ export function PrimaryFilling() {
     try {
       if (!files) return;
       const dateId = dates?.find((_date) => _date.name === date)?.id;
-      const trackId = track === "Бакалавриат" ? 0 : 1;
-      if (!dateId || !trackId) {
+      const trackId = tracks?.find((_track) => _track.name === track)?.id;
+      if (!dateId || !trackId || !trackId) {
         throw new Error("Что-то пошло не так");
       }
       await uploadPrimaryFilling(dateId, trackId, files);

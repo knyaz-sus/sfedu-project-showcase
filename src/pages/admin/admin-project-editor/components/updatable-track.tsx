@@ -5,7 +5,7 @@ import { useToast } from "@/shared/hooks/use-toast";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
 import { useUpdateProjectTrack } from "../api/hooks/use-update-project-track";
-import { useGetAllTracks } from "@/pages/admin/api/hooks/use-get-all-tracks";
+import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
 import { TrackSelect } from "@/shared/widgets/track-select";
 
 interface UpdatableTrackProps {
@@ -30,7 +30,9 @@ export function UpdatableTrack({
     try {
       const { login, password } = getAdminCredentials();
       const trackId = tracks?.find((track) => track.name === currentTrack)?.id;
-      if (!trackId) throw new Error("Не удалось получить трек");
+      if (!trackId) {
+        throw new Error("Не удалось получить трек");
+      }
       await mutateAsync({
         projectId,
         trackId: Number(trackId),

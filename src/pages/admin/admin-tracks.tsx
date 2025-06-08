@@ -1,6 +1,6 @@
 import { AdminEntityPanel } from "./components/admin-entity-panel";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useGetAllTracks } from "./api/hooks/use-get-all-tracks";
+import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
 import { createTrack } from "./api/create-track";
 
 export function AdminTracks() {

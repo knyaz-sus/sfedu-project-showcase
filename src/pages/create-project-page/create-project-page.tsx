@@ -15,6 +15,7 @@ import { useToast } from "@/shared/hooks/use-toast";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { useGetDatabaseUser } from "./api/hooks/use-get-database-user";
 import { ProjectCarousel } from "@/shared/widgets/project-carousel";
+import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
 
 type CreateProjectState = {
   mainScreenshot: File | null;
@@ -54,6 +55,7 @@ export function CreateProjectPage() {
   );
   const { data: dates } = useGetAllDates();
   const { data: tags } = useGetAllTags();
+  const { data: tracks } = useGetAllTracks();
   const { mutateAsync } = useCreateProject();
 
   const handleProjectCreate = async () => {
@@ -62,8 +64,7 @@ export function CreateProjectPage() {
         throw new Error("Что-то пошло не так, попробуйте позже");
       }
 
-      const trackId = project.track === "Бакалавриат" ? 1 : 2;
-
+      const trackId = tracks?.find((track) => track.name === project.track)?.id;
       const dateId =
         dates.find((date) => date.name === project.date)?.id ??
         dates.at(-1)?.id;
@@ -72,7 +73,7 @@ export function CreateProjectPage() {
         ?.filter((tag) => project.tags.includes(tag.name))
         .map((tag) => tag.id);
 
-      if (!tagsId || !dateId || tagsId.length === 0) {
+      if (!tagsId || !dateId || !trackId || tagsId.length === 0) {
         throw new Error("Не все необходимые поля корректно заполнены");
       }
 

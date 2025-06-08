@@ -15,6 +15,7 @@ import { useToast } from "@/shared/hooks/use-toast";
 import { useGetAllUsers } from "./api/hooks/use-get-all-users";
 import { useCreateAdminProject } from "./api/hooks/use-create-admin-project";
 import { UsersSelect } from "./components/users-select";
+import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
 
 type CreateAdminProjectState = {
   mainScreenshot: File | null;
@@ -52,6 +53,7 @@ export function AdminProjectUploader() {
   const { data: users } = useGetAllUsers();
   const { data: dates } = useGetAllDates();
   const { data: tags } = useGetAllTags();
+  const { data: tracks } = useGetAllTracks();
 
   const { mutateAsync } = useCreateAdminProject();
   const handleProjectCreate = async () => {
@@ -60,7 +62,7 @@ export function AdminProjectUploader() {
         throw new Error("Что-то пошло не так, попробуйте позже");
       }
 
-      const trackId = project.track === "Бакалавриат" ? 1 : 2;
+      const trackId = tracks?.find((track) => track.name === project.track)?.id;
 
       const dateId =
         dates.find((date) => date.name === project.date)?.id ??
@@ -78,6 +80,7 @@ export function AdminProjectUploader() {
         !tagsId ||
         !dateId ||
         !usersId ||
+        !trackId ||
         !project.grade ||
         tagsId.length === 0 ||
         usersId.length === 0
@@ -188,6 +191,18 @@ export function AdminProjectUploader() {
     }));
   };
 
+  const updateGrade = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val === "") {
+      updateField("grade", val);
+      return;
+    }
+    if (!/^(0|[1-9]\d{0,2})$/.test(val)) return;
+    const num = Number(val);
+    if (num >= 0 && num <= 100) {
+      updateField("grade", val);
+    }
+  };
   const updateTrack = (track: string) => updateField("track", track);
   const updateDescription = (description: string) =>
     updateField("description", description);
@@ -230,7 +245,7 @@ export function AdminProjectUploader() {
             className="flex-auto"
             placeholder="Оценка в баллах..."
             value={project.grade}
-            onChange={(e) => updateField("grade", e.target.value)}
+            onChange={updateGrade}
           />
         </div>
         <TrackSelect

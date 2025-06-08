@@ -1,8 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { getAllTracks } from "../get-all-tracks";
+import { usePersistentQuery } from "@/shared/hooks/use-persistent-query";
 
 export function useGetAllTracks() {
-  return useQuery({
+  return usePersistentQuery({
     queryKey: ["tracks"],
     queryFn: getAllTracks,
   });

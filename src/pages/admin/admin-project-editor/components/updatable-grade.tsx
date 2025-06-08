@@ -21,12 +21,12 @@ export function UpdatableGrade({
   const [edit, setEdit] = useState(false);
   const currentGrade = grade !== null ? grade : previousValue ?? "";
 
-  const handleGradeChange = async () => {
+  const handleGradeSubmit = async () => {
     try {
       const { login, password } = getAdminCredentials();
-      const parsedGrade = parseInt(currentGrade);
-      if (isNaN(parsedGrade) || parsedGrade < 0 || parsedGrade > 100) {
-        throw new Error("Формат оценки не число или вне диапазона от 0 до 100");
+      const parsedGrade = Number(currentGrade);
+      if (isNaN(parsedGrade)) {
+        throw new Error("Неверный формат оценки");
       }
       await mutateAsync({
         projectId,
@@ -46,7 +46,18 @@ export function UpdatableGrade({
       });
     }
   };
-
+  const handleGradeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val === "") {
+      setGrade(val);
+      return;
+    }
+    if (!/^(0|[1-9]\d{0,2})$/.test(val)) return;
+    const num = Number(val);
+    if (num >= 0 && num <= 100) {
+      setGrade(val);
+    }
+  };
   return (
     <div className="flex flex-col gap-1 w-full">
       <span
@@ -61,12 +72,12 @@ export function UpdatableGrade({
             placeholder="Введите ссылку на презентацию..."
             className="border-none shadow-none px-1"
             value={currentGrade}
-            onChange={(e) => setGrade(e.target.value)}
+            onChange={handleGradeChange}
             autoFocus
           />
           <ConfirmButton
             isLoading={isPending}
-            onConfirm={handleGradeChange}
+            onConfirm={handleGradeSubmit}
             disabled={!currentGrade || currentGrade === previousValue}
           />
           <Button
