@@ -86,7 +86,7 @@
 }
 
 .tiptap p.is-editor-empty:first-child::before {
-  color: #adb5bd;
+  color: #888;
   content: attr(data-placeholder);
   float: left;
   height: 0;
@@ -99,4 +99,7 @@ div.ProseMirror-focused {
 }
 div.ProseMirror {
   word-wrap: wrap;
+}
+.tiptap code {
+  @apply font-mono bg-gray-100 text-red-600 px-1 rounded text-sm;
 }

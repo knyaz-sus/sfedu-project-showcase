@@ -21,18 +21,20 @@ import {
 import { cn } from "@/shared/lib/cn";
 import { Toggle } from "@/shared/ui/toggle";
 import { Separator } from "@/shared/ui/separator";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface RichEditorProps {
   content: string;
   onUpdate: (content: string) => void;
   className?: string;
+  editorContentHeightClassName?: string;
 }
 
 export function RichEditor({
   content,
   onUpdate,
   className,
+  editorContentHeightClassName,
 }: RichEditorProps) {
   const editor = useEditor({
     extensions: [
@@ -46,7 +48,14 @@ export function RichEditor({
       Strike,
       Code,
       Placeholder.configure({
-        placeholder: "Введите описание вашего проекта...",
+        placeholder: `Введите описание проекта...
+
+Сочетания клавиш для форматирования текста:
+Ctrl+B — жирный; 
+Ctrl+I — курсив;
+Ctrl+U — подчёркнутый;
+Ctrl+Shift+S — зачёркнутый; 
+Ctrl+E — код.`,
       }),
     ],
     onUpdate({ editor }) {
@@ -54,31 +63,13 @@ export function RichEditor({
     },
   });
 
+  const activeFormats = useActiveFormats(editor);
+
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
-      editor.commands.setContent(content || "");
+      editor.commands.setContent(content || "<p></p>");
     }
   }, [content, editor]);
-
-  const toggleBold = () => {
-    editor?.chain().focus().toggleBold().run();
-  };
-
-  const toggleUnderline = () => {
-    editor?.chain().focus().toggleUnderline().run();
-  };
-
-  const toggleItalic = () => {
-    editor?.chain().focus().toggleItalic().run();
-  };
-
-  const toggleStrike = () => {
-    editor?.chain().focus().toggleStrike().run();
-  };
-
-  const toggleCode = () => {
-    editor?.chain().focus().toggleCode().run();
-  };
 
   if (!editor) {
     return null;
@@ -93,42 +84,42 @@ export function RichEditor({
     >
       <div className="flex gap-1">
         <Toggle
-          pressed={editor.isActive("bold")}
-          onPressedChange={toggleBold}
+          pressed={activeFormats.bold}
+          onPressedChange={() => editor.chain().focus().toggleBold().run()}
           size="sm"
-          aria-label="Format Bold"
+          aria-label="Жирный текст"
         >
           <BoldIcon size={20} />
         </Toggle>
         <Toggle
-          pressed={editor.isActive("underline")}
-          onPressedChange={toggleUnderline}
+          pressed={activeFormats.underline}
+          onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
           size="sm"
-          aria-label="Format Underline"
+          aria-label="Подчёркнутый текст"
         >
           <UnderlineIcon size={20} />
         </Toggle>
         <Toggle
-          pressed={editor.isActive("italic")}
-          onPressedChange={toggleItalic}
+          pressed={activeFormats.italic}
+          onPressedChange={() => editor.chain().focus().toggleItalic().run()}
           size="sm"
-          aria-label="Format Italic"
+          aria-label="Курсив"
         >
           <ItalicIcon size={20} />
         </Toggle>
         <Toggle
-          pressed={editor.isActive("strike")}
-          onPressedChange={toggleStrike}
+          pressed={activeFormats.strike}
+          onPressedChange={() => editor.chain().focus().toggleStrike().run()}
           size="sm"
-          aria-label="Format Strike"
+          aria-label="Зачёркнутый текст"
         >
           <Strikethrough size={20} />
         </Toggle>
         <Toggle
-          pressed={editor.isActive("code")}
-          onPressedChange={toggleCode}
+          pressed={activeFormats.code}
+          onPressedChange={() => editor.chain().focus().toggleCode().run()}
           size="sm"
-          aria-label="Format Code"
+          aria-label="Код"
         >
           <CodeIcon size={20} />
         </Toggle>
@@ -136,8 +127,8 @@ export function RichEditor({
           pressed={false}
           onPressedChange={() => editor.chain().focus().undo().run()}
           size="sm"
-          disabled={!editor.can().undo()}
-          aria-label="Undo"
+          disabled={!activeFormats.canUndo}
+          aria-label="Отменить действие"
         >
           <Undo size={20} />
         </Toggle>
@@ -145,17 +136,69 @@ export function RichEditor({
           pressed={false}
           onPressedChange={() => editor.chain().focus().redo().run()}
           size="sm"
-          disabled={!editor.can().redo()}
-          aria-label="Redo"
+          disabled={!activeFormats.canRedo}
+          aria-label="Повторить действие"
         >
           <Redo size={20} />
         </Toggle>
       </div>
       <Separator />
       <EditorContent
-        className="pl-2 flex-auto h-full [&_.tiptap.ProseMirror_p]:h-full"
+        onClick={() => editor.commands.focus()}
+        className={cn(
+          "pl-2 hover:cursor-text h-[40svh] overflow-y-auto",
+          editorContentHeightClassName
+        )}
         editor={editor}
       />
     </div>
   );
+}
+
+type ActiveFormats = {
+  bold: boolean;
+  underline: boolean;
+  italic: boolean;
+  strike: boolean;
+  code: boolean;
+  canUndo: boolean;
+  canRedo: boolean;
+};
+
+function useActiveFormats(editor: ReturnType<typeof useEditor>): ActiveFormats {
+  const [formats, setFormats] = useState<ActiveFormats>({
+    bold: false,
+    underline: false,
+    italic: false,
+    strike: false,
+    code: false,
+    canUndo: false,
+    canRedo: false,
+  });
+
+  const updateFormats = useCallback(() => {
+    if (!editor) return;
+    setFormats({
+      bold: editor.isActive("bold"),
+      underline: editor.isActive("underline"),
+      italic: editor.isActive("italic"),
+      strike: editor.isActive("strike"),
+      code: editor.isActive("code"),
+      canUndo: editor.can().undo(),
+      canRedo: editor.can().redo(),
+    });
+  }, [editor]);
+
+  useEffect(() => {
+    if (!editor) return;
+
+    editor.on("transaction", updateFormats);
+    updateFormats();
+
+    return () => {
+      editor.off("transaction", updateFormats);
+    };
+  }, [editor, updateFormats]);
+
+  return formats;
 }
