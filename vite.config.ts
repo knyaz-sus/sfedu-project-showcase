@@ -14,37 +14,6 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (!id.includes("node_modules")) return;
-
-          if (
-            id.includes("react") ||
-            id.includes("react-dom") ||
-            id.includes("react-router-dom") ||
-            id.includes("@radix-ui")
-          ) {
-            return "core";
-          }
-
-          if (id.includes("@tiptap")) {
-            return "tiptap";
-          }
-          if (id.includes("xlsx")) {
-            return "xlsx";
-          }
-          if (id.includes("zod")) {
-            return "zod";
-          }
-          if (id.includes("embla-carousel")) {
-            return "embla-carousel";
-          }
-
-          return "vendor";
-        },
-      },
-    },
   },
   preview: {
     host: true,
