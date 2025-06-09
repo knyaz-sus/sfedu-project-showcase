@@ -31,8 +31,8 @@ export function ProjectPage() {
         <h1 className="w-full mb-1">{project.title}</h1>
       </div>
       <Separator className="mb-2" />
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex md:w-[75%] flex-col">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex lg:w-[75%] flex-col">
           {project.mainScreenshot && project.screenshots && (
             <ProjectCarousel
               imagesType="url"
@@ -49,7 +49,7 @@ export function ProjectPage() {
             }
           />
         </div>
-        <div className="md:w-[25%] flex flex-col gap-2 items-start">
+        <div className="lg:w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
             <div className="flex gap-2 flex-wrap">
               {project.date && <Badge>{project.date.name}</Badge>}
@@ -63,15 +63,21 @@ export function ProjectPage() {
             </div>
             {hasLinks && (
               <div className="flex gap-2 items-center mb-2">
-                <Link size={16} />
+                <Link size={20} className="shrink-0" />
                 <div className="flex flex-col">
                   {project.repo && (
-                    <a className="break-all" href={project.repo}>
+                    <a
+                      className="break-all line-clamp-1 hover:underline"
+                      href={project.repo}
+                    >
                       {project.repo}
                     </a>
                   )}
                   {project.presentation && (
-                    <a className="break-all" href={project.presentation}>
+                    <a
+                      className="break-all line-clamp-1 hover:underline"
+                      href={project.presentation}
+                    >
                       {project.presentation}
                     </a>
                   )}

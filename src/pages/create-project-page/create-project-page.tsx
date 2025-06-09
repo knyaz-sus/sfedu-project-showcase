@@ -188,7 +188,7 @@ export function CreateProjectPage() {
       >
         <FileUpload updateImages={updateImages} />
       </ProjectCarousel>
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap w-full">
         <div className="flex gap-2 w-full flex-col xs:flex-row">
           <Input
             className="flex-auto"
@@ -203,21 +203,23 @@ export function CreateProjectPage() {
             onChange={(e) => updateField("presentation", e.target.value)}
           />
         </div>
-        <TrackSelect
-          triggerClassName="w-52"
-          value={project.track}
-          onValueChange={updateTrack}
-        />
-        <DateSelect
-          triggerClassName="w-52"
-          value={project.date}
-          onValueChange={updateDate}
-        />
-        <TagsSelect
-          triggerClassName="w-52 flex-auto"
-          value={project.tags}
-          onValueChange={updateTags}
-        />
+        <div className="flex flex-col md:flex-row items-center gap-2 w-full">
+          <TrackSelect
+            triggerClassName="flex-auto w-full"
+            value={project.track}
+            onValueChange={updateTrack}
+          />
+          <DateSelect
+            triggerClassName="flex-auto w-full"
+            value={project.date}
+            onValueChange={updateDate}
+          />
+          <TagsSelect
+            triggerClassName="flex-auto w-full"
+            value={project.tags}
+            onValueChange={updateTags}
+          />
+        </div>
       </div>
       <RichEditor
         className="flex-auto"

@@ -214,7 +214,7 @@ export function AdminProjectUploader() {
     <div className="flex flex-col items-start flex-1 gap-2 order-1 md:order-2 max-w-7xl w-full">
       <Input
         placeholder="Введите имя вашего проекта..."
-        className="border-none shadow-none min-w-96 leading-tight font-semibold text-xl"
+        className="border-none shadow-none w-full lg:max-w-[505px] leading-tight font-semibold text-xl"
         value={project.title}
         onChange={(e) => updateField("title", e.target.value)}
       />
@@ -233,8 +233,8 @@ export function AdminProjectUploader() {
       >
         <FileUpload updateImages={updateImages} />
       </ProjectCarousel>
-      <div className="flex gap-2 flex-wrap">
-        <div className="flex gap-2 w-full">
+      <div className="flex  gap-2 flex-wrap w-full">
+        <div className="flex flex-col md:flex-row gap-2 w-full">
           <Input
             className="flex-auto"
             placeholder="Ссылка на репозиторий..."
@@ -254,26 +254,30 @@ export function AdminProjectUploader() {
             onChange={updateGrade}
           />
         </div>
-        <TrackSelect
-          triggerClassName="w-52"
-          value={project.track}
-          onValueChange={updateTrack}
-        />
-        <DateSelect
-          triggerClassName="w-52"
-          value={project.date}
-          onValueChange={updateDate}
-        />
-        <TagsSelect
-          triggerClassName="w-52 flex-auto"
-          value={project.tags}
-          onValueChange={updateTags}
-        />
-        <UsersSelect
-          triggerClassName="w-52 flex-auto"
-          value={project.users}
-          onValueChange={updateUsers}
-        />
+        <div className="flex flex-col md:flex-row gap-2 w-full">
+          <TrackSelect
+            triggerClassName="flex-auto"
+            value={project.track}
+            onValueChange={updateTrack}
+          />
+          <DateSelect
+            triggerClassName="flex-auto"
+            value={project.date}
+            onValueChange={updateDate}
+          />
+        </div>
+        <div className="flex flex-col md:flex-row gap-2 w-full">
+          <TagsSelect
+            triggerClassName="flex-auto w-full"
+            value={project.tags}
+            onValueChange={updateTags}
+          />
+          <UsersSelect
+            triggerClassName="flex-auto w-full"
+            value={project.users}
+            onValueChange={updateUsers}
+          />
+        </div>
       </div>
       <RichEditor
         className="flex-auto"

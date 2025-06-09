@@ -81,7 +81,7 @@ export function UpdatableProjectUsers({
         onClick={handleDeleteUser}
       />
       {edit && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           <UsersSelect
             value={addedUserName ? [addedUserName] : []}
             onValueChange={setAddedUserName}

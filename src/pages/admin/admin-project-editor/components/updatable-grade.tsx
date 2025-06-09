@@ -67,7 +67,7 @@ export function UpdatableGrade({
         Оценка проекта: {currentGrade ? currentGrade + "/100" : "не выставлена"}
       </span>
       {edit && (
-        <div className="flex gap-2 items-center w-full">
+        <div className="flex flex-col gap-2 w-full">
           <Input
             placeholder="Введите ссылку на презентацию..."
             className="border-none shadow-none px-1"
@@ -75,20 +75,22 @@ export function UpdatableGrade({
             onChange={handleGradeChange}
             autoFocus
           />
-          <ConfirmButton
-            isLoading={isPending}
-            onConfirm={handleGradeSubmit}
-            disabled={!currentGrade || currentGrade === previousValue}
-          />
-          <Button
-            onClick={() => {
-              setEdit(false);
-              setGrade(previousValue ?? "");
-            }}
-            variant="outline"
-          >
-            Отменить
-          </Button>
+          <div className="flex gap-2 items-center">
+            <ConfirmButton
+              isLoading={isPending}
+              onConfirm={handleGradeSubmit}
+              disabled={!currentGrade || currentGrade === previousValue}
+            />
+            <Button
+              onClick={() => {
+                setEdit(false);
+                setGrade(previousValue ?? "");
+              }}
+              variant="outline"
+            >
+              Отменить
+            </Button>
+          </div>
         </div>
       )}
     </div>

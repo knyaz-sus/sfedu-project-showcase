@@ -33,8 +33,8 @@ export function AdminProjectEditor() {
     <div className="flex flex-col justify-between gap-2 max-w-7xl w-full">
       <UpdatableTitle previousValue={project.title} projectId={id as string} />
       <Separator className="mb-2" />
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="flex md:w-[75%] flex-col">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex lg:w-[75%] flex-col">
           {project.mainScreenshot && project.screenshots && (
             <ProjectCarousel
               imagesType="url"
@@ -47,7 +47,7 @@ export function AdminProjectEditor() {
             projectId={id as string}
           />
         </div>
-        <div className="md:w-[25%] flex flex-col gap-2 items-start">
+        <div className="lg:w-[25%] flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-3">
             <div className="flex gap-2 flex-wrap">
               <UpdatableDate

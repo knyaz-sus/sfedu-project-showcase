@@ -45,7 +45,7 @@ export function UpdatableTitle({
     <div className="flex gap-2 max-w-[75%]">
       <Input
         placeholder="Введите имя вашего проекта..."
-        className="border-none shadow-none min-w-96 leading-tight font-semibold text-xl"
+        className="border-none shadow-none w-full lg:max-w-[505px] leading-tight font-semibold text-xl"
         value={currentTitle}
         onChange={(e) => setTitle(e.target.value)}
       />
