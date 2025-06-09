@@ -16,6 +16,7 @@ import { useAuth } from "@/shared/hooks/use-auth";
 import { useGetDatabaseUser } from "./api/hooks/use-get-database-user";
 import { ProjectCarousel } from "@/shared/widgets/project-carousel";
 import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
+import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 
 type CreateProjectState = {
   mainScreenshot: File | null;
@@ -57,6 +58,8 @@ export function CreateProjectPage() {
   const { data: tags } = useGetAllTags();
   const { data: tracks } = useGetAllTracks();
   const { mutateAsync } = useCreateProject();
+
+  const isMobile = useIsMobile();
 
   const handleProjectCreate = async () => {
     try {
@@ -175,7 +178,11 @@ export function CreateProjectPage() {
         imagesType="file"
         className="w-full"
         images={project.screenshots}
-        showControls={!!project.screenshots && project.screenshots?.length > 0}
+        showControls={
+          !!project.screenshots &&
+          (project.screenshots.length > 1 ||
+            (isMobile && project.screenshots.length > 0))
+        }
         onDeleteImage={handleDeleteImage}
         onSetMainImage={handleSetAsMainImage}
       >

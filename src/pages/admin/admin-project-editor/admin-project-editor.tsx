@@ -35,11 +35,11 @@ export function AdminProjectEditor() {
       <Separator className="mb-2" />
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex md:w-[75%] flex-col">
-          {project.mainScreenshot && (
+          {project.mainScreenshot && project.screenshots && (
             <ProjectCarousel
               imagesType="url"
               images={project.screenshots}
-              showControls={project.screenshots?.length !== 0}
+              showControls={project.screenshots.length > 1}
             />
           )}
           <UpdatableDescription

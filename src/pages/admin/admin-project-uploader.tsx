@@ -16,6 +16,7 @@ import { useGetAllUsers } from "./api/hooks/use-get-all-users";
 import { useCreateAdminProject } from "./api/hooks/use-create-admin-project";
 import { UsersSelect } from "./components/users-select";
 import { useGetAllTracks } from "@/shared/api/hooks/use-get-all-tracks";
+import { useIsMobile } from "@/shared/hooks/use-is-mobile";
 
 type CreateAdminProjectState = {
   mainScreenshot: File | null;
@@ -54,6 +55,7 @@ export function AdminProjectUploader() {
   const { data: dates } = useGetAllDates();
   const { data: tags } = useGetAllTags();
   const { data: tracks } = useGetAllTracks();
+  const isMobile = useIsMobile();
 
   const { mutateAsync } = useCreateAdminProject();
   const handleProjectCreate = async () => {
@@ -221,7 +223,11 @@ export function AdminProjectUploader() {
         imagesType="file"
         className="w-full"
         images={project.screenshots}
-        showControls={!!project.screenshots && project.screenshots?.length > 0}
+        showControls={
+          !!project.screenshots &&
+          (project.screenshots.length > 1 ||
+            (isMobile && project.screenshots.length > 0))
+        }
         onDeleteImage={handleDeleteImage}
         onSetMainImage={handleSetAsMainImage}
       >
