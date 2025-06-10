@@ -1,6 +1,6 @@
 import { Button } from "@/shared/ui/button";
 import { ThemeToggle } from "./theme-toggle";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import { Separator } from "@/shared/ui/separator";
 
 /* eslint-disable no-irregular-whitespace */

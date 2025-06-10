@@ -3,7 +3,7 @@ import { Button } from "@/shared/ui/button";
 import { API_URL } from "@/shared/api/constants";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { ArrowRight } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { FavoriteProjectCard } from "./favorite-project-card";
 
 export function HomePage() {

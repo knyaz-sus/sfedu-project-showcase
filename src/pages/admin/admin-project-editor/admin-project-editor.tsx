@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { Separator } from "@/shared/ui/separator";
 import { useGetProject } from "@/pages/project-page/api/hooks/use-get-project";
 import { Link } from "lucide-react";

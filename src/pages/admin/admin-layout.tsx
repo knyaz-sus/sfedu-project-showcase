@@ -1,7 +1,7 @@
 import { Footer } from "@/shared/layout/components/footer";
 import { Button } from "@/shared/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 
 export function AdminLayout() {
   return (

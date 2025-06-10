@@ -1,7 +1,7 @@
 import { Footer } from "@/shared/layout/components/footer";
 import { Tag, University, Calendar, Edit, File, List } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export function AdminPage() {
   return (

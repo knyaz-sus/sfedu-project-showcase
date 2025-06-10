@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { API_URL } from "@/shared/api/constants";
 import { Spinner } from "@/shared/ui/spinner";

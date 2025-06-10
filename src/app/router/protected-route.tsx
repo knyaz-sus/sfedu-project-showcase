@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router";
 import { useAuth } from "@/shared/hooks/use-auth";
 import { API_URL } from "@/shared/api/constants";
 import { FullPageSpinner } from "@/shared/ui/full-page-spinner";

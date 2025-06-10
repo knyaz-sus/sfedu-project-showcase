@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import { Project } from "@/shared/types/schemas";
 import { Badge } from "@/shared/ui/badge";
 import { StaticPreviewEditor } from "@/shared/ui/editors/static-preview-editor";

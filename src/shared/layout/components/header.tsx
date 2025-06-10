@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router";
 import { cn } from "@/shared/lib/cn";
 import { Separator } from "@/shared/ui/separator";
 import { UserAccountButton } from "./user-account-button";

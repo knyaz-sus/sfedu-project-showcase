@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import { RootLayout } from "@/shared/layout";
 import { AccountPage } from "@/pages/account-page/account-page";
 import { ProjectsListPage } from "@/pages/projects-list-page";
