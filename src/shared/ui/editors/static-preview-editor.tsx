@@ -15,7 +15,7 @@ export function StaticPreviewEditor({
       {...rest}
       dangerouslySetInnerHTML={{
         __html: DOMPurify.sanitize(dangerousString, {
-          ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "u", "s"],
+          ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "u", "s", "code"],
         }),
       }}
       className={cn("text-sm", rest.className)}
